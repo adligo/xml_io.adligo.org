@@ -1,0 +1,8 @@
+<module>
+	<inherits name="com.google.gwt.user.User"/>
+	
+	<inherits name="org.adligo.i.util.I_Util"/>
+	<inherits name="org.adligo.i.log.I_Log"/>
+	<inherits name="org.adligo.i.adi.Adi"/>
+	<inherits name="org.adligo.models.params.Params"/>
+</module>
