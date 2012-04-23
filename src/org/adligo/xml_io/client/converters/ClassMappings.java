@@ -1,4 +1,4 @@
-package org.adligo.xml_io.client;
+package org.adligo.xml_io.client.converters;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
@@ -31,6 +31,16 @@ import java.util.Vector;
  *
  */
 public class ClassMappings {
+	public static final String LONG_TAG = "l";
+	public static final String BIG_INTEGER_TAG = "I";
+	public static final String INTEGER_TAG = "i";
+	public static final String FLOAT_TAG = "f";
+	public static final String BIG_DECIMAL_TAG = "D";
+	public static final String DOUBLE_TAG = "d";
+	public static final String CHARACTER_TAG = "C";
+	public static final String SHORT_TAG = "S";
+	public static final String STRING_TAG = "s";
+	public static final String BOOLEAN_TAG = "b";
 	/**
 	 * note the byte tag is used for single bytes and
 	 * byte arrays (since the parser/builder can't distinguish)
@@ -46,29 +56,33 @@ public class ClassMappings {
 	@SuppressWarnings("rawtypes")
 	public static final Set<Class> MAP_CLASSES = getMapClasses();
 	
+	public static final Map<String,I_Converter<?>> DEFAULT_XML_TO_OBJECT_CONVERTERS = getXmlToObjectConverters();
+	public static final Map<Class<?>,I_Converter<?>> DEFAULT_OBJECT_TO_XML_CONVERTERS = getObjectToXmlConverters();
+	
 	@SuppressWarnings("rawtypes")
 	private static Map<String, Class> getCharToClass() {
 		Map<String, Class> toRet = new HashMap<String, Class>();
-		toRet.put("b", Boolean.class);
+		toRet.put(BOOLEAN_TAG, Boolean.class);
 		toRet.put(BYTE_TAG, Byte.class);
 		
-		toRet.put("c", Class.class);
-		toRet.put("C", Character.class);
+		toRet.put(CHARACTER_TAG, Character.class);
 		
-		toRet.put("d", Double.class);
-		toRet.put("D", BigDecimal.class);
+		toRet.put(DOUBLE_TAG, Double.class);
+		toRet.put(BIG_DECIMAL_TAG, BigDecimal.class);
 		
-		toRet.put("e", Enum.class);
+		//note enums can't be auto generated this way,
+		// so a concrete converter class will need to be 
+		// created for each enum type
 		toRet.put("E", EnumMap.class);
 		toRet.put("F", EnumSet.class);
 		
-		toRet.put("f", Float.class);
+		toRet.put(FLOAT_TAG, Float.class);
 		
 		toRet.put("h", HashMap.class);
 		toRet.put("H", HashSet.class);
 		
-		toRet.put("i", Integer.class);
-		toRet.put("I", BigInteger.class);
+		toRet.put(INTEGER_TAG, Integer.class);
+		toRet.put(BIG_INTEGER_TAG, BigInteger.class);
 		
 		toRet.put("j", IdentityHashMap.class);
 		toRet.put("J", LinkedHashMap.class);
@@ -76,7 +90,7 @@ public class ClassMappings {
 		toRet.put("k", LinkedHashSet.class);
 		toRet.put("K", LinkedList.class);
 		
-		toRet.put("l", Long.class);
+		toRet.put(LONG_TAG, Long.class);
 		toRet.put("L", ArrayList.class);
 		
 		toRet.put("m", SortedSet.class);
@@ -86,8 +100,8 @@ public class ClassMappings {
 		
 		toRet.put("p", PriorityQueue.class);
 		
-		toRet.put("s", String.class);
-		toRet.put("S", Short.class);
+		toRet.put(STRING_TAG, String.class);
+		toRet.put(SHORT_TAG, Short.class);
 		
 		toRet.put("t", TreeMap.class);
 		toRet.put("T", TreeSet.class);
@@ -141,4 +155,51 @@ public class ClassMappings {
 		//vector will need to be treated as it"s own case
 		return Collections.unmodifiableSet(toRet);
 	}
+	
+	private static Map<String,I_Converter<?>> getXmlToObjectConverters() {
+		Map<String,I_Converter<?>> toRet = new HashMap<String, I_Converter<?>>();
+	
+		toRet.put(BOOLEAN_TAG, new BooleanConverter());
+		toRet.put(BYTE_TAG, new ByteConverter());
+		
+		toRet.put(CHARACTER_TAG, new CharacterConverter());
+		toRet.put(DOUBLE_TAG, new DoubleConverter());
+		toRet.put(BIG_DECIMAL_TAG, new BigDecimalConverter());
+		
+		toRet.put(FLOAT_TAG, new FloatConverter());
+		
+		toRet.put(INTEGER_TAG, new IntegerConverter());
+		toRet.put(BIG_INTEGER_TAG, new BigIntegerConverter());
+		
+		toRet.put(LONG_TAG, new LongConverter());
+		
+		toRet.put(SHORT_TAG, new ShortConverter());
+		toRet.put(STRING_TAG, new StringConverter());
+		
+		return Collections.unmodifiableMap(toRet);
+	}
+	private static final Map<Class<?>,I_Converter<?>> getObjectToXmlConverters() {
+		Map<Class<?>,I_Converter<?>> toRet = new HashMap<Class<?>,I_Converter<?>>();
+		
+		
+		toRet.put(Boolean.class, new BooleanConverter());
+		toRet.put(Byte.class, new ByteConverter());
+		
+		toRet.put(Character.class, new CharacterConverter());
+		toRet.put(Double.class, new DoubleConverter());
+		toRet.put(BigDecimal.class, new BigDecimalConverter());
+		
+		toRet.put(Float.class, new FloatConverter());
+		
+		toRet.put(Integer.class, new IntegerConverter());
+		toRet.put(BigInteger.class, new BigIntegerConverter());
+		
+		toRet.put(Long.class, new LongConverter());
+		
+		toRet.put(Short.class, new ShortConverter());
+		toRet.put(String.class, new StringConverter());
+		
+		return Collections.unmodifiableMap(toRet);
+	}
+	
 }
