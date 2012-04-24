@@ -3,19 +3,21 @@ package org.adligo.xml_io.client.converters;
 import org.adligo.models.params.client.I_XMLBuilder;
 import org.adligo.models.params.client.Parser;
 import org.adligo.models.params.client.TagInfo;
-import org.adligo.xml_io.client.XmlIOSettings;
+import org.adligo.xml_io.client.I_Converter;
+import org.adligo.xml_io.client.Xml_IOReaderContext;
+import org.adligo.xml_io.client.Xml_IOWriterContext;
 
 public class ByteConverter implements I_Converter<Byte>{
 
 	@Override
-	public Byte fromXml(String xml, TagInfo info, XmlIOSettings settings) {
+	public Byte fromXml(String xml, TagInfo info, Xml_IOReaderContext context) {
 		String text = Parser.getTextContent(xml, info);
 		byte [] bytes = Parser.parseBytes(text);
 		return bytes[0];
 	}
 
 	@Override
-	public void toXml(I_XMLBuilder builder, Byte instance, XmlIOSettings settings) {
+	public void toXml(I_XMLBuilder builder, Byte instance, Xml_IOWriterContext context) {
 		builder.appendStartTag(ClassMappings.BYTE_TAG);
 		builder.appendTagHeaderEnd(false);
 		if (instance != null) {

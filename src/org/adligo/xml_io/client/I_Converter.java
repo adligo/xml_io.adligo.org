@@ -1,8 +1,7 @@
-package org.adligo.xml_io.client.converters;
+package org.adligo.xml_io.client;
 
 import org.adligo.models.params.client.I_XMLBuilder;
 import org.adligo.models.params.client.TagInfo;
-import org.adligo.xml_io.client.XmlIOSettings;
 
 public interface I_Converter<T> {
 	/**
@@ -15,7 +14,7 @@ public interface I_Converter<T> {
 	 * @param settings
 	 * @return
 	 */
-	public T fromXml(String xml, TagInfo info, XmlIOSettings settings); 
+	public T fromXml(String xml, TagInfo info, Xml_IOReaderContext context); 
 	/**
 	 * note null checks are not necessary in implementations of this
 	 * mehtod, as nulls will simply be omitted from the xml.
@@ -23,5 +22,5 @@ public interface I_Converter<T> {
 	 * @param p
 	 * @param settings
 	 */
-	public void toXml(I_XMLBuilder builder, T p, XmlIOSettings settings);
+	public void toXml(I_XMLBuilder builder, T p, Xml_IOWriterContext context);
 }

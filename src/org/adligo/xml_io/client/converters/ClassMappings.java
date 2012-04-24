@@ -23,6 +23,8 @@ import java.util.TreeMap;
 import java.util.TreeSet;
 import java.util.Vector;
 
+import org.adligo.xml_io.client.I_Converter;
+
 /**
  * provide single mappings of characters to most of the serlizable types in GWT
  * with the exception of java.sql stuff and Date (use Long and or the adligo DateTime class).
@@ -31,6 +33,19 @@ import java.util.Vector;
  *
  */
 public class ClassMappings {
+	/**
+	 * in order for this xml to interlop easier with other languages 
+	 * (not just java) I am treating all collections the same,
+	 * the language specific impl can then deal with the details
+	 * (Similar to SOAP but I am using Web Sockets and or HTTP 
+	 * 	as the transport usually, as well as using this format for 
+	 *  disk storage.
+	 * )
+	 */
+	public static final String LIST_TAG = "L";
+	public static final String MAP_TAG = "m";
+	public static final String KEY_VALUE_TAG = "k";
+	
 	public static final String LONG_TAG = "l";
 	public static final String BIG_INTEGER_TAG = "I";
 	public static final String INTEGER_TAG = "i";
@@ -73,40 +88,37 @@ public class ClassMappings {
 		//note enums can't be auto generated this way,
 		// so a concrete converter class will need to be 
 		// created for each enum type
-		toRet.put("E", EnumMap.class);
-		toRet.put("F", EnumSet.class);
+		toRet.put(MAP_TAG, EnumMap.class);
+		toRet.put(LIST_TAG, EnumSet.class);
 		
 		toRet.put(FLOAT_TAG, Float.class);
 		
-		toRet.put("h", HashMap.class);
-		toRet.put("H", HashSet.class);
+		toRet.put(MAP_TAG, HashMap.class);
+		toRet.put(LIST_TAG, HashSet.class);
 		
 		toRet.put(INTEGER_TAG, Integer.class);
 		toRet.put(BIG_INTEGER_TAG, BigInteger.class);
 		
-		toRet.put("j", IdentityHashMap.class);
-		toRet.put("J", LinkedHashMap.class);
+		toRet.put(MAP_TAG, IdentityHashMap.class);
+		toRet.put(MAP_TAG, LinkedHashMap.class);
 		
-		toRet.put("k", LinkedHashSet.class);
-		toRet.put("K", LinkedList.class);
+		toRet.put(LIST_TAG, LinkedHashSet.class);
+		toRet.put(LIST_TAG, LinkedList.class);
 		
 		toRet.put(LONG_TAG, Long.class);
-		toRet.put("L", ArrayList.class);
+		toRet.put(LIST_TAG, ArrayList.class);
 		
-		toRet.put("m", SortedSet.class);
-		toRet.put("M", SortedMap.class);
+		toRet.put(LIST_TAG, Stack.class);
 		
-		toRet.put("n", Stack.class);
-		
-		toRet.put("p", PriorityQueue.class);
+		toRet.put(LIST_TAG, PriorityQueue.class);
 		
 		toRet.put(STRING_TAG, String.class);
 		toRet.put(SHORT_TAG, Short.class);
 		
-		toRet.put("t", TreeMap.class);
-		toRet.put("T", TreeSet.class);
+		toRet.put(MAP_TAG, TreeMap.class);
+		toRet.put(LIST_TAG, TreeSet.class);
 		
-		toRet.put("v", Vector.class);
+		toRet.put(LIST_TAG, Vector.class);
 		
 		return Collections.unmodifiableMap(toRet);
 	}
@@ -176,11 +188,15 @@ public class ClassMappings {
 		toRet.put(SHORT_TAG, new ShortConverter());
 		toRet.put(STRING_TAG, new StringConverter());
 		
+		toRet.put(LIST_TAG, new CollectionConverter());
+		
 		return Collections.unmodifiableMap(toRet);
 	}
 	private static final Map<Class<?>,I_Converter<?>> getObjectToXmlConverters() {
 		Map<Class<?>,I_Converter<?>> toRet = new HashMap<Class<?>,I_Converter<?>>();
 		
+		CollectionConverter listConverter = new CollectionConverter();
+		toRet.put(ArrayList.class, listConverter);
 		
 		toRet.put(Boolean.class, new BooleanConverter());
 		toRet.put(Byte.class, new ByteConverter());
@@ -189,15 +205,34 @@ public class ClassMappings {
 		toRet.put(Double.class, new DoubleConverter());
 		toRet.put(BigDecimal.class, new BigDecimalConverter());
 		
+		//toRet.put(MAP_TAG, EnumMap.class);
+		toRet.put(EnumSet.class, listConverter);
+		
 		toRet.put(Float.class, new FloatConverter());
+
+		//toRet.put(HashMap.class);
+		toRet.put(HashSet.class, listConverter);
 		
 		toRet.put(Integer.class, new IntegerConverter());
 		toRet.put(BigInteger.class, new BigIntegerConverter());
 		
+		//toRet.put(MAP_TAG, IdentityHashMap.class);
+		//toRet.put(MAP_TAG, LinkedHashMap.class);
+		
+		toRet.put(LinkedHashSet.class, listConverter);
+		toRet.put(LinkedList.class, listConverter);
+		
 		toRet.put(Long.class, new LongConverter());
+		toRet.put(ArrayList.class, listConverter);
+		
+		toRet.put(Stack.class, listConverter);
+		toRet.put(PriorityQueue.class, listConverter);
 		
 		toRet.put(Short.class, new ShortConverter());
 		toRet.put(String.class, new StringConverter());
+		
+		toRet.put(TreeSet.class, listConverter);
+		toRet.put(Vector.class, listConverter);
 		
 		return Collections.unmodifiableMap(toRet);
 	}

@@ -1,31 +1,25 @@
 package org.adligo.xml_io.client;
 
-import java.util.Vector;
-
-import org.adligo.i.util.client.ClassUtils;
 import org.adligo.models.params.client.I_XMLBuilder;
-import org.adligo.models.params.client.Parser;
-import org.adligo.xml_io.client.converters.ClassMappings;
-import org.adligo.xml_io.client.converters.I_Converter;
 
 public class Xml_IOWriter {
 	public String writeXml(Object p) {
-		return writeXml(p, new XmlIOSettings());
+		return writeXml(p, new Xml_IOSettings());
 	}
 	
-	public String writeXml(Object p, XmlIOSettings settings) {
+	public String writeXml(Object p, Xml_IOSettings settings) {
 		if (p == null) {
 			return "";
 		}
-		Class<?> clazz = p.getClass();
-		I_Converter<Object> converter = (I_Converter<Object>) 
-					settings.getToXmlConverter(clazz);
-		if (converter == null) {
-			throw new IllegalArgumentException("Could not find a converter for class " 
-					+ clazz);
-		}
-		I_XMLBuilder builder = settings.getBuilder();
-		converter.toXml(builder, p, settings);
+
+		Xml_IOWriterContext context = new Xml_IOWriterContext();
+		context.setSettings(settings);
+		context.setWriter(this);
+		context.writeXml(p);
+		
+		I_XMLBuilder builder = context.getBuilder();
 		return builder.toXmlString();
 	}
+	
+	
 }
