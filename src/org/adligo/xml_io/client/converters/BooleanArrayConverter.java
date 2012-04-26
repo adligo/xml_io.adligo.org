@@ -28,10 +28,10 @@ public class BooleanArrayConverter implements I_Converter<boolean []>{
 	}
 
 	@Override
-	public void toXml(I_XMLBuilder builder, boolean[] p,
-			Xml_IOWriterContext context) {
+	public void toXml(boolean[] p,Xml_IOWriterContext context) {
 		
-		builder.appendStartTag(ClassMappings.BOOlEAN_ARRAY_TAG);
+		I_XMLBuilder builder = context.getBuilder();
+		builder.appendTagHeaderStart(Tags.BOOlEAN_ARRAY);
 		builder.appendTagHeaderEnd(false);
 		for (int i = 0; i < p.length; i++) {
 			boolean b = p[i];
@@ -41,7 +41,7 @@ public class BooleanArrayConverter implements I_Converter<boolean []>{
 				builder.append("f");
 			}
 		}
-		builder.appendEndTag(ClassMappings.BOOlEAN_ARRAY_TAG);
+		builder.appendEndTag(Tags.BOOlEAN_ARRAY);
 	}
 
 }

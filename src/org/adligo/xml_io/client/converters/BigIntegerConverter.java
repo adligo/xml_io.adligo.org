@@ -18,8 +18,9 @@ public class BigIntegerConverter implements I_Converter<BigInteger> {
 	}
 
 	@Override
-	public void toXml(I_XMLBuilder builder, BigInteger p, Xml_IOWriterContext context) {
-		builder.appendTagWithTextContent(ClassMappings.BIG_INTEGER_TAG, 
+	public void toXml(BigInteger p, Xml_IOWriterContext context) {
+		I_XMLBuilder builder = context.getBuilder();
+		builder.appendTagWithTextContent(Tags.BIG_INTEGER, 
 					p.toString());
 	}
 

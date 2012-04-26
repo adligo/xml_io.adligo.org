@@ -33,37 +33,7 @@ import org.adligo.xml_io.client.I_Converter;
  *
  */
 public class ClassMappings {
-	/**
-	 * in order for this xml to interlop easier with other languages 
-	 * (not just java) I am treating all collections the same,
-	 * the language specific impl can then deal with the details
-	 * (Similar to SOAP but I am using Web Sockets and or HTTP 
-	 * 	as the transport usually, as well as using this format for 
-	 *  disk storage.
-	 * )
-	 */
-	public static final String LIST_TAG = "L";
-	public static final String MAP_TAG = "m";
-	public static final String KEY_VALUE_TAG = "k";
-	
-	public static final String LONG_TAG = "l";
-	public static final String BIG_INTEGER_TAG = "I";
-	public static final String INTEGER_TAG = "i";
-	public static final String FLOAT_TAG = "f";
-	public static final String BIG_DECIMAL_TAG = "D";
-	public static final String DOUBLE_TAG = "d";
-	public static final String CHARACTER_TAG = "C";
-	public static final String SHORT_TAG = "S";
-	public static final String STRING_TAG = "s";
-	public static final String BOOLEAN_TAG = "b";
-	public static final String BYTE_TAG = "B";
-	
-	/**
-	 * treat these arrays special
-	 */
-	public static final String BYTE_ARRAY_TAG = "a";
-	public static final String BOOlEAN_ARRAY_TAG = "A";
-	public static final String CHAR_ARRAY_TAG = "c";
+
 	
 	public static final Class<?> BYTE_ARRAY_CLASS = (new byte[] {}).getClass();
 	public static final Class<?> BOOLEAN_ARRAY_CLASS = (new boolean[] {}).getClass();
@@ -114,29 +84,29 @@ public class ClassMappings {
 		Map<String,I_Converter<?>> toRet = new HashMap<String, I_Converter<?>>();
 	
 		MapConverter mapConverter = new MapConverter();
-		toRet.put(BOOLEAN_TAG, new BooleanConverter());
-		toRet.put(BYTE_TAG, new ByteConverter());
+		toRet.put(Tags.BOOLEAN, new BooleanConverter());
+		toRet.put(Tags.BYTE, new ByteConverter());
 		
-		toRet.put(CHARACTER_TAG, new CharacterConverter());
-		toRet.put(DOUBLE_TAG, new DoubleConverter());
-		toRet.put(BIG_DECIMAL_TAG, new BigDecimalConverter());
+		toRet.put(Tags.CHARACTER, new CharacterConverter());
+		toRet.put(Tags.DOUBLE, new DoubleConverter());
+		toRet.put(Tags.BIG_DECIMAL, new BigDecimalConverter());
 		
-		toRet.put(FLOAT_TAG, new FloatConverter());
+		toRet.put(Tags.FLOAT, new FloatConverter());
 		
-		toRet.put(INTEGER_TAG, new IntegerConverter());
-		toRet.put(BIG_INTEGER_TAG, new BigIntegerConverter());
+		toRet.put(Tags.INTEGER, new IntegerConverter());
+		toRet.put(Tags.BIG_INTEGER, new BigIntegerConverter());
 		
-		toRet.put(LONG_TAG, new LongConverter());
+		toRet.put(Tags.LONG, new LongConverter());
 		
-		toRet.put(SHORT_TAG, new ShortConverter());
-		toRet.put(STRING_TAG, new StringConverter());
+		toRet.put(Tags.SHORT, new ShortConverter());
+		toRet.put(Tags.STRING, new StringConverter());
 		
-		toRet.put(LIST_TAG, new CollectionConverter());
-		toRet.put(MAP_TAG, mapConverter);
+		toRet.put(Tags.LIST, new CollectionConverter());
+		toRet.put(Tags.MAP, mapConverter);
 		
-		toRet.put(BYTE_ARRAY_TAG, new ByteArrayConverter());
-		toRet.put(BOOlEAN_ARRAY_TAG, new BooleanArrayConverter());
-		toRet.put(CHAR_ARRAY_TAG, new CharArrayConverter());
+		toRet.put(Tags.BYTE_ARRAY, new ByteArrayConverter());
+		toRet.put(Tags.BOOlEAN_ARRAY, new BooleanArrayConverter());
+		toRet.put(Tags.CHAR_ARRAY, new CharArrayConverter());
 		
 		return Collections.unmodifiableMap(toRet);
 	}
@@ -154,7 +124,7 @@ public class ClassMappings {
 		toRet.put(Double.class, new DoubleConverter());
 		toRet.put(BigDecimal.class, new BigDecimalConverter());
 		
-		//toRet.put(MAP_TAG, EnumMap.class);
+		//toRet.put(MAP, EnumMap.class);
 		toRet.put(EnumSet.class, collectionConverter);
 		
 		toRet.put(Float.class, new FloatConverter());

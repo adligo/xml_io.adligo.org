@@ -16,8 +16,9 @@ public class FloatConverter implements I_Converter<Float> {
 	}
 
 	@Override
-	public void toXml(I_XMLBuilder builder, Float p, Xml_IOWriterContext context) {
-		builder.appendTagWithTextContent(ClassMappings.FLOAT_TAG, "" + p);
+	public void toXml(Float p, Xml_IOWriterContext context) {
+		I_XMLBuilder builder = context.getBuilder();
+		builder.appendTagWithTextContent(Tags.FLOAT, "" + p);
 	}
 
 }

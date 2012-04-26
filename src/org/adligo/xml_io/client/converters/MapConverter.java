@@ -43,17 +43,17 @@ public class MapConverter implements I_Converter<Map>{
 	
 	@SuppressWarnings("unchecked")
 	@Override
-	public void toXml(I_XMLBuilder builder, Map p, Xml_IOWriterContext context) {
-		
+	public void toXml(Map p, Xml_IOWriterContext context) {
+		I_XMLBuilder builder = context.getBuilder();
 		Set<Entry> entries = p.entrySet();
 		builder.indent();
-		builder.appendStartTag(ClassMappings.MAP_TAG);
+		builder.appendTagHeaderStart(Tags.MAP);
 		builder.appendTagHeaderEnd(true);
 		builder.addIndentLevel();
 		
 		for (Entry e: entries) {
 			builder.indent();
-			builder.appendStartTag(ClassMappings.KEY_VALUE_TAG);
+			builder.appendTagHeaderStart(Tags.KEY_VALUE);
 			builder.appendTagHeaderEnd(true);
 				//indent the key and value 
 				builder.addIndentLevel();
@@ -69,11 +69,11 @@ public class MapConverter implements I_Converter<Map>{
 				builder.removeIndentLevel();
 				
 			builder.indent();	
-			builder.appendEndTag(ClassMappings.KEY_VALUE_TAG);
+			builder.appendEndTag(Tags.KEY_VALUE);
 		}
 		builder.removeIndentLevel();
 		builder.indent();
-		builder.appendEndTag(ClassMappings.MAP_TAG);
+		builder.appendEndTag(Tags.MAP);
 	}
 
 }

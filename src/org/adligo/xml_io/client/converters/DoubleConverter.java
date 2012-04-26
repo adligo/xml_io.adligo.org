@@ -16,8 +16,9 @@ public class DoubleConverter implements I_Converter<Double> {
 	}
 
 	@Override
-	public void toXml(I_XMLBuilder builder, Double p, Xml_IOWriterContext context) {
-		builder.appendTagWithTextContent(ClassMappings.DOUBLE_TAG, "" + p);
+	public void toXml(Double p, Xml_IOWriterContext context) {
+		I_XMLBuilder builder = context.getBuilder();
+		builder.appendTagWithTextContent(Tags.DOUBLE, "" + p);
 	}
 
 }

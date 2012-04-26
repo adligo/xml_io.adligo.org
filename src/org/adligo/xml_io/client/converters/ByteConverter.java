@@ -17,13 +17,14 @@ public class ByteConverter implements I_Converter<Byte>{
 	}
 
 	@Override
-	public void toXml(I_XMLBuilder builder, Byte instance, Xml_IOWriterContext context) {
-		builder.appendStartTag(ClassMappings.BYTE_TAG);
+	public void toXml(Byte instance, Xml_IOWriterContext context) {
+		I_XMLBuilder builder = context.getBuilder();
+		builder.appendTagHeaderStart(Tags.BYTE);
 		builder.appendTagHeaderEnd(false);
 		if (instance != null) {
 			builder.appendBase64(new byte[] {instance.byteValue()});
 		}
-		builder.appendEndTag(ClassMappings.BYTE_TAG);
+		builder.appendEndTag(Tags.BYTE);
 	}
 
 }

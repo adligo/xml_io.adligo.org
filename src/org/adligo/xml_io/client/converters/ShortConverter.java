@@ -16,8 +16,9 @@ public class ShortConverter implements I_Converter<Short> {
 	}
 
 	@Override
-	public void toXml(I_XMLBuilder builder, Short p,Xml_IOWriterContext context) {
-		builder.appendTagWithTextContent(ClassMappings.SHORT_TAG, "" + p);
+	public void toXml(Short p,Xml_IOWriterContext context) {
+		I_XMLBuilder builder = context.getBuilder();
+		builder.appendTagWithTextContent(Tags.SHORT, "" + p);
 	}
 
 }

@@ -17,9 +17,10 @@ public class CharacterConverter implements I_Converter<Character>{
 	}
 
 	@Override
-	public void toXml(I_XMLBuilder builder, Character text, Xml_IOWriterContext context) {
+	public void toXml(Character text, Xml_IOWriterContext context) {
+		I_XMLBuilder builder = context.getBuilder();
 		String escapedText = Parser.escapeForXml("" + text);
-		builder.appendTagWithTextContent(ClassMappings.CHARACTER_TAG, escapedText);
+		builder.appendTagWithTextContent(Tags.CHARACTER, escapedText);
 	}
 
 }

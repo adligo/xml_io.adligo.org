@@ -17,6 +17,14 @@ public class Xml_IOWriterContext {
 	private I_XMLBuilder builder = new XMLBuilder();
 	private Xml_IOSettings settings;
 	
+	/**
+	 * this is usually null, but may be set to a value to have the name 
+	 * added to the xml
+	 * ie 
+	 * <L n="myList"><i>1</i><i>2</i></L>
+	 */
+	private String nextTagNameAttribute = null;
+	
 	Xml_IOWriterContext() {}
 	
 	public Xml_IOWriter getWriter() {
@@ -53,7 +61,7 @@ public class Xml_IOWriterContext {
 			throw new IllegalArgumentException(COULD_NOT_FIND_A_CONVERTER_FOR_CLASS 
 					+ clazz);
 		}
-		converter.toXml(builder, toConvert, this);
+		converter.toXml(toConvert, this);
 	}
 
 	
@@ -130,5 +138,13 @@ public class Xml_IOWriterContext {
 			//eat
 		}
 		return toRet;
+	}
+
+	public String getNextTagNameAttribute() {
+		return nextTagNameAttribute;
+	}
+
+	public void setNextTagNameAttribute(String nextTagNameAttribute) {
+		this.nextTagNameAttribute = nextTagNameAttribute;
 	}
 }

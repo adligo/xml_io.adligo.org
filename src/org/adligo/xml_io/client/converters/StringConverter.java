@@ -16,9 +16,10 @@ public class StringConverter implements I_Converter<String>{
 	}
 
 	@Override
-	public void toXml(I_XMLBuilder builder, String text, Xml_IOWriterContext context) {
+	public void toXml(String text, Xml_IOWriterContext context) {
+		I_XMLBuilder builder = context.getBuilder();
 		String escapedText = Parser.escapeForXml(text);
-		builder.appendTagWithTextContent(ClassMappings.STRING_TAG, escapedText);
+		builder.appendTagWithTextContent(Tags.STRING, escapedText);
 	}
 
 }

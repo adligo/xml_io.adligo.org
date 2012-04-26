@@ -16,8 +16,9 @@ public class LongConverter implements I_Converter<Long> {
 	}
 
 	@Override
-	public void toXml(I_XMLBuilder builder, Long p, Xml_IOWriterContext context) {
-		builder.appendTagWithTextContent(ClassMappings.LONG_TAG, "" + p);
+	public void toXml(Long p, Xml_IOWriterContext context) {
+		I_XMLBuilder builder = context.getBuilder();
+		builder.appendTagWithTextContent(Tags.LONG, "" + p);
 	}
 
 }

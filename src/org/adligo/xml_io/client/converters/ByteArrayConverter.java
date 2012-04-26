@@ -17,11 +17,12 @@ public class ByteArrayConverter implements I_Converter<byte []>{
 	}
 
 	@Override
-	public void toXml(I_XMLBuilder builder, byte [] instance, Xml_IOWriterContext context) {
-		builder.appendStartTag(ClassMappings.BYTE_ARRAY_TAG);
+	public void toXml(byte [] instance, Xml_IOWriterContext context) {
+		I_XMLBuilder builder = context.getBuilder();
+		builder.appendTagHeaderStart(Tags.BYTE_ARRAY);
 		builder.appendTagHeaderEnd(false);
 		builder.appendBase64(instance);
-		builder.appendEndTag(ClassMappings.BYTE_ARRAY_TAG);
+		builder.appendEndTag(Tags.BYTE_ARRAY);
 	}
 
 

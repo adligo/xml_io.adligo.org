@@ -18,15 +18,15 @@ public class CharArrayConverter implements I_Converter<char []>{
 		return text.toCharArray();
 	}
 	@Override
-	public void toXml(I_XMLBuilder builder, char[] p,
-			Xml_IOWriterContext context) {
+	public void toXml(char[] p, Xml_IOWriterContext context) {
 		
-		builder.appendStartTag(ClassMappings.CHAR_ARRAY_TAG);
+		I_XMLBuilder builder = context.getBuilder();
+		builder.appendTagHeaderStart(Tags.CHAR_ARRAY);
 		builder.appendTagHeaderEnd(false);
 		String chars = new String(p);
 		chars = Parser.escapeForXml(chars);
 		builder.append(chars);
-		builder.appendEndTag(ClassMappings.CHAR_ARRAY_TAG);
+		builder.appendEndTag(Tags.CHAR_ARRAY);
 	}
 
 }

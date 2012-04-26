@@ -16,8 +16,9 @@ public class IntegerConverter implements I_Converter<Integer> {
 	}
 
 	@Override
-	public void toXml(I_XMLBuilder builder, Integer p, Xml_IOWriterContext context) {
-		builder.appendTagWithTextContent(ClassMappings.INTEGER_TAG, "" + p);
+	public void toXml(Integer p, Xml_IOWriterContext context) {
+		I_XMLBuilder builder = context.getBuilder();
+		builder.appendTagWithTextContent(Tags.INTEGER, "" + p);
 	}
 
 }

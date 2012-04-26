@@ -22,5 +22,5 @@ public interface I_Converter<T> {
 	 * @param p
 	 * @param settings
 	 */
-	public void toXml(I_XMLBuilder builder, T p, Xml_IOWriterContext context);
+	public void toXml(T p, Xml_IOWriterContext context);
 }

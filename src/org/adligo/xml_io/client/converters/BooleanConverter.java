@@ -19,11 +19,12 @@ public class BooleanConverter implements I_Converter<Boolean> {
 	}
 
 	@Override
-	public void toXml(I_XMLBuilder builder, Boolean p, Xml_IOWriterContext context) {
+	public void toXml(Boolean p, Xml_IOWriterContext context) {
+		I_XMLBuilder builder = context.getBuilder();
 		if (p) {
-			builder.appendTagWithTextContent(ClassMappings.BOOLEAN_TAG, "t");
+			builder.appendTagWithTextContent(Tags.BOOLEAN, "t");
 		} else {
-			builder.appendTagWithTextContent(ClassMappings.BOOLEAN_TAG, "f");
+			builder.appendTagWithTextContent(Tags.BOOLEAN, "f");
 		}
 	}
 

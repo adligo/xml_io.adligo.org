@@ -38,10 +38,15 @@ public class CollectionConverter implements I_Converter<Collection<?>> {
 	}
 
 	@Override
-	public void toXml(I_XMLBuilder builder, Collection<? extends Object> p,
-			Xml_IOWriterContext context) {
+	public void toXml(Collection<? extends Object> p, Xml_IOWriterContext context) {
 		
-		builder.appendStartTag(ClassMappings.LIST_TAG);
+		I_XMLBuilder builder = context.getBuilder();
+		builder.appendTagHeaderStart(Tags.LIST);
+		
+		String nameValue = context.getNextTagNameAttribute();
+		if (nameValue != null) {
+			builder.appendAttribute(Tags.NAME_ATTRIBUTE, nameValue);
+		}
 		builder.appendTagHeaderEnd(true);
 		builder.addIndentLevel();
 		
@@ -50,7 +55,7 @@ public class CollectionConverter implements I_Converter<Collection<?>> {
 			context.writeXml(o);
 		}
 		builder.removeIndentLevel();
-		builder.appendEndTag(ClassMappings.LIST_TAG);
+		builder.appendEndTag(Tags.LIST);
 	}
 
 
