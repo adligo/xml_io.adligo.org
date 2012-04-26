@@ -3,7 +3,7 @@ package org.adligo.xml_io.client;
 import org.adligo.models.params.client.I_XMLBuilder;
 
 public class Xml_IOWriter {
-	public String writeXml(Object p) {
+	public String writeXml( Object p) {
 		return writeXml(p, new Xml_IOSettings());
 	}
 	

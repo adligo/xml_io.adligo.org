@@ -17,7 +17,7 @@ public interface I_Converter<T> {
 	public T fromXml(String xml, TagInfo info, Xml_IOReaderContext context); 
 	/**
 	 * note null checks are not necessary in implementations of this
-	 * mehtod, as nulls will simply be omitted from the xml.
+	 * method, as nulls will simply be omitted from the xml.
 	 * @param builder
 	 * @param p
 	 * @param settings

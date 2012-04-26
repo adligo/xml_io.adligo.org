@@ -56,16 +56,20 @@ public class ClassMappings {
 	public static final String SHORT_TAG = "S";
 	public static final String STRING_TAG = "s";
 	public static final String BOOLEAN_TAG = "b";
-	/**
-	 * note the byte tag is used for single bytes and
-	 * byte arrays (since the parser/builder can't distinguish)
-	 * 
-	 */
 	public static final String BYTE_TAG = "B";
-	@SuppressWarnings("rawtypes")
-	public static final Map<String, Class> CHAR_TO_CLASS = getCharToClass();
-	@SuppressWarnings("rawtypes")
-	public static final Map<Class, String> CLASS_TO_CHAR = getClassToChar();
+	
+	/**
+	 * treat these arrays special
+	 */
+	public static final String BYTE_ARRAY_TAG = "a";
+	public static final String BOOlEAN_ARRAY_TAG = "A";
+	public static final String CHAR_ARRAY_TAG = "c";
+	
+	public static final Class<?> BYTE_ARRAY_CLASS = (new byte[] {}).getClass();
+	public static final Class<?> BOOLEAN_ARRAY_CLASS = (new boolean[] {}).getClass();
+	public static final Class<?> CHAR_ARRAY_CLASS = (new char[] {}).getClass();
+	
+	
 	@SuppressWarnings("rawtypes")
 	public static final Set<Class> COLLECTION_CLASSES = getCollectionClasses();
 	@SuppressWarnings("rawtypes")
@@ -74,69 +78,7 @@ public class ClassMappings {
 	public static final Map<String,I_Converter<?>> DEFAULT_XML_TO_OBJECT_CONVERTERS = getXmlToObjectConverters();
 	public static final Map<Class<?>,I_Converter<?>> DEFAULT_OBJECT_TO_XML_CONVERTERS = getObjectToXmlConverters();
 	
-	@SuppressWarnings("rawtypes")
-	private static Map<String, Class> getCharToClass() {
-		Map<String, Class> toRet = new HashMap<String, Class>();
-		toRet.put(BOOLEAN_TAG, Boolean.class);
-		toRet.put(BYTE_TAG, Byte.class);
-		
-		toRet.put(CHARACTER_TAG, Character.class);
-		
-		toRet.put(DOUBLE_TAG, Double.class);
-		toRet.put(BIG_DECIMAL_TAG, BigDecimal.class);
-		
-		//note enums can't be auto generated this way,
-		// so a concrete converter class will need to be 
-		// created for each enum type
-		toRet.put(MAP_TAG, EnumMap.class);
-		toRet.put(LIST_TAG, EnumSet.class);
-		
-		toRet.put(FLOAT_TAG, Float.class);
-		
-		toRet.put(MAP_TAG, HashMap.class);
-		toRet.put(LIST_TAG, HashSet.class);
-		
-		toRet.put(INTEGER_TAG, Integer.class);
-		toRet.put(BIG_INTEGER_TAG, BigInteger.class);
-		
-		toRet.put(MAP_TAG, IdentityHashMap.class);
-		toRet.put(MAP_TAG, LinkedHashMap.class);
-		
-		toRet.put(LIST_TAG, LinkedHashSet.class);
-		toRet.put(LIST_TAG, LinkedList.class);
-		
-		toRet.put(LONG_TAG, Long.class);
-		toRet.put(LIST_TAG, ArrayList.class);
-		
-		toRet.put(LIST_TAG, Stack.class);
-		
-		toRet.put(LIST_TAG, PriorityQueue.class);
-		
-		toRet.put(STRING_TAG, String.class);
-		toRet.put(SHORT_TAG, Short.class);
-		
-		toRet.put(MAP_TAG, TreeMap.class);
-		toRet.put(LIST_TAG, TreeSet.class);
-		
-		toRet.put(LIST_TAG, Vector.class);
-		
-		return Collections.unmodifiableMap(toRet);
-	}
-	
-	@SuppressWarnings("rawtypes")
-	private static Map<Class, String> getClassToChar() {
-		
-		Map<Class, String> toRet = new HashMap<Class, String>();
-		
-		Set<Entry<String, Class>> entries = CHAR_TO_CLASS.entrySet();
-		for (Entry<String, Class> e: entries) {
-			String c = e.getKey();
-			Class clazz = e.getValue();
-			toRet.put(clazz, c);
-		}
-		
-		return Collections.unmodifiableMap(toRet);
-	}
+
 	
 	@SuppressWarnings("rawtypes")
 	private static Set<Class> getCollectionClasses() {
@@ -171,6 +113,7 @@ public class ClassMappings {
 	private static Map<String,I_Converter<?>> getXmlToObjectConverters() {
 		Map<String,I_Converter<?>> toRet = new HashMap<String, I_Converter<?>>();
 	
+		MapConverter mapConverter = new MapConverter();
 		toRet.put(BOOLEAN_TAG, new BooleanConverter());
 		toRet.put(BYTE_TAG, new ByteConverter());
 		
@@ -189,14 +132,20 @@ public class ClassMappings {
 		toRet.put(STRING_TAG, new StringConverter());
 		
 		toRet.put(LIST_TAG, new CollectionConverter());
+		toRet.put(MAP_TAG, mapConverter);
+		
+		toRet.put(BYTE_ARRAY_TAG, new ByteArrayConverter());
+		toRet.put(BOOlEAN_ARRAY_TAG, new BooleanArrayConverter());
+		toRet.put(CHAR_ARRAY_TAG, new CharArrayConverter());
 		
 		return Collections.unmodifiableMap(toRet);
 	}
 	private static final Map<Class<?>,I_Converter<?>> getObjectToXmlConverters() {
 		Map<Class<?>,I_Converter<?>> toRet = new HashMap<Class<?>,I_Converter<?>>();
 		
-		CollectionConverter listConverter = new CollectionConverter();
-		toRet.put(ArrayList.class, listConverter);
+		MapConverter mapConverter = new MapConverter();
+		CollectionConverter collectionConverter = new CollectionConverter();
+		toRet.put(ArrayList.class, collectionConverter);
 		
 		toRet.put(Boolean.class, new BooleanConverter());
 		toRet.put(Byte.class, new ByteConverter());
@@ -206,33 +155,38 @@ public class ClassMappings {
 		toRet.put(BigDecimal.class, new BigDecimalConverter());
 		
 		//toRet.put(MAP_TAG, EnumMap.class);
-		toRet.put(EnumSet.class, listConverter);
+		toRet.put(EnumSet.class, collectionConverter);
 		
 		toRet.put(Float.class, new FloatConverter());
 
-		//toRet.put(HashMap.class);
-		toRet.put(HashSet.class, listConverter);
+		toRet.put(HashMap.class, mapConverter);
+		toRet.put(HashSet.class, collectionConverter);
 		
 		toRet.put(Integer.class, new IntegerConverter());
 		toRet.put(BigInteger.class, new BigIntegerConverter());
 		
-		//toRet.put(MAP_TAG, IdentityHashMap.class);
-		//toRet.put(MAP_TAG, LinkedHashMap.class);
+		toRet.put(IdentityHashMap.class, mapConverter);
+		toRet.put(LinkedHashMap.class, mapConverter);
 		
-		toRet.put(LinkedHashSet.class, listConverter);
-		toRet.put(LinkedList.class, listConverter);
+		toRet.put(LinkedHashSet.class, collectionConverter);
+		toRet.put(LinkedList.class, collectionConverter);
 		
 		toRet.put(Long.class, new LongConverter());
-		toRet.put(ArrayList.class, listConverter);
+		toRet.put(ArrayList.class, collectionConverter);
 		
-		toRet.put(Stack.class, listConverter);
-		toRet.put(PriorityQueue.class, listConverter);
+		toRet.put(Stack.class, collectionConverter);
+		toRet.put(PriorityQueue.class, collectionConverter);
 		
 		toRet.put(Short.class, new ShortConverter());
 		toRet.put(String.class, new StringConverter());
 		
-		toRet.put(TreeSet.class, listConverter);
-		toRet.put(Vector.class, listConverter);
+		toRet.put(TreeSet.class, collectionConverter);
+		toRet.put(TreeMap.class, mapConverter);
+		toRet.put(Vector.class, collectionConverter);
+		
+		toRet.put(BYTE_ARRAY_CLASS, new ByteArrayConverter());
+		toRet.put(BOOLEAN_ARRAY_CLASS, new BooleanArrayConverter());
+		toRet.put(CHAR_ARRAY_CLASS, new CharArrayConverter());
 		
 		return Collections.unmodifiableMap(toRet);
 	}
