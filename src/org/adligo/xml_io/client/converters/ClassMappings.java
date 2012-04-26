@@ -167,52 +167,28 @@ public class ClassMappings {
 	private static final Map<Class<?>,I_AttributeConverter<?>> getClassToAttributeConvertersMap() {
 		Map<Class<?>,I_AttributeConverter<?>> toRet = new HashMap<Class<?>,I_AttributeConverter<?>>();
 		
-		/*
-		toRet.put(ArrayList.class, collectionConverter);
-		
 		toRet.put(Boolean.class, new BooleanConverter());
 		toRet.put(Byte.class, new ByteConverter());
 		
 		toRet.put(Character.class, new CharacterConverter());
 		toRet.put(Double.class, new DoubleConverter());
-		*/
 		toRet.put(BigDecimal.class, new BigDecimalConverter());
-		
-		//toRet.put(MAP, EnumMap.class);
-		/*
-		toRet.put(EnumSet.class, collectionConverter);
 		
 		toRet.put(Float.class, new FloatConverter());
 
-		toRet.put(HashMap.class, mapConverter);
-		toRet.put(HashSet.class, collectionConverter);
-		
 		toRet.put(Integer.class, new IntegerConverter());
 		toRet.put(BigInteger.class, new BigIntegerConverter());
 		
-		toRet.put(IdentityHashMap.class, mapConverter);
-		toRet.put(LinkedHashMap.class, mapConverter);
-		
-		toRet.put(LinkedHashSet.class, collectionConverter);
-		toRet.put(LinkedList.class, collectionConverter);
-		
 		toRet.put(Long.class, new LongConverter());
-		toRet.put(ArrayList.class, collectionConverter);
-		
-		toRet.put(Stack.class, collectionConverter);
-		toRet.put(PriorityQueue.class, collectionConverter);
 		
 		toRet.put(Short.class, new ShortConverter());
 		toRet.put(String.class, new StringConverter());
 		
-		toRet.put(TreeSet.class, collectionConverter);
-		toRet.put(TreeMap.class, mapConverter);
-		toRet.put(Vector.class, collectionConverter);
 		
 		toRet.put(BYTE_ARRAY_CLASS, new ByteArrayConverter());
 		toRet.put(BOOLEAN_ARRAY_CLASS, new BooleanArrayConverter());
 		toRet.put(CHAR_ARRAY_CLASS, new CharArrayConverter());
-		*/
+		
 		return Collections.unmodifiableMap(toRet);
 	}
 }

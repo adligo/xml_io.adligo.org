@@ -1,20 +1,30 @@
 package org.adligo.xml_io.client.converters;
 
+import java.math.BigInteger;
+
+import org.adligo.i.util.client.AppenderFactory;
+import org.adligo.i.util.client.I_Appender;
 import org.adligo.models.params.client.I_XMLBuilder;
 import org.adligo.models.params.client.Parser;
 import org.adligo.models.params.client.TagInfo;
+import org.adligo.xml_io.client.I_AttributeConverter;
 import org.adligo.xml_io.client.I_Converter;
 import org.adligo.xml_io.client.ObjectFromXml;
 import org.adligo.xml_io.client.Xml_IOReaderContext;
 import org.adligo.xml_io.client.Xml_IOWriterContext;
 
-public class BooleanArrayConverter implements I_Converter<boolean []>{
+public class BooleanArrayConverter implements I_Converter<boolean []>, I_AttributeConverter<boolean[]> {
 
 	@Override
 	public ObjectFromXml<boolean[]> fromXml(String xml, TagInfo info,
 			Xml_IOReaderContext context) {
 		
 		String text = Parser.getTextContent(xml, info);
+		boolean[] toRet = booleanArrayFromString(text);
+		return new ObjectFromXml<boolean []>(toRet);
+	}
+
+	private boolean[] booleanArrayFromString(String text) {
 		char [] chars = text.toCharArray();
 		boolean [] toRet = new boolean[chars.length];
 		for (int i = 0; i < toRet.length; i++) {
@@ -25,7 +35,7 @@ public class BooleanArrayConverter implements I_Converter<boolean []>{
 				toRet[i] = false;
 			}
 		}
-		return new ObjectFromXml<boolean []>(toRet);
+		return toRet;
 	}
 
 	@Override
@@ -34,15 +44,35 @@ public class BooleanArrayConverter implements I_Converter<boolean []>{
 		I_XMLBuilder builder = context.getBuilder();
 		builder.appendTagHeaderStart(Tags.BOOlEAN_ARRAY);
 		builder.appendTagHeaderEnd(false);
-		for (int i = 0; i < p.length; i++) {
-			boolean b = p[i];
-			if (b) {
-				builder.append("t");
-			} else {
-				builder.append("f");
-			}
-		}
+		String asString = booleanArrayToString(p);
+		builder.append(asString);
 		builder.appendEndTag(Tags.BOOlEAN_ARRAY);
 	}
 
+	private String booleanArrayToString(boolean[] p) {
+		I_Appender out = AppenderFactory.create();
+		for (int i = 0; i < p.length; i++) {
+			boolean b = p[i];
+			if (b) {
+				out.append("t");
+			} else {
+				out.append("f");
+			}
+		}
+		return out.toString();
+	}
+
+	@Override
+	public boolean [] fromXmlAttribute(String attributeValue, Xml_IOReaderContext context) {
+		boolean[] toRet = booleanArrayFromString(attributeValue);
+		return toRet;
+	}
+
+	@Override
+	public void toXmlAttribute(boolean [] p, Xml_IOWriterContext context) {
+		I_XMLBuilder builder = context.getBuilder();
+		String name = context.getNextTagNameAttribute();
+		String asString = booleanArrayToString(p);
+		builder.appendAttribute(name, asString);
+	}
 }
