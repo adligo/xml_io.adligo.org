@@ -83,7 +83,7 @@ public class Xml_IOWriterContext {
 			toConvert = list;
 		} 
 		I_AttributeConverter<Object> converter = (I_AttributeConverter<Object>) 
-					settings.getToXmlConverter(clazz);
+					settings.getToXmlAttributeConverter(clazz);
 		if (converter == null) {
 			throw new IllegalArgumentException(
 					COULD_NOT_FIND_A_ATTRIBUTE_CONVERTER_FOR_CLASS 

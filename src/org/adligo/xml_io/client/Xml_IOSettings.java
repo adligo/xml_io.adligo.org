@@ -13,8 +13,8 @@ public class Xml_IOSettings {
 		new HashMap<String, I_Converter<?>>();
 	private Map<Class<?>, I_Converter<?>> objectToXmlConverters = 
 		new HashMap<Class<?>, I_Converter<?>>();
-	private Map<String, I_AttributeConverter<?>> xmlAttributeToConverters = 
-		new HashMap<String, I_AttributeConverter<?>>();
+	private Map<Class<?>, I_AttributeConverter<?>> xmlAttributeToObjectConverters = 
+		new HashMap<Class<?>, I_AttributeConverter<?>>();
 	private Map<Class<?>, I_AttributeConverter<?>> objectToXmlAttributeConverters = 
 		new HashMap<Class<?>, I_AttributeConverter<?>>();
 	
@@ -22,7 +22,7 @@ public class Xml_IOSettings {
 		xmlToObjectConverters.putAll(ClassMappings.DEFAULT_XML_TO_OBJECT_CONVERTERS);
 		objectToXmlConverters.putAll(ClassMappings.DEFAULT_OBJECT_TO_XML_CONVERTERS);
 	
-		xmlAttributeToConverters.putAll(ClassMappings.DEFAULT_XML_ATTRIBUTE_TO_OBJECT_CONVERTERS);
+		xmlAttributeToObjectConverters.putAll(ClassMappings.DEFAULT_XML_ATTRIBUTE_TO_OBJECT_CONVERTERS);
 		objectToXmlAttributeConverters.putAll(ClassMappings.DEFAULT_OBJECT_TO_XML_ATTRIBUTE_CONVERTERS);
 	}
 	
@@ -48,5 +48,21 @@ public class Xml_IOSettings {
 	
 	public void addFromXmlConverters( Map<String, I_Converter<?>> converters) {
 		xmlToObjectConverters.putAll(converters);
+	}
+	
+	public I_AttributeConverter<?> getToXmlAttributeConverter(Class<?> c) {
+		return xmlAttributeToObjectConverters.get(c);
+	}
+	
+	public I_AttributeConverter<?> getFromXmlAttributeConverter(Class<?> c) {
+		return objectToXmlAttributeConverters.get(c);
+	}
+	
+	public void addToXmlAttributeConverters( Map<Class<?>, I_AttributeConverter<?>> converters) {
+		objectToXmlAttributeConverters.putAll(converters);
+	}
+	
+	public void addFromXmlAttributeConverters( Map<Class<?>, I_AttributeConverter<?>> converters) {
+		xmlAttributeToObjectConverters.putAll(converters);
 	}
 }

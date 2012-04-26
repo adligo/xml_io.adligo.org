@@ -16,8 +16,8 @@ public class Xml_IOReader {
 		String tagName = info.getTagName();
 		I_Converter<?> converter = settings.getFromXmlConverter(tagName);
 		if (converter == null) {
-			throw new IllegalArgumentException("Could not find a converter for tag " 
-					+ tagName);
+			throw new IllegalArgumentException("Could not find a converter for tag '" 
+					+ tagName + "'");
 		}
 		Xml_IOReaderContext context = new Xml_IOReaderContext();
 		context.setReader(this);

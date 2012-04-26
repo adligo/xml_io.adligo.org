@@ -48,8 +48,8 @@ public class ClassMappings {
 	public static final Map<String,I_Converter<?>> DEFAULT_XML_TO_OBJECT_CONVERTERS = getXmlToObjectConverters();
 	public static final Map<Class<?>,I_Converter<?>> DEFAULT_OBJECT_TO_XML_CONVERTERS = getObjectToXmlConverters();
 	
-	public static final Map<String,I_AttributeConverter<?>> DEFAULT_XML_ATTRIBUTE_TO_OBJECT_CONVERTERS = getXmlToObjectAttributeConverters();
-	public static final Map<Class<?>,I_AttributeConverter<?>> DEFAULT_OBJECT_TO_XML_ATTRIBUTE_CONVERTERS = getObjectToXmlAttributeConverters();
+	public static final Map<Class<?>,I_AttributeConverter<?>> DEFAULT_XML_ATTRIBUTE_TO_OBJECT_CONVERTERS = getClassToAttributeConvertersMap();
+	public static final Map<Class<?>,I_AttributeConverter<?>> DEFAULT_OBJECT_TO_XML_ATTRIBUTE_CONVERTERS = getClassToAttributeConvertersMap();
 	
 	
 	@SuppressWarnings("rawtypes")
@@ -112,38 +112,7 @@ public class ClassMappings {
 		
 		return Collections.unmodifiableMap(toRet);
 	}
-	
-	private static Map<String,I_AttributeConverter<?>> getXmlToObjectAttributeConverters() {
-		Map<String,I_AttributeConverter<?>> toRet = new HashMap<String, I_AttributeConverter<?>>();
 
-		/*
-		toRet.put(Tags.BOOLEAN, new BooleanConverter());
-		toRet.put(Tags.BYTE, new ByteConverter());
-		
-		toRet.put(Tags.CHARACTER, new CharacterConverter());
-		toRet.put(Tags.DOUBLE, new DoubleConverter());
-		*/
-		toRet.put(Tags.BIG_DECIMAL, new BigDecimalConverter());
-		/*
-		toRet.put(Tags.FLOAT, new FloatConverter());
-		
-		toRet.put(Tags.INTEGER, new IntegerConverter());
-		toRet.put(Tags.BIG_INTEGER, new BigIntegerConverter());
-		
-		toRet.put(Tags.LONG, new LongConverter());
-		
-		toRet.put(Tags.SHORT, new ShortConverter());
-		toRet.put(Tags.STRING, new StringConverter());
-		
-		toRet.put(Tags.LIST, new CollectionConverter());
-		
-		toRet.put(Tags.BYTE_ARRAY, new ByteArrayConverter());
-		toRet.put(Tags.BOOlEAN_ARRAY, new BooleanArrayConverter());
-		toRet.put(Tags.CHAR_ARRAY, new CharArrayConverter());
-		*/
-		return Collections.unmodifiableMap(toRet);
-	}
-	
 	private static final Map<Class<?>,I_Converter<?>> getObjectToXmlConverters() {
 		Map<Class<?>,I_Converter<?>> toRet = new HashMap<Class<?>,I_Converter<?>>();
 		
@@ -195,7 +164,7 @@ public class ClassMappings {
 		return Collections.unmodifiableMap(toRet);
 	}
 	
-	private static final Map<Class<?>,I_AttributeConverter<?>> getObjectToXmlAttributeConverters() {
+	private static final Map<Class<?>,I_AttributeConverter<?>> getClassToAttributeConvertersMap() {
 		Map<Class<?>,I_AttributeConverter<?>> toRet = new HashMap<Class<?>,I_AttributeConverter<?>>();
 		
 		/*
