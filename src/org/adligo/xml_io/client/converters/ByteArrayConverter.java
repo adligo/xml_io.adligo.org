@@ -4,16 +4,17 @@ import org.adligo.models.params.client.I_XMLBuilder;
 import org.adligo.models.params.client.Parser;
 import org.adligo.models.params.client.TagInfo;
 import org.adligo.xml_io.client.I_Converter;
+import org.adligo.xml_io.client.ObjectFromXml;
 import org.adligo.xml_io.client.Xml_IOReaderContext;
 import org.adligo.xml_io.client.Xml_IOWriterContext;
 
 public class ByteArrayConverter implements I_Converter<byte []>{
 
 	@Override
-	public byte [] fromXml(String xml, TagInfo info, Xml_IOReaderContext context) {
+	public ObjectFromXml<byte []> fromXml(String xml, TagInfo info, Xml_IOReaderContext context) {
 		String text = Parser.getTextContent(xml, info);
 		byte [] bytes = Parser.parseBytes(text);
-		return bytes;
+		return new ObjectFromXml<byte []>(bytes);
 	}
 
 	@Override

@@ -12,6 +12,8 @@ import org.adligo.xml_io.client.converters.ClassMappings;
 public class Xml_IOWriterContext {
 	public static final String COULD_NOT_FIND_A_CONVERTER_FOR_CLASS = 
 		"Could not find a converter for class ";
+	public static final String COULD_NOT_FIND_A_ATTRIBUTE_CONVERTER_FOR_CLASS = 
+		"Could not find a attribute converter for class ";
 	
 	private Xml_IOWriter writer;
 	private I_XMLBuilder builder = new XMLBuilder();
@@ -62,8 +64,35 @@ public class Xml_IOWriterContext {
 					+ clazz);
 		}
 		converter.toXml(toConvert, this);
+		nextTagNameAttribute = null;
 	}
 
+	@SuppressWarnings({ "unchecked", "rawtypes" })
+	public void writeXmlAttribute(String name, Object p) {
+		if (p == null) {
+			return;
+		}
+		Class<?> clazz = p.getClass();
+		Object toConvert = p;
+		
+		if (isArrayWithOutConverter(clazz)) {
+			Object [] objs =  toObjectArray(p, clazz);
+			ArrayList list = new ArrayList();
+			clazz = list.getClass();
+			Collections.addAll(list, objs);
+			toConvert = list;
+		} 
+		I_AttributeConverter<Object> converter = (I_AttributeConverter<Object>) 
+					settings.getToXmlConverter(clazz);
+		if (converter == null) {
+			throw new IllegalArgumentException(
+					COULD_NOT_FIND_A_ATTRIBUTE_CONVERTER_FOR_CLASS 
+					+ clazz);
+		}
+		nextTagNameAttribute = name;
+		converter.toXmlAttribute(p, this);
+		nextTagNameAttribute = null;
+	}
 	
 	public I_XMLBuilder getBuilder() {
 		return builder;

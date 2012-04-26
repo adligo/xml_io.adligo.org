@@ -4,6 +4,10 @@ public class ObjectFromXml<T> {
 	private String name;
 	private T value;
 	
+	public ObjectFromXml(T val) {
+		value = val;
+	}
+	
 	public String getName() {
 		return name;
 	}

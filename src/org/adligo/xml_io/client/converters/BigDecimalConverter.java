@@ -5,17 +5,18 @@ import java.math.BigDecimal;
 import org.adligo.models.params.client.I_XMLBuilder;
 import org.adligo.models.params.client.Parser;
 import org.adligo.models.params.client.TagInfo;
+import org.adligo.xml_io.client.I_AttributeConverter;
 import org.adligo.xml_io.client.I_Converter;
+import org.adligo.xml_io.client.ObjectFromXml;
 import org.adligo.xml_io.client.Xml_IOReaderContext;
-import org.adligo.xml_io.client.Xml_IOSettings;
 import org.adligo.xml_io.client.Xml_IOWriterContext;
 
-public class BigDecimalConverter implements I_Converter<BigDecimal> {
+public class BigDecimalConverter implements I_Converter<BigDecimal>, I_AttributeConverter<BigDecimal> {
 
 	@Override
-	public BigDecimal fromXml(String xml, TagInfo info, Xml_IOReaderContext context) {
+	public ObjectFromXml<BigDecimal> fromXml(String xml, TagInfo info, Xml_IOReaderContext context) {
 		String text = Parser.getTextContent(xml, info);
-		return new BigDecimal(text);
+		return new ObjectFromXml<BigDecimal>(new BigDecimal(text));
 	}
 
 	@Override
@@ -23,6 +24,18 @@ public class BigDecimalConverter implements I_Converter<BigDecimal> {
 		I_XMLBuilder builder = context.getBuilder();
 		builder.appendTagWithTextContent(Tags.BIG_DECIMAL, 
 					p.toString());
+	}
+
+	@Override
+	public BigDecimal fromXmlAttribute(String attributeValue, Xml_IOReaderContext context) {
+		return new BigDecimal(attributeValue);
+	}
+
+	@Override
+	public void toXmlAttribute(BigDecimal p, Xml_IOWriterContext context) {
+		I_XMLBuilder builder = context.getBuilder();
+		String name = context.getNextTagNameAttribute();
+		builder.appendAttribute(name, p.toString());
 	}
 
 }

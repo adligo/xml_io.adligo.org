@@ -4,15 +4,16 @@ import org.adligo.models.params.client.I_XMLBuilder;
 import org.adligo.models.params.client.Parser;
 import org.adligo.models.params.client.TagInfo;
 import org.adligo.xml_io.client.I_Converter;
+import org.adligo.xml_io.client.ObjectFromXml;
 import org.adligo.xml_io.client.Xml_IOReaderContext;
 import org.adligo.xml_io.client.Xml_IOWriterContext;
 
 public class DoubleConverter implements I_Converter<Double> {
 
 	@Override
-	public Double fromXml(String xml, TagInfo info,Xml_IOReaderContext context) {
+	public ObjectFromXml<Double> fromXml(String xml, TagInfo info,Xml_IOReaderContext context) {
 		String text = Parser.getTextContent(xml, info);
-		return Double.parseDouble(text);
+		return new ObjectFromXml<Double>(Double.parseDouble(text));
 	}
 
 	@Override

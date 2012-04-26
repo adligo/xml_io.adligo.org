@@ -4,18 +4,19 @@ import org.adligo.models.params.client.I_XMLBuilder;
 import org.adligo.models.params.client.Parser;
 import org.adligo.models.params.client.TagInfo;
 import org.adligo.xml_io.client.I_Converter;
+import org.adligo.xml_io.client.ObjectFromXml;
 import org.adligo.xml_io.client.Xml_IOReaderContext;
 import org.adligo.xml_io.client.Xml_IOWriterContext;
 
 public class CharArrayConverter implements I_Converter<char []>{
 
 	@Override
-	public char[] fromXml(String xml, TagInfo info,
+	public ObjectFromXml<char[]> fromXml(String xml, TagInfo info,
 			Xml_IOReaderContext context) {
 		
 		String text = Parser.getTextContent(xml, info);
 		text = Parser.unescapeFromXml(text);
-		return text.toCharArray();
+		return new ObjectFromXml<char [] > (text.toCharArray());
 	}
 	@Override
 	public void toXml(char[] p, Xml_IOWriterContext context) {

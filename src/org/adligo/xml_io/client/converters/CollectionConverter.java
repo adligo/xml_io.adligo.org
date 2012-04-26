@@ -7,6 +7,7 @@ import org.adligo.i.util.client.I_Iterator;
 import org.adligo.models.params.client.I_XMLBuilder;
 import org.adligo.models.params.client.TagInfo;
 import org.adligo.xml_io.client.I_Converter;
+import org.adligo.xml_io.client.ObjectFromXml;
 import org.adligo.xml_io.client.Xml_IOReaderContext;
 import org.adligo.xml_io.client.Xml_IOWriterContext;
 
@@ -14,7 +15,7 @@ public class CollectionConverter implements I_Converter<Collection<?>> {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public Collection<?> fromXml(String xml, TagInfo info, Xml_IOReaderContext context) {
+	public ObjectFromXml<Collection<?>> fromXml(String xml, TagInfo info, Xml_IOReaderContext context) {
 		
 		@SuppressWarnings("rawtypes")
 		ArrayList toRet = new ArrayList();
@@ -31,10 +32,11 @@ public class CollectionConverter implements I_Converter<Collection<?>> {
 				end = childInfo.getHeaderEnd() + 1;
 			}
 			String subXml = xml.substring(start, end);
-			Object obj = context.readXml(subXml);
-			toRet.add(obj);
+			ObjectFromXml<?> obj = context.readXml(subXml);
+			Object val = obj.getValue();
+			toRet.add(val);
 		}
-		return toRet;
+		return new ObjectFromXml<Collection<?>>(toRet);
 	}
 
 	@Override
@@ -46,7 +48,10 @@ public class CollectionConverter implements I_Converter<Collection<?>> {
 		String nameValue = context.getNextTagNameAttribute();
 		if (nameValue != null) {
 			builder.appendAttribute(Tags.NAME_ATTRIBUTE, nameValue);
+			//clear this for child objects
+			context.setNextTagNameAttribute(null);
 		}
+		
 		builder.appendTagHeaderEnd(true);
 		builder.addIndentLevel();
 		

@@ -22,7 +22,8 @@ public class Xml_IOReader {
 		Xml_IOReaderContext context = new Xml_IOReaderContext();
 		context.setReader(this);
 		context.setSettings(settings);
-		return converter.fromXml(xml, info, context);
+		ObjectFromXml<?> result = converter.fromXml(xml, info, context);
+		return result.getValue();
 	}
 
 	

@@ -10,6 +10,7 @@ import org.adligo.models.params.client.I_XMLBuilder;
 import org.adligo.models.params.client.Parser;
 import org.adligo.models.params.client.TagInfo;
 import org.adligo.xml_io.client.I_Converter;
+import org.adligo.xml_io.client.ObjectFromXml;
 import org.adligo.xml_io.client.Xml_IOReaderContext;
 import org.adligo.xml_io.client.Xml_IOWriterContext;
 
@@ -18,7 +19,7 @@ public class MapConverter implements I_Converter<Map>{
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public Map fromXml(String xml, TagInfo info, Xml_IOReaderContext context) {
+	public ObjectFromXml<Map> fromXml(String xml, TagInfo info, Xml_IOReaderContext context) {
 		I_Iterator it =  info.getChildren();
 		
 		Map toRet = new HashMap();
@@ -29,16 +30,18 @@ public class MapConverter implements I_Converter<Map>{
 			while (kvit.hasNext()) {
 				TagInfo keyInfo = (TagInfo) kvit.next();
 				String keyXml = Parser.substring(xml, keyInfo);
-				Object key = context.readXml(keyXml);
+				ObjectFromXml<?> keyObj = context.readXml(keyXml);
 				
 				TagInfo valueInfo = (TagInfo) kvit.next();
 				String valueXml = Parser.substring(xml, valueInfo);
-				Object value = context.readXml(valueXml);
+				ObjectFromXml<?> valueObj = context.readXml(valueXml);
 				
+				Object key = keyObj.getValue();
+				Object value = valueObj.getValue();
 				toRet.put(key, value);
 			}
 		}
-		return toRet;
+		return new ObjectFromXml<Map>(toRet);
 	}
 	
 	@SuppressWarnings("unchecked")
@@ -48,6 +51,13 @@ public class MapConverter implements I_Converter<Map>{
 		Set<Entry> entries = p.entrySet();
 		builder.indent();
 		builder.appendTagHeaderStart(Tags.MAP);
+		
+		String nameValue = context.getNextTagNameAttribute();
+		if (nameValue != null) {
+			builder.appendAttribute(Tags.NAME_ATTRIBUTE, nameValue);
+			//clear this for child objects
+			context.setNextTagNameAttribute(null);
+		}
 		builder.appendTagHeaderEnd(true);
 		builder.addIndentLevel();
 		

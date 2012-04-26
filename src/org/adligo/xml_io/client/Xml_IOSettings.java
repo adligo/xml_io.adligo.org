@@ -13,10 +13,17 @@ public class Xml_IOSettings {
 		new HashMap<String, I_Converter<?>>();
 	private Map<Class<?>, I_Converter<?>> objectToXmlConverters = 
 		new HashMap<Class<?>, I_Converter<?>>();
+	private Map<String, I_AttributeConverter<?>> xmlAttributeToConverters = 
+		new HashMap<String, I_AttributeConverter<?>>();
+	private Map<Class<?>, I_AttributeConverter<?>> objectToXmlAttributeConverters = 
+		new HashMap<Class<?>, I_AttributeConverter<?>>();
 	
 	public Xml_IOSettings() {
 		xmlToObjectConverters.putAll(ClassMappings.DEFAULT_XML_TO_OBJECT_CONVERTERS);
 		objectToXmlConverters.putAll(ClassMappings.DEFAULT_OBJECT_TO_XML_CONVERTERS);
+	
+		xmlAttributeToConverters.putAll(ClassMappings.DEFAULT_XML_ATTRIBUTE_TO_OBJECT_CONVERTERS);
+		objectToXmlAttributeConverters.putAll(ClassMappings.DEFAULT_OBJECT_TO_XML_ATTRIBUTE_CONVERTERS);
 	}
 	
 	public I_XMLBuilder getBuilder() {
@@ -33,5 +40,13 @@ public class Xml_IOSettings {
 	
 	public I_Converter<?> getFromXmlConverter(String tag) {
 		return xmlToObjectConverters.get(tag);
+	}
+	
+	public void addToXmlConverters( Map<Class<?>, I_Converter<?>> converters) {
+		objectToXmlConverters.putAll(converters);
+	}
+	
+	public void addFromXmlConverters( Map<String, I_Converter<?>> converters) {
+		xmlToObjectConverters.putAll(converters);
 	}
 }

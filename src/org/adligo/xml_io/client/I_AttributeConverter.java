@@ -1,9 +1,8 @@
 package org.adligo.xml_io.client;
 
-import org.adligo.models.params.client.I_XMLBuilder;
 import org.adligo.models.params.client.TagInfo;
 
-public interface I_Converter<T> {
+public interface I_AttributeConverter<T> {
 	/**
 	 * note since null values are omitted on writing to xml
 	 * they can be simply assumed to be null if no tag exists for the
@@ -11,16 +10,17 @@ public interface I_Converter<T> {
 	 * 
 	 * @param xml
 	 * @param info
-	 * @param context
-	 * @return
+	 * @param context has the attribute counter
+	 * @return null if no more attributes
+	 * 
 	 */
-	public ObjectFromXml<T> fromXml(String xml, TagInfo info, Xml_IOReaderContext context); 
+	public T fromXmlAttribute(String attributeValue, Xml_IOReaderContext context); 
 	
 	/**
 	 * note null checks are not necessary in implementations of this
 	 * method, as nulls will simply be omitted from the xml.
 	 * @param p
-	 * @param context
+	 * @param context has the attribute name
 	 */
-	public void toXml(T p, Xml_IOWriterContext context);
+	public void toXmlAttribute(T p, Xml_IOWriterContext context);
 }

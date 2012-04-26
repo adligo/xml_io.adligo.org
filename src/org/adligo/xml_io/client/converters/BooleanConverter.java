@@ -4,18 +4,19 @@ import org.adligo.models.params.client.I_XMLBuilder;
 import org.adligo.models.params.client.Parser;
 import org.adligo.models.params.client.TagInfo;
 import org.adligo.xml_io.client.I_Converter;
+import org.adligo.xml_io.client.ObjectFromXml;
 import org.adligo.xml_io.client.Xml_IOReaderContext;
 import org.adligo.xml_io.client.Xml_IOWriterContext;
 
 public class BooleanConverter implements I_Converter<Boolean> {
 
 	@Override
-	public Boolean fromXml(String xml, TagInfo info, Xml_IOReaderContext context) {
+	public ObjectFromXml<Boolean> fromXml(String xml, TagInfo info, Xml_IOReaderContext context) {
 		String text = Parser.getTextContent(xml, info);
 		if ("t".equals(text)){
-			return true;
+			return new ObjectFromXml<Boolean>(true);
 		}
-		return false;
+		return new ObjectFromXml<Boolean>(false);
 	}
 
 	@Override

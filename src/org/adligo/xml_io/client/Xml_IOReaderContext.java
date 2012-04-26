@@ -27,7 +27,7 @@ public class Xml_IOReaderContext {
 		this.settings = settings;
 	}
 	
-	public Object readXml(String xml) {
+	public ObjectFromXml<?> readXml(String xml) {
 		TagInfo info = Parser.getNextTagInfo(xml,0);
 		String tagName = info.getTagName();
 		I_Converter<?> converter = settings.getFromXmlConverter(tagName);
@@ -37,4 +37,5 @@ public class Xml_IOReaderContext {
 		}
 		return converter.fromXml(xml, info, this);
 	}
+
 }

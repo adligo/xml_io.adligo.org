@@ -4,16 +4,17 @@ import org.adligo.models.params.client.I_XMLBuilder;
 import org.adligo.models.params.client.Parser;
 import org.adligo.models.params.client.TagInfo;
 import org.adligo.xml_io.client.I_Converter;
+import org.adligo.xml_io.client.ObjectFromXml;
 import org.adligo.xml_io.client.Xml_IOReaderContext;
 import org.adligo.xml_io.client.Xml_IOWriterContext;
 
 public class CharacterConverter implements I_Converter<Character>{
 
 	@Override
-	public Character fromXml(String xml, TagInfo info, Xml_IOReaderContext context) {
+	public ObjectFromXml<Character> fromXml(String xml, TagInfo info, Xml_IOReaderContext context) {
 		String text = Parser.getTextContent(xml, info);
 		String result = Parser.unescapeFromXml(text);
-		return result.charAt(0);
+		return new ObjectFromXml<Character>(result.charAt(0));
 	}
 
 	@Override

@@ -4,13 +4,14 @@ import org.adligo.models.params.client.I_XMLBuilder;
 import org.adligo.models.params.client.Parser;
 import org.adligo.models.params.client.TagInfo;
 import org.adligo.xml_io.client.I_Converter;
+import org.adligo.xml_io.client.ObjectFromXml;
 import org.adligo.xml_io.client.Xml_IOReaderContext;
 import org.adligo.xml_io.client.Xml_IOWriterContext;
 
 public class BooleanArrayConverter implements I_Converter<boolean []>{
 
 	@Override
-	public boolean[] fromXml(String xml, TagInfo info,
+	public ObjectFromXml<boolean[]> fromXml(String xml, TagInfo info,
 			Xml_IOReaderContext context) {
 		
 		String text = Parser.getTextContent(xml, info);
@@ -24,7 +25,7 @@ public class BooleanArrayConverter implements I_Converter<boolean []>{
 				toRet[i] = false;
 			}
 		}
-		return toRet;
+		return new ObjectFromXml<boolean []>(toRet);
 	}
 
 	@Override
