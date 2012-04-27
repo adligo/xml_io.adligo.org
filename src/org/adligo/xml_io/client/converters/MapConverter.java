@@ -1,5 +1,6 @@
 package org.adligo.xml_io.client.converters;
 
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -8,6 +9,7 @@ import java.util.Set;
 import org.adligo.i.util.client.I_Iterator;
 import org.adligo.models.params.client.I_XMLBuilder;
 import org.adligo.models.params.client.Parser;
+import org.adligo.models.params.client.TagAttribute;
 import org.adligo.models.params.client.TagInfo;
 import org.adligo.xml_io.client.I_Converter;
 import org.adligo.xml_io.client.ObjectFromXml;
@@ -20,7 +22,18 @@ public class MapConverter implements I_Converter<Map>{
 	@SuppressWarnings("unchecked")
 	@Override
 	public ObjectFromXml<Map> fromXml(String xml, TagInfo info, Xml_IOReaderContext context) {
-		I_Iterator it =  info.getChildren();
+		I_Iterator it = Parser.getAttributes(info, xml);
+		String name = null;
+		while (it.hasNext()) {
+			TagAttribute attrib = (TagAttribute) it.next();
+			String key = attrib.getName();
+			if (Tags.NAME_ATTRIBUTE.equals(key)) {
+				name = attrib.getValue();
+				break;
+			}
+		}
+		
+		it =  info.getChildren();
 		
 		Map toRet = new HashMap();
 		while (it.hasNext()) {
@@ -40,6 +53,9 @@ public class MapConverter implements I_Converter<Map>{
 				Object value = valueObj.getValue();
 				toRet.put(key, value);
 			}
+		}
+		if (name != null) {
+			return new ObjectFromXml<Map>(name, toRet);
 		}
 		return new ObjectFromXml<Map>(toRet);
 	}

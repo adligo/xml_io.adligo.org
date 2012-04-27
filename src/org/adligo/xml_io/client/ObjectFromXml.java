@@ -7,6 +7,11 @@ public class ObjectFromXml<T> {
 	public ObjectFromXml(T val) {
 		value = val;
 	}
+
+	public ObjectFromXml(String name, T val) {
+		value = val;
+		this.name = name;
+	}
 	
 	public String getName() {
 		return name;
