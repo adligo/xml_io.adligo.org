@@ -12,7 +12,7 @@ import java.util.Map;
  *
  */
 public class SchemaMutant implements I_Schema {
-	private String targetNamespace;
+	private TargetNamespace targetNamespace;
 	private Map<String,I_Element> elements = new HashMap<String, I_Element>();
 	private Map<String,I_ComplexType> complexTypes = new HashMap<String, I_ComplexType>();
 	
@@ -62,11 +62,11 @@ public class SchemaMutant implements I_Schema {
 	 * @see org.adligo.xml_io.client.schema.I_Schema#getTargetNamespace()
 	 */
 	@Override
-	public String getTargetNamespace() {
+	public TargetNamespace getTargetNamespace() {
 		return targetNamespace;
 	}
 
-	public void setTargetNamespace(String targetNamespace) {
+	public void setTargetNamespace(TargetNamespace targetNamespace) {
 		this.targetNamespace = targetNamespace;
 	}
 

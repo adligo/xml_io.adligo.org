@@ -11,7 +11,7 @@ public class SequenceElementMutant implements I_SequenceElement {
 	public SequenceElementMutant(I_SequenceElement other) {
 		name = other.getName();
 		type = other.getType();
-		minOccurs = other.getMaxOccurs();
+		minOccurs = other.getMinOccurs();
 		maxOccurs = other.getMaxOccurs();
 	}
 	

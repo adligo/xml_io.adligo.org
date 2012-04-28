@@ -26,6 +26,10 @@ public class ComplexTypeMutant implements I_ComplexType {
 		sequence.addAll(p);
 	}
 
+	public void addSequence(I_SequenceChild p) {
+		sequence.add(p);
+	}
+	
 	public String getName() {
 		return name;
 	}

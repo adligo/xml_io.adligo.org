@@ -8,7 +8,7 @@ public interface I_Schema {
 
 	public abstract Collection<I_ComplexType> getComplexTypes();
 
-	public abstract String getTargetNamespace();
+	public abstract TargetNamespace getTargetNamespace();
 	/**
 	 * returns the schema xml file's string bytes
 	 * @return
