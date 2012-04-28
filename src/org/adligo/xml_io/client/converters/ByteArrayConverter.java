@@ -21,11 +21,7 @@ public class ByteArrayConverter implements I_Converter<byte []>, I_AttributeConv
 
 	@Override
 	public void toXml(byte [] instance, Xml_IOWriterContext context) {
-		I_XMLBuilder builder = context.getBuilder();
-		builder.appendTagHeaderStart(Xml_IOConstants.BYTE_ARRAY_TAG_SUFFIX);
-		builder.appendTagHeaderEnd(false);
-		builder.appendBase64(instance);
-		builder.appendEndTag(Xml_IOConstants.BYTE_ARRAY_TAG_SUFFIX);
+		context.appendDefaultTagBase64(Xml_IOConstants.BYTE_ARRAY_TAG_SUFFIX, instance);
 	}
 
 	@Override

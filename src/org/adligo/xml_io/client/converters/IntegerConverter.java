@@ -20,8 +20,7 @@ public class IntegerConverter implements I_Converter<Integer>, I_AttributeConver
 
 	@Override
 	public void toXml(Integer p, Xml_IOWriterContext context) {
-		I_XMLBuilder builder = context.getBuilder();
-		builder.appendTagWithTextContent(Xml_IOConstants.INTEGER_TAG_SUFFIX, "" + p);
+		context.appendDefaultTag(Xml_IOConstants.INTEGER_TAG_SUFFIX, "" + p);
 	}
 
 	@Override

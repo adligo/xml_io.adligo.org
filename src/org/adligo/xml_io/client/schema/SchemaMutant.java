@@ -4,6 +4,8 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.adligo.xml_io.client.TargetNamespace;
+
 /**
  * note for my purposes a schema represents a single
  * schema only with no imports.
@@ -15,6 +17,7 @@ public class SchemaMutant implements I_Schema {
 	private TargetNamespace targetNamespace;
 	private Map<String,I_Element> elements = new HashMap<String, I_Element>();
 	private Map<String,I_ComplexType> complexTypes = new HashMap<String, I_ComplexType>();
+	private Map<String, I_SimpleType> simpleTypes = new HashMap<String, I_SimpleType>();
 	
 	public SchemaMutant() {}
 	
@@ -23,6 +26,10 @@ public class SchemaMutant implements I_Schema {
 		Collection<I_Element> elements = p.getElements();
 		for (I_Element e: elements) {
 			addElement(e);
+		}
+		Collection<I_SimpleType> types = p.getSimpleTypes();
+		for (I_SimpleType e: types) {
+			addSimpleType(e);
 		}
 		Collection<I_ComplexType> complexTypes = p.getComplexTypes();
 		for (I_ComplexType t: complexTypes) {
@@ -42,6 +49,12 @@ public class SchemaMutant implements I_Schema {
 		complexTypes.put(name, immute);
 	}
 	
+	public void addSimpleType(I_SimpleType p) {
+		I_SimpleType immute = new SimpleType(p);
+		String name = immute.getName();
+		simpleTypes.put(name,immute);
+	}
+	
 	/* (non-Javadoc)
 	 * @see org.adligo.xml_io.client.schema.I_Schema#getElements()
 	 */
@@ -59,6 +72,14 @@ public class SchemaMutant implements I_Schema {
 	}
 
 	/* (non-Javadoc)
+	 * @see org.adligo.xml_io.client.schema.I_Schema#getComplexTypes()
+	 */
+	@Override
+	public Collection<I_SimpleType> getSimpleTypes() {
+		return simpleTypes.values();
+	}
+	
+	/* (non-Javadoc)
 	 * @see org.adligo.xml_io.client.schema.I_Schema#getTargetNamespace()
 	 */
 	@Override
@@ -70,8 +91,4 @@ public class SchemaMutant implements I_Schema {
 		this.targetNamespace = targetNamespace;
 	}
 
-	@Override
-	public String getXmlString() {
-		return Schema.toXmlString(this);
-	}
 }

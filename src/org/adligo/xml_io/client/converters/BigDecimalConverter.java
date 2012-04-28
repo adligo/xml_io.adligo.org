@@ -22,9 +22,7 @@ public class BigDecimalConverter implements I_Converter<BigDecimal>, I_Attribute
 
 	@Override
 	public void toXml(BigDecimal p, Xml_IOWriterContext context) {
-		I_XMLBuilder builder = context.getBuilder();
-		builder.appendTagWithTextContent(Xml_IOConstants.BIG_DECIMAL_TAG_SUFFIX, 
-					p.toString());
+		context.appendDefaultTag(Xml_IOConstants.BIG_DECIMAL_TAG_SUFFIX, p.toString());
 	}
 
 	@Override

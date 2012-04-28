@@ -1,4 +1,4 @@
-package org.adligo.xml_io.client.schema;
+package org.adligo.xml_io.client;
 
 public class TargetNamespace {
 	private String prefix;

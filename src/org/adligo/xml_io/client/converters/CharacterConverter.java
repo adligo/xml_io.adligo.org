@@ -21,9 +21,8 @@ public class CharacterConverter implements I_Converter<Character>, I_AttributeCo
 
 	@Override
 	public void toXml(Character text, Xml_IOWriterContext context) {
-		I_XMLBuilder builder = context.getBuilder();
 		String escapedText = Parser.escapeForXml("" + text);
-		builder.appendTagWithTextContent(Xml_IOConstants.CHARACTER_TAG_SUFFIX, escapedText);
+		context.appendDefaultTag(Xml_IOConstants.CHARACTER_TAG_SUFFIX, escapedText);
 	}
 	
 	@Override

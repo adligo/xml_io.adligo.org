@@ -20,8 +20,7 @@ public class FloatConverter implements I_Converter<Float>, I_AttributeConverter<
 
 	@Override
 	public void toXml(Float p, Xml_IOWriterContext context) {
-		I_XMLBuilder builder = context.getBuilder();
-		builder.appendTagWithTextContent(Xml_IOConstants.FLOAT_TAG_SUFFIX, "" + p);
+		context.appendDefaultTag(Xml_IOConstants.FLOAT_TAG_SUFFIX, "" + p);
 	}
 
 	@Override

@@ -20,9 +20,8 @@ public class StringConverter implements I_Converter<String>, I_AttributeConverte
 
 	@Override
 	public void toXml(String text, Xml_IOWriterContext context) {
-		I_XMLBuilder builder = context.getBuilder();
 		String escapedText = Parser.escapeForXml(text);
-		builder.appendTagWithTextContent(Xml_IOConstants.STRING_TAG_SUFFIX, escapedText);
+		context.appendDefaultTag(Xml_IOConstants.STRING_TAG_SUFFIX, escapedText);
 	}
 
 	@Override

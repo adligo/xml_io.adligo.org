@@ -66,8 +66,8 @@ public class MapConverter implements I_Converter<Map>{
 	public void toXml(Map p, Xml_IOWriterContext context) {
 		I_XMLBuilder builder = context.getBuilder();
 		Set<Entry> entries = p.entrySet();
-		builder.indent();
-		builder.appendTagHeaderStart(Xml_IOConstants.MAP_TAG_SUFFIX);
+		context.appendTagHeaderStart(Xml_IOConstants.MAP_TAG_SUFFIX);
+		context.appendSchemaInfoToFirstTag();
 		
 		String nameValue = context.getNextTagNameAttribute();
 		if (nameValue != null) {
@@ -79,8 +79,7 @@ public class MapConverter implements I_Converter<Map>{
 		builder.addIndentLevel();
 		
 		for (Entry e: entries) {
-			builder.indent();
-			builder.appendTagHeaderStart(Xml_IOConstants.KEY_VALUE_TAG_SUFFIX);
+			context.appendTagHeaderStart(Xml_IOConstants.KEY_VALUE_TAG_SUFFIX);
 			builder.appendTagHeaderEnd(true);
 				//indent the key and value 
 				builder.addIndentLevel();
@@ -95,12 +94,10 @@ public class MapConverter implements I_Converter<Map>{
 				
 				builder.removeIndentLevel();
 				
-			builder.indent();	
-			builder.appendEndTag(Xml_IOConstants.KEY_VALUE_TAG_SUFFIX);
+			context.appendEndTag(Xml_IOConstants.KEY_VALUE_TAG_SUFFIX);
 		}
 		builder.removeIndentLevel();
-		builder.indent();
-		builder.appendEndTag(Xml_IOConstants.MAP_TAG_SUFFIX);
+		context.appendEndTag(Xml_IOConstants.MAP_TAG_SUFFIX);
 	}
 
 }

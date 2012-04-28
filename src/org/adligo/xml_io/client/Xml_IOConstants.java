@@ -43,6 +43,8 @@ public class Xml_IOConstants {
 	public static final String XMLNS_ATTRIBUTE = "xmlns";
 	public static final String XMLNS_WC3_2001 = 
 				"http://www.w3.org/2001/XMLSchema";
+	public static final String XMLNS_WC3_2001_INSTANCE = 
+		"http://www.w3.org/2001/XMLSchema-instance";
 	public static final String TARGET_NAMESPACE_ATTRIBUE = 
 				"targetNamespace";
 	public static final String SCHEMA_ELEMENT_FORM_DEFAULT_ATTRIBUTE = 
@@ -59,5 +61,14 @@ public class Xml_IOConstants {
 	public static final String MIN_OCCURS = "minOccurs"; 
 	public static final String MAX_OCCURS = "maxOccurs";
 	
+	public static final String SIMPLE_TYPE_TAG = "simpleType";
+	public static final String RESTRICTION_TAG = "restriction";
+	public static final String BASE_ATTRIBUTE = "base";
+	public static final String PATTERN_TAG = "pattern";
+	public static final String VALUE_ATTRIBUTE = "value";
+	public static final String MAX_LENGTH_TAG = "maxLength";
+	public static final String MIN_LENGTH_TAG = "minLength";
+	
+	public static final String DEFAULT_NAMESPACE = "http://www.adligo.org/xml_io";
 	
 }

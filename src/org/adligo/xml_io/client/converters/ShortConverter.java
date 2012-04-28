@@ -20,8 +20,7 @@ public class ShortConverter implements I_Converter<Short>, I_AttributeConverter<
 
 	@Override
 	public void toXml(Short p,Xml_IOWriterContext context) {
-		I_XMLBuilder builder = context.getBuilder();
-		builder.appendTagWithTextContent(Xml_IOConstants.SHORT_TAG_SUFFIX, "" + p);
+		context.appendDefaultTag(Xml_IOConstants.SHORT_TAG_SUFFIX, "" + p);
 	}
 
 	@Override

@@ -14,4 +14,9 @@ public class Any implements I_Any {
 	public String getMaxOccurs() {
 		return other.getMaxOccurs();
 	}
+
+	@Override
+	public SequenceChildTypes getNodeType() {
+		return SequenceChildTypes.ANY;
+	}
 }

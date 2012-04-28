@@ -19,9 +19,13 @@ public class Xml_IOWriter {
 		Xml_IOWriterContext context = new Xml_IOWriterContext();
 		context.setSettings(settings);
 		context.setWriter(this);
+		I_XMLBuilder builder = context.getBuilder();
+		if (settings.isIncludeXmlHeader()) {
+			builder.append(Xml_IOConstants.HEADER);
+			builder.lineFeed();
+		}
 		context.writeXml(p);
 		
-		I_XMLBuilder builder = context.getBuilder();
 		return builder.toXmlString();
 	}
 	

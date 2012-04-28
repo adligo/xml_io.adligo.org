@@ -1,8 +1,13 @@
 package org.adligo.xml_io.client.schema;
 
+import org.adligo.xml_io.client.TargetNamespace;
 import org.adligo.xml_io.client.Xml_IOConstants;
 
 public class Xml_IOSchema {
+	public static final String BOOLEAN = "Boolean";
+	public static final String BOOLEAN_ARRAY = "BooleanArray";
+	public static final String CHARACTER = "Character";
+	
 	public static final String MAP = "Map";
 	public static final String KEY_VALUE = "KeyValue";
 	public static final String COLLECTION = "Collection";
@@ -10,7 +15,7 @@ public class Xml_IOSchema {
 	
 	private static I_Schema getSchema() {
 		SchemaMutant toRet = new SchemaMutant();
-		toRet.setTargetNamespace(new TargetNamespace("a","http://www.adligo.org/xml_io"));
+		toRet.setTargetNamespace(new TargetNamespace("a",Xml_IOConstants.DEFAULT_NAMESPACE));
 		
 		addSimpleElement(Xml_IOConstants.LONG_TAG_SUFFIX, XMLTypes.LONG, toRet);
 		addSimpleElement(Xml_IOConstants.BIG_INTEGER_TAG_SUFFIX, XMLTypes.INTEGER, toRet);
@@ -19,17 +24,18 @@ public class Xml_IOSchema {
 		
 		addSimpleElement(Xml_IOConstants.BIG_DECIMAL_TAG_SUFFIX, XMLTypes.DECIMAL, toRet);
 		addSimpleElement(Xml_IOConstants.DOUBLE_TAG_SUFFIX, XMLTypes.DOUBLE, toRet);
-		addSimpleElement(Xml_IOConstants.CHARACTER_TAG_SUFFIX, XMLTypes.STRING, toRet);
+		addSimpleElement(Xml_IOConstants.CHARACTER_TAG_SUFFIX, "a:" + CHARACTER, toRet);
 		addSimpleElement(Xml_IOConstants.SHORT_TAG_SUFFIX, XMLTypes.SHORT, toRet);
 		addSimpleElement(Xml_IOConstants.STRING_TAG_SUFFIX, XMLTypes.STRING, toRet);
 		
-		addSimpleElement(Xml_IOConstants.BOOLEAN_TAG_SUFFIX, XMLTypes.STRING, toRet);
+		addSimpleElement(Xml_IOConstants.BOOLEAN_TAG_SUFFIX, "a:" + BOOLEAN, toRet);
 		addSimpleElement(Xml_IOConstants.BYTE_TAG_SUFFIX, XMLTypes.BASE_64, toRet);
 		
-		addSimpleElement(Xml_IOConstants.BOOlEAN_ARRAY_TAG_SUFFIX, XMLTypes.STRING, toRet);
+		addSimpleElement(Xml_IOConstants.BOOlEAN_ARRAY_TAG_SUFFIX, "a:" + BOOLEAN_ARRAY, toRet);
 		addSimpleElement(Xml_IOConstants.BYTE_ARRAY_TAG_SUFFIX, XMLTypes.BASE_64, toRet);
 		addSimpleElement(Xml_IOConstants.CHAR_ARRAY_TAG_SUFFIX, XMLTypes.STRING, toRet);
 		
+		addSimpleTypes(toRet);
 		
 		addComplexElements(toRet);
 		
@@ -78,5 +84,25 @@ public class Xml_IOSchema {
 		toRet.addComplexType(map);
 		addSimpleElement(Xml_IOConstants.MAP_TAG_SUFFIX, "a:" + MAP, toRet);
 	}
-	
+
+	private static void addSimpleTypes(SchemaMutant toRet) {
+		SimpleTypeMutant character = new SimpleTypeMutant();
+		character.setName(CHARACTER);
+		character.setMaxLength("1");
+		character.setBaseType(XMLTypes.STRING);
+		toRet.addSimpleType(character);
+		
+		SimpleTypeMutant bool = new SimpleTypeMutant();
+		bool.setName(BOOLEAN);
+		bool.setBaseType(XMLTypes.STRING);
+		bool.setPattern("[tf]");
+		bool.setMaxLength("1");
+		toRet.addSimpleType(bool);
+		
+		SimpleTypeMutant boolArray = new SimpleTypeMutant();
+		boolArray.setName(BOOLEAN_ARRAY);
+		boolArray.setBaseType(XMLTypes.STRING);
+		boolArray.setPattern("[tf]");
+		toRet.addSimpleType(boolArray);
+	}
 }

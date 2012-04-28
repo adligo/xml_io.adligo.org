@@ -22,4 +22,9 @@ public class SequenceElement implements I_SequenceElement {
 	public String getMaxOccurs() {
 		return other.getMaxOccurs();
 	}
+	
+	@Override
+	public SequenceChildTypes getNodeType() {
+		return SequenceChildTypes.ELEMENT;
+	}
 }

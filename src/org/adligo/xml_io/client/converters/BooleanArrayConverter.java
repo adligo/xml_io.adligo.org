@@ -41,13 +41,8 @@ public class BooleanArrayConverter implements I_Converter<boolean []>, I_Attribu
 
 	@Override
 	public void toXml(boolean[] p,Xml_IOWriterContext context) {
-		
-		I_XMLBuilder builder = context.getBuilder();
-		builder.appendTagHeaderStart(Xml_IOConstants.BOOlEAN_ARRAY_TAG_SUFFIX);
-		builder.appendTagHeaderEnd(false);
 		String asString = booleanArrayToString(p);
-		builder.append(asString);
-		builder.appendEndTag(Xml_IOConstants.BOOlEAN_ARRAY_TAG_SUFFIX);
+		context.appendDefaultTag(Xml_IOConstants.BOOlEAN_ARRAY_TAG_SUFFIX, asString);
 	}
 
 	private String booleanArrayToString(boolean[] p) {

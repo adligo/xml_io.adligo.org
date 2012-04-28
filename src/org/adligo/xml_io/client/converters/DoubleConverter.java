@@ -20,8 +20,7 @@ public class DoubleConverter implements I_Converter<Double>, I_AttributeConverte
 
 	@Override
 	public void toXml(Double p, Xml_IOWriterContext context) {
-		I_XMLBuilder builder = context.getBuilder();
-		builder.appendTagWithTextContent(Xml_IOConstants.DOUBLE_TAG_SUFFIX, "" + p);
+		context.appendDefaultTag(Xml_IOConstants.DOUBLE_TAG_SUFFIX, "" + p);
 	}
 
 	@Override

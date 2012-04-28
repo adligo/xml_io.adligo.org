@@ -2,6 +2,8 @@ package org.adligo.xml_io.client.schema;
 
 import java.util.Collection;
 
+import org.adligo.xml_io.client.TargetNamespace;
+
 public interface I_Schema {
 
 	public abstract Collection<I_Element> getElements();
@@ -9,9 +11,7 @@ public interface I_Schema {
 	public abstract Collection<I_ComplexType> getComplexTypes();
 
 	public abstract TargetNamespace getTargetNamespace();
-	/**
-	 * returns the schema xml file's string bytes
-	 * @return
-	 */
-	public String getXmlString();
+	
+	public Collection<I_SimpleType> getSimpleTypes();
+
 }

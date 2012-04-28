@@ -33,4 +33,9 @@ public class AnyMutant implements I_Any {
 	public void setMaxOccurs(String maxOccurs) {
 		this.maxOccurs = maxOccurs;
 	}
+	
+	@Override
+	public SequenceChildTypes getNodeType() {
+		return SequenceChildTypes.ANY;
+	}
 }

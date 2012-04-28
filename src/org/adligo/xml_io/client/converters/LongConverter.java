@@ -20,8 +20,7 @@ public class LongConverter implements I_Converter<Long>, I_AttributeConverter<Lo
 
 	@Override
 	public void toXml(Long p, Xml_IOWriterContext context) {
-		I_XMLBuilder builder = context.getBuilder();
-		builder.appendTagWithTextContent(Xml_IOConstants.LONG_TAG_SUFFIX, "" + p);
+		context.appendDefaultTag(Xml_IOConstants.LONG_TAG_SUFFIX, "" + p);
 	}
 
 	@Override

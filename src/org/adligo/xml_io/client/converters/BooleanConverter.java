@@ -25,9 +25,9 @@ public class BooleanConverter implements I_Converter<Boolean>, I_AttributeConver
 	public void toXml(Boolean p, Xml_IOWriterContext context) {
 		I_XMLBuilder builder = context.getBuilder();
 		if (p) {
-			builder.appendTagWithTextContent(Xml_IOConstants.BOOLEAN_TAG_SUFFIX, "t");
+			context.appendDefaultTag(Xml_IOConstants.BOOLEAN_TAG_SUFFIX, "t");
 		} else {
-			builder.appendTagWithTextContent(Xml_IOConstants.BOOLEAN_TAG_SUFFIX, "f");
+			context.appendDefaultTag(Xml_IOConstants.BOOLEAN_TAG_SUFFIX, "f");
 		}
 	}
 

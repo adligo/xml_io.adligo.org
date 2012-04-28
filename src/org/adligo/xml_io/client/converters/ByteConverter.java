@@ -21,13 +21,7 @@ public class ByteConverter implements I_Converter<Byte> , I_AttributeConverter<B
 
 	@Override
 	public void toXml(Byte instance, Xml_IOWriterContext context) {
-		I_XMLBuilder builder = context.getBuilder();
-		builder.appendTagHeaderStart(Xml_IOConstants.BYTE_TAG_SUFFIX);
-		builder.appendTagHeaderEnd(false);
-		if (instance != null) {
-			builder.appendBase64(new byte[] {instance.byteValue()});
-		}
-		builder.appendEndTag(Xml_IOConstants.BYTE_TAG_SUFFIX);
+		context.appendDefaultTagBase64(Xml_IOConstants.BYTE_TAG_SUFFIX, new byte[] {instance.byteValue()});
 	}
 
 	@Override

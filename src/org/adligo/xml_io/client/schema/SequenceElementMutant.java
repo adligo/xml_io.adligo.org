@@ -56,4 +56,8 @@ public class SequenceElementMutant implements I_SequenceElement {
 		this.maxOccurs = maxOccurs;
 	}
 	
+	@Override
+	public SequenceChildTypes getNodeType() {
+		return SequenceChildTypes.ELEMENT;
+	}
 }

@@ -1,9 +1,9 @@
 package org.adligo.xml_io.client;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
-import java.util.List;
+import java.util.Map.Entry;
+import java.util.Set;
 
 import org.adligo.models.params.client.I_XMLBuilder;
 import org.adligo.models.params.client.XMLBuilder;
@@ -26,6 +26,8 @@ public class Xml_IOWriterContext {
 	 * <L n="myList"><i>1</i><i>2</i></L>
 	 */
 	private String nextTagNameAttribute = null;
+	private boolean firstTag = true;
+	private String defaultNamespacePrefix = null;
 	
 	Xml_IOWriterContext() {}
 	
@@ -175,5 +177,76 @@ public class Xml_IOWriterContext {
 
 	public void setNextTagNameAttribute(String nextTagNameAttribute) {
 		this.nextTagNameAttribute = nextTagNameAttribute;
+	}
+	
+	/**
+	 * note this can be omitted to keep the xml smaller (less bytes)
+	 */
+	public void appendSchemaInfoToFirstTag() {
+		if (firstTag) {
+			firstTag = false;
+			if (settings.isIncludeXmlSchemaInfoInFirstTag()) {
+				Set<Entry<String,String>> namespaces = settings.getNamespaceEntries();
+				for (Entry<String,String> space: namespaces) {
+					String namespace = space.getKey();
+					String prefix = space.getValue();
+					builder.appendAttribute(Xml_IOConstants.XMLNS_ATTRIBUTE + ":" + prefix, namespace);
+					builder.lineFeed();
+				}
+				builder.appendAttribute(Xml_IOConstants.XMLNS_ATTRIBUTE + ":xsi", Xml_IOConstants.XMLNS_WC3_2001_INSTANCE);
+			}
+		}
+	}
+	
+	public String getNamespacePrefix(String namespace) {
+		return settings.getNamespacePrefix(namespace);
+	}
+	
+	public void appendDefaultTag(String tagName, String value) {
+		getDefaultNamespace();
+		builder.appendTagHeaderStart(defaultNamespacePrefix + tagName);
+		appendSchemaInfoToFirstTag();
+		builder.appendTagHeaderEnd(false);
+		builder.append(value);
+		builder.appendEndTag(defaultNamespacePrefix + tagName);
+	}
+	
+	public void appendDefaultTagBase64(String tagName, byte [] value) {
+		getDefaultNamespace();
+		builder.appendTagHeaderStart(defaultNamespacePrefix + tagName);
+		appendSchemaInfoToFirstTag();
+		builder.appendTagHeaderEnd(false);
+		builder.appendBase64(value);
+		builder.appendEndTag(defaultNamespacePrefix + tagName);
+	}
+	
+	public void appendTagHeaderStart(String tagName) {
+		builder.indent();
+		getDefaultNamespace();
+		builder.appendTagHeaderStart(defaultNamespacePrefix + tagName);
+	}
+
+	public void appendTagHeaderStart(String namespace, String tagName) {
+		builder.indent();
+		String prefix = settings.getNamespacePrefix(namespace);
+		builder.appendTagHeaderStart(prefix + ":" + tagName);
+	}
+	
+	public void appendEndTag(String tagName) {
+		builder.indent();
+		getDefaultNamespace();
+		builder.appendEndTag(defaultNamespacePrefix + tagName);
+	}
+
+	private void getDefaultNamespace() {
+		if (defaultNamespacePrefix == null) {
+			defaultNamespacePrefix = getNamespacePrefix(Xml_IOConstants.DEFAULT_NAMESPACE) + ":";
+		}
+	}
+
+	public void appendEndTag(String namespace, String tagName) {
+		builder.indent();
+		String prefix = settings.getNamespacePrefix(namespace);
+		builder.appendEndTag(prefix + ":" + tagName);
 	}
 }

@@ -22,14 +22,9 @@ public class CharArrayConverter implements I_Converter<char []>, I_AttributeConv
 	}
 	@Override
 	public void toXml(char[] p, Xml_IOWriterContext context) {
-		
-		I_XMLBuilder builder = context.getBuilder();
-		builder.appendTagHeaderStart(Xml_IOConstants.CHAR_ARRAY_TAG_SUFFIX);
-		builder.appendTagHeaderEnd(false);
 		String chars = new String(p);
 		chars = Parser.escapeForXml(chars);
-		builder.append(chars);
-		builder.appendEndTag(Xml_IOConstants.CHAR_ARRAY_TAG_SUFFIX);
+		context.appendDefaultTag(Xml_IOConstants.CHAR_ARRAY_TAG_SUFFIX, chars);
 	}
 
 	@Override
