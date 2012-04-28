@@ -7,6 +7,7 @@ import org.adligo.xml_io.client.I_AttributeConverter;
 import org.adligo.xml_io.client.I_Converter;
 import org.adligo.xml_io.client.ObjectFromXml;
 import org.adligo.xml_io.client.Xml_IOReaderContext;
+import org.adligo.xml_io.client.Xml_IOConstants;
 import org.adligo.xml_io.client.Xml_IOWriterContext;
 
 public class ShortConverter implements I_Converter<Short>, I_AttributeConverter<Short> {
@@ -20,7 +21,7 @@ public class ShortConverter implements I_Converter<Short>, I_AttributeConverter<
 	@Override
 	public void toXml(Short p,Xml_IOWriterContext context) {
 		I_XMLBuilder builder = context.getBuilder();
-		builder.appendTagWithTextContent(Tags.SHORT, "" + p);
+		builder.appendTagWithTextContent(Xml_IOConstants.SHORT_TAG_SUFFIX, "" + p);
 	}
 
 	@Override

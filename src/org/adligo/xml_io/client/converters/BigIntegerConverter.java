@@ -10,6 +10,7 @@ import org.adligo.xml_io.client.I_AttributeConverter;
 import org.adligo.xml_io.client.I_Converter;
 import org.adligo.xml_io.client.ObjectFromXml;
 import org.adligo.xml_io.client.Xml_IOReaderContext;
+import org.adligo.xml_io.client.Xml_IOConstants;
 import org.adligo.xml_io.client.Xml_IOWriterContext;
 
 public class BigIntegerConverter implements I_Converter<BigInteger>, I_AttributeConverter<BigInteger> {
@@ -23,7 +24,7 @@ public class BigIntegerConverter implements I_Converter<BigInteger>, I_Attribute
 	@Override
 	public void toXml(BigInteger p, Xml_IOWriterContext context) {
 		I_XMLBuilder builder = context.getBuilder();
-		builder.appendTagWithTextContent(Tags.BIG_INTEGER, 
+		builder.appendTagWithTextContent(Xml_IOConstants.BIG_INTEGER_TAG_SUFFIX, 
 					p.toString());
 	}
 

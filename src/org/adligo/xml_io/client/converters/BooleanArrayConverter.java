@@ -11,6 +11,7 @@ import org.adligo.xml_io.client.I_AttributeConverter;
 import org.adligo.xml_io.client.I_Converter;
 import org.adligo.xml_io.client.ObjectFromXml;
 import org.adligo.xml_io.client.Xml_IOReaderContext;
+import org.adligo.xml_io.client.Xml_IOConstants;
 import org.adligo.xml_io.client.Xml_IOWriterContext;
 
 public class BooleanArrayConverter implements I_Converter<boolean []>, I_AttributeConverter<boolean[]> {
@@ -42,11 +43,11 @@ public class BooleanArrayConverter implements I_Converter<boolean []>, I_Attribu
 	public void toXml(boolean[] p,Xml_IOWriterContext context) {
 		
 		I_XMLBuilder builder = context.getBuilder();
-		builder.appendTagHeaderStart(Tags.BOOlEAN_ARRAY);
+		builder.appendTagHeaderStart(Xml_IOConstants.BOOlEAN_ARRAY_TAG_SUFFIX);
 		builder.appendTagHeaderEnd(false);
 		String asString = booleanArrayToString(p);
 		builder.append(asString);
-		builder.appendEndTag(Tags.BOOlEAN_ARRAY);
+		builder.appendEndTag(Xml_IOConstants.BOOlEAN_ARRAY_TAG_SUFFIX);
 	}
 
 	private String booleanArrayToString(boolean[] p) {

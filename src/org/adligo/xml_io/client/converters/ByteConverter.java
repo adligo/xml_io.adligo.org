@@ -7,6 +7,7 @@ import org.adligo.xml_io.client.I_AttributeConverter;
 import org.adligo.xml_io.client.I_Converter;
 import org.adligo.xml_io.client.ObjectFromXml;
 import org.adligo.xml_io.client.Xml_IOReaderContext;
+import org.adligo.xml_io.client.Xml_IOConstants;
 import org.adligo.xml_io.client.Xml_IOWriterContext;
 
 public class ByteConverter implements I_Converter<Byte> , I_AttributeConverter<Byte>{
@@ -21,12 +22,12 @@ public class ByteConverter implements I_Converter<Byte> , I_AttributeConverter<B
 	@Override
 	public void toXml(Byte instance, Xml_IOWriterContext context) {
 		I_XMLBuilder builder = context.getBuilder();
-		builder.appendTagHeaderStart(Tags.BYTE);
+		builder.appendTagHeaderStart(Xml_IOConstants.BYTE_TAG_SUFFIX);
 		builder.appendTagHeaderEnd(false);
 		if (instance != null) {
 			builder.appendBase64(new byte[] {instance.byteValue()});
 		}
-		builder.appendEndTag(Tags.BYTE);
+		builder.appendEndTag(Xml_IOConstants.BYTE_TAG_SUFFIX);
 	}
 
 	@Override

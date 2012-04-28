@@ -9,6 +9,7 @@ import org.adligo.xml_io.client.I_AttributeConverter;
 import org.adligo.xml_io.client.I_Converter;
 import org.adligo.xml_io.client.ObjectFromXml;
 import org.adligo.xml_io.client.Xml_IOReaderContext;
+import org.adligo.xml_io.client.Xml_IOConstants;
 import org.adligo.xml_io.client.Xml_IOWriterContext;
 
 public class BigDecimalConverter implements I_Converter<BigDecimal>, I_AttributeConverter<BigDecimal> {
@@ -22,7 +23,7 @@ public class BigDecimalConverter implements I_Converter<BigDecimal>, I_Attribute
 	@Override
 	public void toXml(BigDecimal p, Xml_IOWriterContext context) {
 		I_XMLBuilder builder = context.getBuilder();
-		builder.appendTagWithTextContent(Tags.BIG_DECIMAL, 
+		builder.appendTagWithTextContent(Xml_IOConstants.BIG_DECIMAL_TAG_SUFFIX, 
 					p.toString());
 	}
 

@@ -7,6 +7,7 @@ import org.adligo.xml_io.client.I_AttributeConverter;
 import org.adligo.xml_io.client.I_Converter;
 import org.adligo.xml_io.client.ObjectFromXml;
 import org.adligo.xml_io.client.Xml_IOReaderContext;
+import org.adligo.xml_io.client.Xml_IOConstants;
 import org.adligo.xml_io.client.Xml_IOWriterContext;
 
 public class LongConverter implements I_Converter<Long>, I_AttributeConverter<Long> {
@@ -20,7 +21,7 @@ public class LongConverter implements I_Converter<Long>, I_AttributeConverter<Lo
 	@Override
 	public void toXml(Long p, Xml_IOWriterContext context) {
 		I_XMLBuilder builder = context.getBuilder();
-		builder.appendTagWithTextContent(Tags.LONG, "" + p);
+		builder.appendTagWithTextContent(Xml_IOConstants.LONG_TAG_SUFFIX, "" + p);
 	}
 
 	@Override

@@ -7,6 +7,7 @@ import org.adligo.xml_io.client.I_AttributeConverter;
 import org.adligo.xml_io.client.I_Converter;
 import org.adligo.xml_io.client.ObjectFromXml;
 import org.adligo.xml_io.client.Xml_IOReaderContext;
+import org.adligo.xml_io.client.Xml_IOConstants;
 import org.adligo.xml_io.client.Xml_IOWriterContext;
 
 public class IntegerConverter implements I_Converter<Integer>, I_AttributeConverter<Integer> {
@@ -20,7 +21,7 @@ public class IntegerConverter implements I_Converter<Integer>, I_AttributeConver
 	@Override
 	public void toXml(Integer p, Xml_IOWriterContext context) {
 		I_XMLBuilder builder = context.getBuilder();
-		builder.appendTagWithTextContent(Tags.INTEGER, "" + p);
+		builder.appendTagWithTextContent(Xml_IOConstants.INTEGER_TAG_SUFFIX, "" + p);
 	}
 
 	@Override

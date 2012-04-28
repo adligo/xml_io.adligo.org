@@ -7,6 +7,7 @@ import org.adligo.xml_io.client.I_AttributeConverter;
 import org.adligo.xml_io.client.I_Converter;
 import org.adligo.xml_io.client.ObjectFromXml;
 import org.adligo.xml_io.client.Xml_IOReaderContext;
+import org.adligo.xml_io.client.Xml_IOConstants;
 import org.adligo.xml_io.client.Xml_IOWriterContext;
 
 public class FloatConverter implements I_Converter<Float>, I_AttributeConverter<Float> {
@@ -20,7 +21,7 @@ public class FloatConverter implements I_Converter<Float>, I_AttributeConverter<
 	@Override
 	public void toXml(Float p, Xml_IOWriterContext context) {
 		I_XMLBuilder builder = context.getBuilder();
-		builder.appendTagWithTextContent(Tags.FLOAT, "" + p);
+		builder.appendTagWithTextContent(Xml_IOConstants.FLOAT_TAG_SUFFIX, "" + p);
 	}
 
 	@Override

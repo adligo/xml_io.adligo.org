@@ -24,6 +24,7 @@ import java.util.Vector;
 
 import org.adligo.xml_io.client.I_AttributeConverter;
 import org.adligo.xml_io.client.I_Converter;
+import org.adligo.xml_io.client.Xml_IOConstants;
 
 /**
  * provide single mappings of characters to most of the serlizable types in GWT
@@ -86,29 +87,29 @@ public class ClassMappings {
 		Map<String,I_Converter<?>> toRet = new HashMap<String, I_Converter<?>>();
 
 		MapConverter mapConverter = new MapConverter();
-		toRet.put(Tags.BOOLEAN, new BooleanConverter());
-		toRet.put(Tags.BYTE, new ByteConverter());
+		toRet.put(Xml_IOConstants.BOOLEAN_TAG_SUFFIX, new BooleanConverter());
+		toRet.put(Xml_IOConstants.BYTE_TAG_SUFFIX, new ByteConverter());
 		
-		toRet.put(Tags.CHARACTER, new CharacterConverter());
-		toRet.put(Tags.DOUBLE, new DoubleConverter());
-		toRet.put(Tags.BIG_DECIMAL, new BigDecimalConverter());
+		toRet.put(Xml_IOConstants.CHARACTER_TAG_SUFFIX, new CharacterConverter());
+		toRet.put(Xml_IOConstants.DOUBLE_TAG_SUFFIX, new DoubleConverter());
+		toRet.put(Xml_IOConstants.BIG_DECIMAL_TAG_SUFFIX, new BigDecimalConverter());
 		
-		toRet.put(Tags.FLOAT, new FloatConverter());
+		toRet.put(Xml_IOConstants.FLOAT_TAG_SUFFIX, new FloatConverter());
 		
-		toRet.put(Tags.INTEGER, new IntegerConverter());
-		toRet.put(Tags.BIG_INTEGER, new BigIntegerConverter());
+		toRet.put(Xml_IOConstants.INTEGER_TAG_SUFFIX, new IntegerConverter());
+		toRet.put(Xml_IOConstants.BIG_INTEGER_TAG_SUFFIX, new BigIntegerConverter());
 		
-		toRet.put(Tags.LONG, new LongConverter());
+		toRet.put(Xml_IOConstants.LONG_TAG_SUFFIX, new LongConverter());
 		
-		toRet.put(Tags.SHORT, new ShortConverter());
-		toRet.put(Tags.STRING, new StringConverter());
+		toRet.put(Xml_IOConstants.SHORT_TAG_SUFFIX, new ShortConverter());
+		toRet.put(Xml_IOConstants.STRING_TAG_SUFFIX, new StringConverter());
 		
-		toRet.put(Tags.LIST, new CollectionConverter());
-		toRet.put(Tags.MAP, mapConverter);
+		toRet.put(Xml_IOConstants.LIST_TAG_SUFFIX, new CollectionConverter());
+		toRet.put(Xml_IOConstants.MAP_TAG_SUFFIX, mapConverter);
 		
-		toRet.put(Tags.BYTE_ARRAY, new ByteArrayConverter());
-		toRet.put(Tags.BOOlEAN_ARRAY, new BooleanArrayConverter());
-		toRet.put(Tags.CHAR_ARRAY, new CharArrayConverter());
+		toRet.put(Xml_IOConstants.BYTE_ARRAY_TAG_SUFFIX, new ByteArrayConverter());
+		toRet.put(Xml_IOConstants.BOOlEAN_ARRAY_TAG_SUFFIX, new BooleanArrayConverter());
+		toRet.put(Xml_IOConstants.CHAR_ARRAY_TAG_SUFFIX, new CharArrayConverter());
 		
 		return Collections.unmodifiableMap(toRet);
 	}

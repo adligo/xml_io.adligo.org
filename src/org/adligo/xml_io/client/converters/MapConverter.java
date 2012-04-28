@@ -14,6 +14,7 @@ import org.adligo.models.params.client.TagInfo;
 import org.adligo.xml_io.client.I_Converter;
 import org.adligo.xml_io.client.ObjectFromXml;
 import org.adligo.xml_io.client.Xml_IOReaderContext;
+import org.adligo.xml_io.client.Xml_IOConstants;
 import org.adligo.xml_io.client.Xml_IOWriterContext;
 
 @SuppressWarnings("rawtypes")
@@ -27,7 +28,7 @@ public class MapConverter implements I_Converter<Map>{
 		while (it.hasNext()) {
 			TagAttribute attrib = (TagAttribute) it.next();
 			String key = attrib.getName();
-			if (Tags.NAME_ATTRIBUTE.equals(key)) {
+			if (Xml_IOConstants.N_NAME_ATTRIBUTE.equals(key)) {
 				name = attrib.getValue();
 				break;
 			}
@@ -66,11 +67,11 @@ public class MapConverter implements I_Converter<Map>{
 		I_XMLBuilder builder = context.getBuilder();
 		Set<Entry> entries = p.entrySet();
 		builder.indent();
-		builder.appendTagHeaderStart(Tags.MAP);
+		builder.appendTagHeaderStart(Xml_IOConstants.MAP_TAG_SUFFIX);
 		
 		String nameValue = context.getNextTagNameAttribute();
 		if (nameValue != null) {
-			builder.appendAttribute(Tags.NAME_ATTRIBUTE, nameValue);
+			builder.appendAttribute(Xml_IOConstants.N_NAME_ATTRIBUTE, nameValue);
 			//clear this for child objects
 			context.setNextTagNameAttribute(null);
 		}
@@ -79,7 +80,7 @@ public class MapConverter implements I_Converter<Map>{
 		
 		for (Entry e: entries) {
 			builder.indent();
-			builder.appendTagHeaderStart(Tags.KEY_VALUE);
+			builder.appendTagHeaderStart(Xml_IOConstants.KEY_VALUE_TAG_SUFFIX);
 			builder.appendTagHeaderEnd(true);
 				//indent the key and value 
 				builder.addIndentLevel();
@@ -95,11 +96,11 @@ public class MapConverter implements I_Converter<Map>{
 				builder.removeIndentLevel();
 				
 			builder.indent();	
-			builder.appendEndTag(Tags.KEY_VALUE);
+			builder.appendEndTag(Xml_IOConstants.KEY_VALUE_TAG_SUFFIX);
 		}
 		builder.removeIndentLevel();
 		builder.indent();
-		builder.appendEndTag(Tags.MAP);
+		builder.appendEndTag(Xml_IOConstants.MAP_TAG_SUFFIX);
 	}
 
 }

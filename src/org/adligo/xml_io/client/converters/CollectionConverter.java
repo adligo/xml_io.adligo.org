@@ -11,6 +11,7 @@ import org.adligo.models.params.client.TagInfo;
 import org.adligo.xml_io.client.I_Converter;
 import org.adligo.xml_io.client.ObjectFromXml;
 import org.adligo.xml_io.client.Xml_IOReaderContext;
+import org.adligo.xml_io.client.Xml_IOConstants;
 import org.adligo.xml_io.client.Xml_IOWriterContext;
 
 public class CollectionConverter implements I_Converter<Collection<?>> {
@@ -26,7 +27,7 @@ public class CollectionConverter implements I_Converter<Collection<?>> {
 		while (it.hasNext()) {
 			TagAttribute attrib = (TagAttribute) it.next();
 			String key = attrib.getName();
-			if (Tags.NAME_ATTRIBUTE.equals(key)) {
+			if (Xml_IOConstants.N_NAME_ATTRIBUTE.equals(key)) {
 				name = attrib.getValue();
 				break;
 			}
@@ -60,11 +61,11 @@ public class CollectionConverter implements I_Converter<Collection<?>> {
 		
 		I_XMLBuilder builder = context.getBuilder();
 		builder.indent();
-		builder.appendTagHeaderStart(Tags.LIST);
+		builder.appendTagHeaderStart(Xml_IOConstants.LIST_TAG_SUFFIX);
 		
 		String nameValue = context.getNextTagNameAttribute();
 		if (nameValue != null) {
-			builder.appendAttribute(Tags.NAME_ATTRIBUTE, nameValue);
+			builder.appendAttribute(Xml_IOConstants.N_NAME_ATTRIBUTE, nameValue);
 			//clear this for child objects
 			context.setNextTagNameAttribute(null);
 		}
@@ -78,7 +79,7 @@ public class CollectionConverter implements I_Converter<Collection<?>> {
 		}
 		builder.removeIndentLevel();
 		builder.indent();
-		builder.appendEndTag(Tags.LIST);
+		builder.appendEndTag(Xml_IOConstants.LIST_TAG_SUFFIX);
 	}
 
 

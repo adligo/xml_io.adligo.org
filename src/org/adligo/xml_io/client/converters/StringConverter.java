@@ -7,6 +7,7 @@ import org.adligo.xml_io.client.I_AttributeConverter;
 import org.adligo.xml_io.client.I_Converter;
 import org.adligo.xml_io.client.ObjectFromXml;
 import org.adligo.xml_io.client.Xml_IOReaderContext;
+import org.adligo.xml_io.client.Xml_IOConstants;
 import org.adligo.xml_io.client.Xml_IOWriterContext;
 
 public class StringConverter implements I_Converter<String>, I_AttributeConverter<String> {
@@ -21,7 +22,7 @@ public class StringConverter implements I_Converter<String>, I_AttributeConverte
 	public void toXml(String text, Xml_IOWriterContext context) {
 		I_XMLBuilder builder = context.getBuilder();
 		String escapedText = Parser.escapeForXml(text);
-		builder.appendTagWithTextContent(Tags.STRING, escapedText);
+		builder.appendTagWithTextContent(Xml_IOConstants.STRING_TAG_SUFFIX, escapedText);
 	}
 
 	@Override

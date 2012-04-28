@@ -7,6 +7,7 @@ import org.adligo.xml_io.client.I_AttributeConverter;
 import org.adligo.xml_io.client.I_Converter;
 import org.adligo.xml_io.client.ObjectFromXml;
 import org.adligo.xml_io.client.Xml_IOReaderContext;
+import org.adligo.xml_io.client.Xml_IOConstants;
 import org.adligo.xml_io.client.Xml_IOWriterContext;
 
 public class CharArrayConverter implements I_Converter<char []>, I_AttributeConverter<char[]> {
@@ -23,12 +24,12 @@ public class CharArrayConverter implements I_Converter<char []>, I_AttributeConv
 	public void toXml(char[] p, Xml_IOWriterContext context) {
 		
 		I_XMLBuilder builder = context.getBuilder();
-		builder.appendTagHeaderStart(Tags.CHAR_ARRAY);
+		builder.appendTagHeaderStart(Xml_IOConstants.CHAR_ARRAY_TAG_SUFFIX);
 		builder.appendTagHeaderEnd(false);
 		String chars = new String(p);
 		chars = Parser.escapeForXml(chars);
 		builder.append(chars);
-		builder.appendEndTag(Tags.CHAR_ARRAY);
+		builder.appendEndTag(Xml_IOConstants.CHAR_ARRAY_TAG_SUFFIX);
 	}
 
 	@Override
