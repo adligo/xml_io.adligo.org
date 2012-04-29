@@ -17,6 +17,7 @@ public class Xml_IOWriter {
 		}
 
 		Xml_IOWriterContext context = new Xml_IOWriterContext();
+		settings.setUpConfig();
 		context.setSettings(settings);
 		context.setWriter(this);
 		I_XMLBuilder builder = context.getBuilder();

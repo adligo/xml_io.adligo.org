@@ -8,6 +8,7 @@ import java.util.Set;
 import org.adligo.models.params.client.I_XMLBuilder;
 import org.adligo.models.params.client.XMLBuilder;
 import org.adligo.xml_io.client.converters.ClassMappings;
+import org.adligo.xml_io.client.converters.DefaultNamespaceConverters;
 
 public class Xml_IOWriterContext {
 	public static final String COULD_NOT_FIND_A_CONVERTER_FOR_CLASS = 
@@ -85,7 +86,7 @@ public class Xml_IOWriterContext {
 			toConvert = list;
 		} 
 		I_AttributeConverter<Object> converter = (I_AttributeConverter<Object>) 
-					settings.getToXmlAttributeConverter(clazz);
+					settings.getAttributeConverter(clazz);
 		if (converter == null) {
 			throw new IllegalArgumentException(
 					COULD_NOT_FIND_A_ATTRIBUTE_CONVERTER_FOR_CLASS 
@@ -104,13 +105,13 @@ public class Xml_IOWriterContext {
 		if (!clazz.isArray()) {
 			return false;
 		}
-		if (ClassMappings.BYTE_ARRAY_CLASS.equals(clazz)) {
+		if (DefaultNamespaceConverters.BYTE_ARRAY_CLASS.equals(clazz)) {
 			return false;
 		}
-		if (ClassMappings.BOOLEAN_ARRAY_CLASS.equals(clazz)) {
+		if (DefaultNamespaceConverters.BOOLEAN_ARRAY_CLASS.equals(clazz)) {
 			return false;
 		}
-		if (ClassMappings.CHAR_ARRAY_CLASS.equals(clazz)) {
+		if (DefaultNamespaceConverters.CHAR_ARRAY_CLASS.equals(clazz)) {
 			return false;
 		}
 		return true;
@@ -199,7 +200,7 @@ public class Xml_IOWriterContext {
 	}
 	
 	public String getNamespacePrefix(String namespace) {
-		return settings.getNamespacePrefix(namespace);
+		return settings.getPrefix(namespace);
 	}
 	
 	public void appendDefaultTag(String tagName, String value) {
@@ -228,7 +229,7 @@ public class Xml_IOWriterContext {
 
 	public void appendTagHeaderStart(String namespace, String tagName) {
 		builder.indent();
-		String prefix = settings.getNamespacePrefix(namespace);
+		String prefix = settings.getPrefix(namespace);
 		builder.appendTagHeaderStart(prefix + ":" + tagName);
 	}
 	
@@ -246,7 +247,7 @@ public class Xml_IOWriterContext {
 
 	public void appendEndTag(String namespace, String tagName) {
 		builder.indent();
-		String prefix = settings.getNamespacePrefix(namespace);
+		String prefix = settings.getPrefix(namespace);
 		builder.appendEndTag(prefix + ":" + tagName);
 	}
 }

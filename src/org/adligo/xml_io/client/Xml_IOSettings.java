@@ -1,41 +1,43 @@
 package org.adligo.xml_io.client;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
 import org.adligo.models.params.client.I_XMLBuilder;
 import org.adligo.models.params.client.XMLBuilder;
-import org.adligo.xml_io.client.converters.ClassMappings;
+import org.adligo.xml_io.client.converters.DefaultNamespaceConverters;
+
+import sun.tools.asm.Cover;
 
 public class Xml_IOSettings {
 	private I_XMLBuilder builder = new XMLBuilder();
-	private Map<String, I_Converter<?>> xmlToObjectConverters = 
-		new HashMap<String, I_Converter<?>>();
-	private Map<Class<?>, I_Converter<?>> objectToXmlConverters = 
-		new HashMap<Class<?>, I_Converter<?>>();
-	private Map<Class<?>, I_AttributeConverter<?>> xmlAttributeToObjectConverters = 
-		new HashMap<Class<?>, I_AttributeConverter<?>>();
-	private Map<Class<?>, I_AttributeConverter<?>> objectToXmlAttributeConverters = 
-		new HashMap<Class<?>, I_AttributeConverter<?>>();
+	/**
+	 * note if this is set by a external call,
+	 * it overrides the settings read in from the xml
+	 * so if they differ the parsing and writing of xml will
+	 * probably not work correctly.
+	 */
+	private ConverterConfiguration config;
+	
+
 	/**
 	 * map of namespaces to prefixes for writing of xml 
 	 */
 	private Map<String, String> namespaceMap = new HashMap<String, String>();
+	private List<NamespaceConverters> namespaceConverters = new ArrayList<NamespaceConverters>();
 	private LetterCounter prefixCounter = new LetterCounter();
 	
 	private boolean includeXmlHeader = true;
 	private boolean includeXmlSchemaInfoInFirstTag = true;
 	
 	public Xml_IOSettings() {
-		xmlToObjectConverters.putAll(ClassMappings.DEFAULT_XML_TO_OBJECT_CONVERTERS);
-		objectToXmlConverters.putAll(ClassMappings.DEFAULT_OBJECT_TO_XML_CONVERTERS);
-	
-		xmlAttributeToObjectConverters.putAll(ClassMappings.DEFAULT_XML_ATTRIBUTE_TO_OBJECT_CONVERTERS);
-		objectToXmlAttributeConverters.putAll(ClassMappings.DEFAULT_OBJECT_TO_XML_ATTRIBUTE_CONVERTERS);
 		String prefix = prefixCounter.getNextId();
 		namespaceMap.put(Xml_IOConstants.DEFAULT_NAMESPACE, prefix);
+		namespaceConverters.add(DefaultNamespaceConverters.getDefaultNamespaceConverters());
 	}
 	
 	public I_XMLBuilder getBuilder() {
@@ -46,37 +48,6 @@ public class Xml_IOSettings {
 		this.builder = builder;
 	}
 	
-	public I_Converter<?> getToXmlConverter(Class<?> c) {
-		return objectToXmlConverters.get(c);
-	}
-	
-	public I_Converter<?> getFromXmlConverter(String tag) {
-		return xmlToObjectConverters.get(tag);
-	}
-	
-	public void addToXmlConverters( Map<Class<?>, I_Converter<?>> converters) {
-		objectToXmlConverters.putAll(converters);
-	}
-	
-	public void addFromXmlConverters( Map<String, I_Converter<?>> converters) {
-		xmlToObjectConverters.putAll(converters);
-	}
-	
-	public I_AttributeConverter<?> getToXmlAttributeConverter(Class<?> c) {
-		return xmlAttributeToObjectConverters.get(c);
-	}
-	
-	public I_AttributeConverter<?> getFromXmlAttributeConverter(Class<?> c) {
-		return objectToXmlAttributeConverters.get(c);
-	}
-	
-	public void addToXmlAttributeConverters( Map<Class<?>, I_AttributeConverter<?>> converters) {
-		objectToXmlAttributeConverters.putAll(converters);
-	}
-	
-	public void addFromXmlAttributeConverters( Map<Class<?>, I_AttributeConverter<?>> converters) {
-		xmlAttributeToObjectConverters.putAll(converters);
-	}
 
 	public boolean isIncludeXmlHeader() {
 		return includeXmlHeader;
@@ -99,16 +70,58 @@ public class Xml_IOSettings {
 		return namespaceMap.entrySet();
 	}
 	
-	public String getNamespacePrefix(String namespace) {
-		String toRet = namespaceMap.get(namespace);
-		if (toRet == null) {
-			throw new NullPointerException("No prefix found for namespace '" + namespace + "'");
-		}
-		return toRet;
-	}
-	
 	public void addNamespace(String namespace) {
 		String prefix = prefixCounter.getNextId();
 		namespaceMap.put(namespace, prefix);
+	}
+
+	void addNamespace(String namespace, String prefix) {
+		namespaceMap.put(namespace, prefix);
+	}
+	
+	public ConverterConfiguration getConfig() {
+		return config;
+	}
+
+	public void setConfig(ConverterConfiguration config) {
+		this.config = config;
+	}
+	
+	public void setUpConfig() {
+		if (config == null) {
+			ConverterConfigurationMutant ccm = new ConverterConfigurationMutant();
+			Set<Entry<String,String>> entries = namespaceMap.entrySet();
+			for (Entry<String, String> e: entries) {
+				String namespace = e.getKey();
+				String prefix = e.getValue();
+				ccm.addNamespacePrefix(prefix, namespace);
+			}
+			
+			for (NamespaceConverters converters: namespaceConverters) {
+				ccm.addNamespaceConverters(converters);
+			}
+			
+			config = new ConverterConfiguration(ccm);
+		}
+	}
+
+	public String getPrefix(String namespace) {
+		return config.getPrefix(namespace);
+	}
+
+	public I_Converter<?> getFromXmlConverter(String tag) {
+		return config.getFromXmlConverter(tag);
+	}
+
+	public I_Converter<?> getToXmlConverter(Class<?> clazz) {
+		return config.getToXmlConverter(clazz);
+	}
+
+	public I_AttributeConverter<?> getAttributeConverter(Class<?> clazz) {
+		return config.getAttributeConverter(clazz);
+	}
+	
+	public void addNamespaceConverter(NamespaceConverters converters) {
+		namespaceConverters.add(converters);
 	}
 }
