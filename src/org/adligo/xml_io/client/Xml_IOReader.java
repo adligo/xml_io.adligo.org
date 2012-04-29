@@ -14,12 +14,14 @@ public class Xml_IOReader {
 	}
 	
 	public Object readXml(String xml, Xml_IOSettings settings) {
-		int header = xml.indexOf(Xml_IOConstants.HEADER);
-		if (header != -1) {
-			xml = xml.substring(Xml_IOConstants.HEADER.length(), xml.length() );
-		}
 		TagInfo info = Parser.getNextTagInfo(xml,0);
 		String tagName = info.getTagName();
+		if ("?xml".equals(tagName)) {
+			int start = info.getHeaderEnd() + 1;
+			xml = xml.substring(start, xml.length());
+		}
+		info = Parser.getNextTagInfo(xml,0);
+		tagName = info.getTagName();
 		
 		Xml_IOReaderContext context = new Xml_IOReaderContext();
 		if (settings.getConfig() == null) {
