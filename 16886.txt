@@ -1,0 +1,75 @@
+note this is just a copy from;
+https://www.w3.org/Bugs/Public/show_bug.cgi?id=16886
+
+During some work at auto-generating xml schemas/xml data from Java Class
+structures here;
+http://cvs.adligo.org/viewvc/xml_io/
+http://cvs.adligo.org/viewvc/models_core/
+
+I have come across a problem that I believe can NOT be solved by the current
+xml schema specification.
+In a nutshell if I have a java interface;
+interface I_Name {
+    String getName();
+}
+and two impls
+class MyName {
+    private String name
+    String getName() { return name; }
+}
+class YourName {
+    private String name
+    String getName() { return name; }
+}
+And a class that contains a collection of these ie;
+
+class MyClass {
+  List<I_Name> names = new ArrayList<I_Name>();
+  public void setName(List<I_Name p) {
+      names.clear();
+      names.addAll(p); 
+  }
+}
+
+To represent YourName or MyName I would want to make the xml look like this;
+<yourName name="you" />
+<myName name="me"/>
+
+And for MyClass I would want something like;
+<myClass>
+    <names>
+         <yourName name="you" />
+          <myName name="me"/>
+   </names>
+</myClass>
+
+So the problem is that I have the following choices for schemas sequence
+element;
+element | group | choice | sequence | any
+
+The problem with each is as follows;
+element this like a java Class so you can extend but no multiple inheritance
+group this is like a interface for child elements
+chice this is a list of choices which would work for the two example impls but
+would NOT
+    allow other schemas to plug into my schema (implement my interface)
+sequence (the problem recurses)
+any this is any element (so no restrictions)
+
+I have also looked at substitutionGroups to try to solve this problem, but that
+doesn't seem to work either.
+[reply] [-] Comment 1
+
+
+To fix this I suggest adding the following;
+
+<sequence>
+    <any-in inGroup="ns:someGroup" 
+inAttributeGroup="ns:someAttributeGroupName" />
+</sequence>
+
+The element's type would need to contain the group and attribute group if both
+were present,
+or just the group if present or just the attribute group if present.
+
+This would allow Java-XML to have more of a one to one mapping.
