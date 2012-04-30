@@ -12,7 +12,7 @@ basically mutliple inheritance (interface inheritance is a issue).
 
 Also give all the chicken vs egg problems with java and xml (which one comes first).
 
-I am scoping this project as a java first to xml and back to java project,
+I am scoping this project as a java to xml to java project for internal serialization (storage to disk and network communication) ,
 if you really want a good well typed schema use jaxb, write your schema first
 and then adapt your java objects to it. 
 
