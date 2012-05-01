@@ -84,11 +84,9 @@ public class MapConverter implements I_Converter<Map>{
 				//indent the key and value 
 				builder.addIndentLevel();
 				
-				builder.indent();
 				Object key = e.getKey();
 				context.writeXml(key);
 				
-				builder.indent();
 				Object value = e.getValue();
 				context.writeXml(value);
 				

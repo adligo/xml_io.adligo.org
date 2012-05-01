@@ -74,7 +74,6 @@ public class CollectionConverter implements I_Converter<Collection<?>> {
 		builder.addIndentLevel();
 		
 		for (Object o: p) {
-			builder.indent();
 			context.writeXml(o);
 		}
 		builder.removeIndentLevel();

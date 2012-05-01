@@ -205,6 +205,7 @@ public class Xml_IOWriterContext {
 	
 	public void appendDefaultTag(String tagName, String value) {
 		getDefaultNamespace();
+		builder.indent();
 		builder.appendTagHeaderStart(defaultNamespacePrefix + tagName);
 		appendSchemaInfoToFirstTag();
 		builder.appendTagHeaderEnd(false);
@@ -214,6 +215,7 @@ public class Xml_IOWriterContext {
 	
 	public void appendDefaultTagBase64(String tagName, byte [] value) {
 		getDefaultNamespace();
+		builder.indent();
 		builder.appendTagHeaderStart(defaultNamespacePrefix + tagName);
 		appendSchemaInfoToFirstTag();
 		builder.appendTagHeaderEnd(false);
