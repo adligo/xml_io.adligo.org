@@ -1,6 +1,5 @@
 package org.adligo.xml_io.client.converters;
 
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -13,8 +12,8 @@ import org.adligo.models.params.client.TagAttribute;
 import org.adligo.models.params.client.TagInfo;
 import org.adligo.xml_io.client.I_Converter;
 import org.adligo.xml_io.client.ObjectFromXml;
-import org.adligo.xml_io.client.Xml_IOReaderContext;
 import org.adligo.xml_io.client.Xml_IOConstants;
+import org.adligo.xml_io.client.Xml_IOReaderContext;
 import org.adligo.xml_io.client.Xml_IOWriterContext;
 
 @SuppressWarnings("rawtypes")

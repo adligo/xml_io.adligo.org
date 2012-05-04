@@ -7,7 +7,6 @@ import java.util.Set;
 
 import org.adligo.models.params.client.I_XMLBuilder;
 import org.adligo.models.params.client.XMLBuilder;
-import org.adligo.xml_io.client.converters.ClassMappings;
 import org.adligo.xml_io.client.converters.DefaultNamespaceConverters;
 
 public class Xml_IOWriterContext {
@@ -70,21 +69,13 @@ public class Xml_IOWriterContext {
 		nextTagNameAttribute = null;
 	}
 
-	@SuppressWarnings({ "unchecked", "rawtypes" })
+	@SuppressWarnings({ "unchecked"})
 	public void writeXmlAttribute(String name, Object p) {
 		if (p == null) {
 			return;
 		}
 		Class<?> clazz = p.getClass();
-		Object toConvert = p;
 		
-		if (isArrayWithOutConverter(clazz)) {
-			Object [] objs =  toObjectArray(p, clazz);
-			ArrayList list = new ArrayList();
-			clazz = list.getClass();
-			Collections.addAll(list, objs);
-			toConvert = list;
-		} 
 		I_AttributeConverter<Object> converter = (I_AttributeConverter<Object>) 
 					settings.getAttributeConverter(clazz);
 		if (converter == null) {

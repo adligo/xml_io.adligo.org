@@ -1,26 +1,7 @@
 package org.adligo.xml_io.client;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import org.adligo.models.params.client.Parser;
 import org.adligo.models.params.client.TagInfo;
-import org.adligo.xml_io.client.converters.BigDecimalConverter;
-import org.adligo.xml_io.client.converters.BigIntegerConverter;
-import org.adligo.xml_io.client.converters.BooleanArrayConverter;
-import org.adligo.xml_io.client.converters.BooleanConverter;
-import org.adligo.xml_io.client.converters.ByteArrayConverter;
-import org.adligo.xml_io.client.converters.ByteConverter;
-import org.adligo.xml_io.client.converters.CharArrayConverter;
-import org.adligo.xml_io.client.converters.CharacterConverter;
-import org.adligo.xml_io.client.converters.CollectionConverter;
-import org.adligo.xml_io.client.converters.DoubleConverter;
-import org.adligo.xml_io.client.converters.FloatConverter;
-import org.adligo.xml_io.client.converters.IntegerConverter;
-import org.adligo.xml_io.client.converters.LongConverter;
-import org.adligo.xml_io.client.converters.MapConverter;
-import org.adligo.xml_io.client.converters.ShortConverter;
-import org.adligo.xml_io.client.converters.StringConverter;
 
 
 public class Xml_IOReaderContext {

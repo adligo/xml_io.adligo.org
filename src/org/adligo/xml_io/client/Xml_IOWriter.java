@@ -1,7 +1,5 @@
 package org.adligo.xml_io.client;
 
-import java.io.UnsupportedEncodingException;
-
 import org.adligo.models.params.client.I_XMLBuilder;
 
 public class Xml_IOWriter {

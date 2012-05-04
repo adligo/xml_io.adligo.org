@@ -1,6 +1,5 @@
 package org.adligo.xml_io.client;
 
-import org.adligo.models.params.client.I_XMLBuilder;
 import org.adligo.models.params.client.TagInfo;
 
 public interface I_Converter<T> {

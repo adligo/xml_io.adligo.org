@@ -6,8 +6,8 @@ import org.adligo.models.params.client.TagInfo;
 import org.adligo.xml_io.client.I_AttributeConverter;
 import org.adligo.xml_io.client.I_Converter;
 import org.adligo.xml_io.client.ObjectFromXml;
-import org.adligo.xml_io.client.Xml_IOReaderContext;
 import org.adligo.xml_io.client.Xml_IOConstants;
+import org.adligo.xml_io.client.Xml_IOReaderContext;
 import org.adligo.xml_io.client.Xml_IOWriterContext;
 
 public class BooleanConverter implements I_Converter<Boolean>, I_AttributeConverter<Boolean> {
@@ -23,7 +23,6 @@ public class BooleanConverter implements I_Converter<Boolean>, I_AttributeConver
 
 	@Override
 	public void toXml(Boolean p, Xml_IOWriterContext context) {
-		I_XMLBuilder builder = context.getBuilder();
 		if (p) {
 			context.appendDefaultTag(Xml_IOConstants.BOOLEAN_TAG_SUFFIX, "t");
 		} else {

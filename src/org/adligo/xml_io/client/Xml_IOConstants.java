@@ -1,6 +1,5 @@
 package org.adligo.xml_io.client;
 
-import java.io.UnsupportedEncodingException;
 
 public class Xml_IOConstants {
 	public static final String HEADER = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>";

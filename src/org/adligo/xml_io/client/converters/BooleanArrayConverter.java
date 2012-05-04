@@ -1,7 +1,5 @@
 package org.adligo.xml_io.client.converters;
 
-import java.math.BigInteger;
-
 import org.adligo.i.util.client.AppenderFactory;
 import org.adligo.i.util.client.I_Appender;
 import org.adligo.models.params.client.I_XMLBuilder;
@@ -10,8 +8,8 @@ import org.adligo.models.params.client.TagInfo;
 import org.adligo.xml_io.client.I_AttributeConverter;
 import org.adligo.xml_io.client.I_Converter;
 import org.adligo.xml_io.client.ObjectFromXml;
-import org.adligo.xml_io.client.Xml_IOReaderContext;
 import org.adligo.xml_io.client.Xml_IOConstants;
+import org.adligo.xml_io.client.Xml_IOReaderContext;
 import org.adligo.xml_io.client.Xml_IOWriterContext;
 
 public class BooleanArrayConverter implements I_Converter<boolean []>, I_AttributeConverter<boolean[]> {

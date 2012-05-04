@@ -1,6 +1,5 @@
 package org.adligo.xml_io.client.converters;
 
-import java.math.BigDecimal;
 import java.math.BigInteger;
 
 import org.adligo.models.params.client.I_XMLBuilder;
@@ -9,8 +8,8 @@ import org.adligo.models.params.client.TagInfo;
 import org.adligo.xml_io.client.I_AttributeConverter;
 import org.adligo.xml_io.client.I_Converter;
 import org.adligo.xml_io.client.ObjectFromXml;
-import org.adligo.xml_io.client.Xml_IOReaderContext;
 import org.adligo.xml_io.client.Xml_IOConstants;
+import org.adligo.xml_io.client.Xml_IOReaderContext;
 import org.adligo.xml_io.client.Xml_IOWriterContext;
 
 public class BigIntegerConverter implements I_Converter<BigInteger>, I_AttributeConverter<BigInteger> {

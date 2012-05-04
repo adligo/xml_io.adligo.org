@@ -11,8 +11,6 @@ import org.adligo.models.params.client.I_XMLBuilder;
 import org.adligo.models.params.client.XMLBuilder;
 import org.adligo.xml_io.client.converters.DefaultNamespaceConverters;
 
-import sun.tools.asm.Cover;
-
 public class Xml_IOSettings {
 	private I_XMLBuilder builder = new XMLBuilder();
 	/**
