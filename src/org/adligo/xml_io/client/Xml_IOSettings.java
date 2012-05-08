@@ -120,6 +120,8 @@ public class Xml_IOSettings {
 	}
 	
 	public void addNamespaceConverter(NamespaceConverters converters) {
+		String namespace = converters.getNamespace();
+		addNamespace(namespace);
 		namespaceConverters.add(converters);
 	}
 }

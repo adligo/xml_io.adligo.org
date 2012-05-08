@@ -13,6 +13,7 @@ public class ConverterConfigurationMutant implements I_ConverterConfiguration {
 	 */
 	private Map<String, String> namespaceToPrefix = new HashMap<String, String>();
 	
+	
 	/**
 	 * the xml tag with the namespace prefix ie a:i
 	 * to the converter for reading in xml.
