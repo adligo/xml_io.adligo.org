@@ -2,19 +2,8 @@ package org.adligo.xml_io.client.converters;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
-import java.util.ArrayList;
-import java.util.EnumSet;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.IdentityHashMap;
-import java.util.LinkedHashMap;
-import java.util.LinkedHashSet;
-import java.util.LinkedList;
-import java.util.PriorityQueue;
-import java.util.Stack;
-import java.util.TreeMap;
-import java.util.TreeSet;
-import java.util.Vector;
+import java.util.Collection;
+import java.util.Map;
 
 import org.adligo.xml_io.client.NamespaceConverters;
 import org.adligo.xml_io.client.Xml_IOConstants;
@@ -31,8 +20,6 @@ public class DefaultNamespaceConverters {
 		
 		MapConverter mapConverter = new MapConverter();
 		CollectionConverter collectionConverter = new CollectionConverter();
-		converters.addObjectToXmlConverter(
-				ArrayList.class, collectionConverter);
 		
 		converters.addObjectToXmlConverter(Boolean.class, new BooleanConverter());
 		converters.addObjectToXmlConverter(Byte.class, new ByteConverter());
@@ -41,35 +28,20 @@ public class DefaultNamespaceConverters {
 		converters.addObjectToXmlConverter(Double.class, new DoubleConverter());
 		converters.addObjectToXmlConverter(BigDecimal.class, new BigDecimalConverter());
 		
-		//converters.addObjectToXmlConverter(MAP, EnumMap.class);
-		converters.addObjectToXmlConverter(EnumSet.class, collectionConverter);
-		
 		converters.addObjectToXmlConverter(Float.class, new FloatConverter());
 
-		converters.addObjectToXmlConverter(HashMap.class, mapConverter);
-		converters.addObjectToXmlConverter(HashSet.class, collectionConverter);
+		converters.addObjectToXmlConverter(Map.class, mapConverter);
+		converters.addObjectToXmlConverter(Collection.class, collectionConverter);
 		
 		converters.addObjectToXmlConverter(Integer.class, new IntegerConverter());
 		converters.addObjectToXmlConverter(BigInteger.class, new BigIntegerConverter());
 		
-		converters.addObjectToXmlConverter(IdentityHashMap.class, mapConverter);
-		converters.addObjectToXmlConverter(LinkedHashMap.class, mapConverter);
-		
-		converters.addObjectToXmlConverter(LinkedHashSet.class, collectionConverter);
-		converters.addObjectToXmlConverter(LinkedList.class, collectionConverter);
-		
 		converters.addObjectToXmlConverter(Long.class, new LongConverter());
-		converters.addObjectToXmlConverter(ArrayList.class, collectionConverter);
 		
-		converters.addObjectToXmlConverter(Stack.class, collectionConverter);
-		converters.addObjectToXmlConverter(PriorityQueue.class, collectionConverter);
 		
 		converters.addObjectToXmlConverter(Short.class, new ShortConverter());
 		converters.addObjectToXmlConverter(String.class, new StringConverter());
-		
-		converters.addObjectToXmlConverter(TreeSet.class, collectionConverter);
-		converters.addObjectToXmlConverter(TreeMap.class, mapConverter);
-		converters.addObjectToXmlConverter(Vector.class, collectionConverter);
+
 		
 		converters.addObjectToXmlConverter(BYTE_ARRAY_CLASS, new ByteArrayConverter());
 		converters.addObjectToXmlConverter(BOOLEAN_ARRAY_CLASS, new BooleanArrayConverter());

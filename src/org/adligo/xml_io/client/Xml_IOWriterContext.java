@@ -1,7 +1,9 @@
 package org.adligo.xml_io.client;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
+import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
@@ -55,10 +57,14 @@ public class Xml_IOWriterContext {
 		if (isArrayWithOutConverter(clazz)) {
 			Object [] objs =  toObjectArray(p, clazz);
 			ArrayList list = new ArrayList();
-			clazz = list.getClass();
+			clazz = Collection.class;
 			Collections.addAll(list, objs);
 			toConvert = list;
-		} 
+		} else if (Collection.class.isAssignableFrom(clazz)) {
+			clazz = Collection.class;
+		} else if (Map.class.isAssignableFrom(clazz)) {
+			clazz = Map.class;
+		}
 		I_Converter<Object> converter = (I_Converter<Object>) 
 					settings.getToXmlConverter(clazz);
 		if (converter == null) {
