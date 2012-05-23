@@ -12,6 +12,10 @@ public class Xml_IOReaderContext {
 	
 	private Xml_IOReader reader;
 	private Xml_IOSettings settings;
+	/**
+	 * if we are in the namespace tag
+	 */
+	private boolean namespaceTag = true;
 	
 	public Xml_IOReader getReader() {
 		return reader;
@@ -50,4 +54,11 @@ public class Xml_IOReaderContext {
 		return converter.fromXmlAttribute(unescapedAttributeValue, this);
 	}
 	
+	public void noLongerInNamespaceTag() {
+		namespaceTag = false;
+	}
+	
+	public boolean inNamespaceTag() {
+		return namespaceTag;
+	}
 }

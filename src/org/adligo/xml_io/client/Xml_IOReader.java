@@ -21,9 +21,13 @@ public class Xml_IOReader {
 			xml = xml.substring(start, xml.length());
 		}
 		info = Parser.getNextTagInfo(xml,0);
-		tagName = info.getTagName();
+		
 		
 		Xml_IOReaderContext context = new Xml_IOReaderContext();
+		xml = dealWithNamesapce(xml, info, settings);
+		info = Parser.getNextTagInfo(xml, 0);
+		tagName = info.getTagName();
+		
 		if (settings.getConfig() == null) {
 			setUpConfig(xml, settings, info);
 		}
@@ -38,6 +42,41 @@ public class Xml_IOReader {
 		
 		ObjectFromXml<?> result = converter.fromXml(xml, info, context);
 		return result.getValue();
+	}
+
+	private String dealWithNamesapce(String xml, TagInfo info, Xml_IOSettings settings) {
+		StringBuilder sb = new StringBuilder();
+		I_Iterator it =  Parser.getAttributes(info, xml);
+		int headerStart = info.getHeaderStart();
+		String beforeTag = xml.substring(0, headerStart);
+		sb.append(beforeTag);
+		String tagName = info.getTagName();
+		sb.append("<");
+		sb.append(tagName);
+		while (it.hasNext()) {
+			TagAttribute ta = (TagAttribute) it.next();
+			String name = ta.getName();
+			if (name.toUpperCase().contains("XMLNS")) {
+				//TODO deal with namespace, in settings by mutating settings?
+			} else {
+				sb.append(" ");
+				sb.append(name);
+				sb.append("\"");
+				String val = ta.getValue();
+				sb.append(val);
+				sb.append("\"");
+			}
+		}
+		if (!info.hasEnder()) {
+			sb.append("/>");
+		} else {
+			int ender = info.getHeaderEnd();
+			String theRest = xml.substring(ender, xml.length());
+			sb.append(theRest);
+		}
+		
+		
+		return sb.toString();
 	}
 
 	private void setUpConfig(String xml, Xml_IOSettings settings, TagInfo info) {
