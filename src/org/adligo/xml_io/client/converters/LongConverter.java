@@ -1,5 +1,9 @@
 package org.adligo.xml_io.client.converters;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+import org.adligo.i.util.client.DateTime;
 import org.adligo.models.params.client.I_XMLBuilder;
 import org.adligo.models.params.client.Parser;
 import org.adligo.models.params.client.TagInfo;
@@ -26,8 +30,20 @@ public class LongConverter implements I_Converter<Long>, I_AttributeConverter<Lo
 	@Override
 	public Long fromXmlAttribute(String attributeValue,
 			Xml_IOReaderContext context) {
-		
-		return Long.valueOf(attributeValue);
+		//as a nicety parse dates into longs using the default DateTime format
+		NumberFormatException caught = null;
+		Long toRet = null;
+		try {
+			toRet = Long.valueOf(attributeValue);
+		} catch (NumberFormatException nfe) {
+			caught = nfe;
+			DateTime dt = new DateTime(attributeValue);
+			toRet = dt.getTime();
+		}
+		if (toRet == null) {
+			throw caught;
+		}
+		return toRet;
 	}
 
 	@Override
