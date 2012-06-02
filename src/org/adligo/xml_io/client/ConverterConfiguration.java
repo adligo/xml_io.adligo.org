@@ -1,5 +1,7 @@
 package org.adligo.xml_io.client;
 
+import java.util.Map;
+
 public class ConverterConfiguration implements I_ConverterConfiguration {
 	private ConverterConfigurationMutant mutant;
 	
@@ -23,6 +25,10 @@ public class ConverterConfiguration implements I_ConverterConfiguration {
 
 	public I_AttributeConverter<?> getAttributeConverter(Class<?> clazz) {
 		return mutant.getAttributeConverter(clazz);
+	}
+
+	public Map<String, String> getNamespaceToPrefix() {
+		return mutant.getNamespaceToPrefix();
 	}
 	
 }

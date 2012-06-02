@@ -25,7 +25,7 @@ public class Xml_IOSettings {
 	/**
 	 * map of namespaces to prefixes for writing of xml 
 	 */
-	private Map<String, String> namespaceMap = new HashMap<String, String>();
+	private Map<String, String> _namespaceToPrefix = new HashMap<String, String>();
 	private List<NamespaceConverters> namespaceConverters = new ArrayList<NamespaceConverters>();
 	private LetterCounter prefixCounter = new LetterCounter();
 	
@@ -34,7 +34,7 @@ public class Xml_IOSettings {
 	
 	public Xml_IOSettings() {
 		String prefix = prefixCounter.getNextId();
-		namespaceMap.put(Xml_IOConstants.DEFAULT_NAMESPACE, prefix);
+		_namespaceToPrefix.put(Xml_IOConstants.DEFAULT_NAMESPACE, prefix);
 		namespaceConverters.add(DefaultNamespaceConverters.getDefaultNamespaceConverters());
 	}
 	
@@ -65,16 +65,16 @@ public class Xml_IOSettings {
 	}
 	
 	public Set<Entry<String, String>> getNamespaceEntries() {
-		return namespaceMap.entrySet();
+		return _namespaceToPrefix.entrySet();
 	}
 	
 	public void addNamespace(String namespace) {
 		String prefix = prefixCounter.getNextId();
-		namespaceMap.put(namespace, prefix);
+		_namespaceToPrefix.put(namespace, prefix);
 	}
 
 	void addNamespace(String namespace, String prefix) {
-		namespaceMap.put(namespace, prefix);
+		_namespaceToPrefix.put(namespace, prefix);
 	}
 	
 	public ConverterConfiguration getConfig() {
@@ -83,12 +83,19 @@ public class Xml_IOSettings {
 
 	public void setConfig(ConverterConfiguration config) {
 		this.config = config;
+		Map<String,String> namespaceToPrefix = config.getNamespaceToPrefix();
+		Set<Entry<String,String>> entries = namespaceToPrefix.entrySet();
+		for (Entry<String,String> ent: entries) {
+			String namespace = ent.getKey();
+			String prefix = ent.getValue();
+			_namespaceToPrefix.put(namespace, prefix);
+		}
 	}
 	
 	public void setUpConfig() {
 		if (config == null) {
 			ConverterConfigurationMutant ccm = new ConverterConfigurationMutant();
-			Set<Entry<String,String>> entries = namespaceMap.entrySet();
+			Set<Entry<String,String>> entries = _namespaceToPrefix.entrySet();
 			for (Entry<String, String> e: entries) {
 				String namespace = e.getKey();
 				String prefix = e.getValue();

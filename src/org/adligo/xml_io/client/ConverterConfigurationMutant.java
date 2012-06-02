@@ -1,5 +1,6 @@
 package org.adligo.xml_io.client;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -12,7 +13,7 @@ public class ConverterConfigurationMutant implements I_ConverterConfiguration {
 	 * the map of namespaces to prefixes
 	 */
 	private Map<String, String> namespaceToPrefix = new HashMap<String, String>();
-	
+	private LetterCounter lc = new LetterCounter();
 	
 	/**
 	 * the xml tag with the namespace prefix ie a:i
@@ -82,7 +83,11 @@ public class ConverterConfigurationMutant implements I_ConverterConfiguration {
 	
 	public void addNamespaceConverters(NamespaceConverters nc) {
 		String namespace = nc.getNamespace();
-		String prefix = getPrefix(namespace);
+		String prefix = namespaceToPrefix.get(namespace);
+		if (prefix == null) {
+			prefix = lc.getNextId();
+			namespaceToPrefix.put(namespace, prefix);
+		}
 		
 		Set<Entry<String, I_Converter<?>>> converters =  nc.getXmlToObjectConverters();
 		for (Entry<String, I_Converter<?>> e: converters) {
@@ -104,5 +109,9 @@ public class ConverterConfigurationMutant implements I_ConverterConfiguration {
 			I_Converter<?> con = e.getValue();
 			objectToXmlConverters.put(clazz, con);
 		}
+	}
+
+	public Map<String, String> getNamespaceToPrefix() {
+		return Collections.unmodifiableMap(namespaceToPrefix);
 	}
 }
