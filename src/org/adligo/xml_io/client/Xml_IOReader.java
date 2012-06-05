@@ -14,6 +14,7 @@ public class Xml_IOReader {
 	}
 	
 	public Object readXml(String xml, Xml_IOSettings settings) {
+		xml = Parser.stripComments(xml);
 		TagInfo info = Parser.getNextTagInfo(xml,0);
 		String tagName = info.getTagName();
 		if ("?xml".equals(tagName)) {
