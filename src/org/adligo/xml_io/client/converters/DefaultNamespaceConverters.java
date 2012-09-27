@@ -26,23 +26,29 @@ public class DefaultNamespaceConverters {
 		converters.addObjectToXmlConverter(Boolean.class, new BooleanConverter());
 		converters.addObjectToXmlConverter(boolean.class, new BooleanConverter());
 		converters.addObjectToXmlConverter(Byte.class, new ByteConverter());
+		converters.addObjectToXmlConverter(byte.class, new ByteConverter());
 		
 		converters.addObjectToXmlConverter(Character.class, new CharacterConverter());
+		converters.addObjectToXmlConverter(char.class, new CharacterConverter());
 		converters.addObjectToXmlConverter(Double.class, new DoubleConverter());
+		converters.addObjectToXmlConverter(double.class, new DoubleConverter());
 		converters.addObjectToXmlConverter(BigDecimal.class, new BigDecimalConverter());
 		
 		converters.addObjectToXmlConverter(Float.class, new FloatConverter());
-
+		converters.addObjectToXmlConverter(float.class, new FloatConverter());
+		
 		converters.addObjectToXmlConverter(Map.class, mapConverter);
 		converters.addObjectToXmlConverter(Collection.class, collectionConverter);
 		
 		converters.addObjectToXmlConverter(Integer.class, new IntegerConverter());
+		converters.addObjectToXmlConverter(int.class, new IntegerConverter());
 		converters.addObjectToXmlConverter(BigInteger.class, new BigIntegerConverter());
 		
 		converters.addObjectToXmlConverter(Long.class, new LongConverter());
-		
+		converters.addObjectToXmlConverter(long.class, new LongConverter());
 		
 		converters.addObjectToXmlConverter(Short.class, new ShortConverter());
+		converters.addObjectToXmlConverter(short.class, new ShortConverter());
 		converters.addObjectToXmlConverter(String.class, new StringConverter());
 
 		
@@ -107,27 +113,40 @@ public class DefaultNamespaceConverters {
 				boolean.class, new BooleanConverter());
 		converters.addXmlAttributeToObjectConverter(
 				Byte.class, new ByteConverter());
+		converters.addXmlAttributeToObjectConverter(
+				byte.class, new ByteConverter());
 		
 		converters.addXmlAttributeToObjectConverter(
 				Character.class, new CharacterConverter());
 		converters.addXmlAttributeToObjectConverter(
+				char.class, new CharacterConverter());
+		converters.addXmlAttributeToObjectConverter(
 				Double.class, new DoubleConverter());
+		converters.addXmlAttributeToObjectConverter(
+				double.class, new DoubleConverter());
 		converters.addXmlAttributeToObjectConverter(
 				BigDecimal.class, new BigDecimalConverter());
 		
 		converters.addXmlAttributeToObjectConverter(
 				Float.class, new FloatConverter());
-
+		converters.addXmlAttributeToObjectConverter(
+				float.class, new FloatConverter());
+		
 		converters.addXmlAttributeToObjectConverter(
 				Integer.class, new IntegerConverter());
+		converters.addXmlAttributeToObjectConverter(
+				int.class, new IntegerConverter());
 		converters.addXmlAttributeToObjectConverter(
 				BigInteger.class, new BigIntegerConverter());
 		
 		converters.addXmlAttributeToObjectConverter(
 				Long.class, new LongConverter());
-		
+		converters.addXmlAttributeToObjectConverter(
+				long.class, new LongConverter());
 		converters.addXmlAttributeToObjectConverter(
 				Short.class, new ShortConverter());
+		converters.addXmlAttributeToObjectConverter(
+				short.class, new ShortConverter());
 		converters.addXmlAttributeToObjectConverter(
 				String.class, new StringConverter());
 		
