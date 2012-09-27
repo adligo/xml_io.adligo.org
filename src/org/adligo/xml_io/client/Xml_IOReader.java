@@ -25,7 +25,7 @@ public class Xml_IOReader {
 		
 		
 		Xml_IOReaderContext context = new Xml_IOReaderContext();
-		xml = dealWithNamesapce(xml, info, context);
+		xml = dealWithNamesapce(xml, info, context, settings);
 		info = Parser.getNextTagInfo(xml, 0);
 		tagName = info.getTagName();
 		
@@ -44,7 +44,7 @@ public class Xml_IOReader {
 		return result.getValue();
 	}
 
-	private String dealWithNamesapce(String xml, TagInfo info, Xml_IOReaderContext ctx) {
+	private String dealWithNamesapce(String xml, TagInfo info, Xml_IOReaderContext ctx, I_Xml_IOSettings settings) {
 		StringBuilder sb = new StringBuilder();
 		I_Iterator it =  Parser.getAttributes(info, xml);
 		int headerStart = info.getHeaderStart();
@@ -56,18 +56,23 @@ public class Xml_IOReader {
 		while (it.hasNext()) {
 			TagAttribute ta = (TagAttribute) it.next();
 			String name = ta.getName();
-			if (name.toUpperCase().contains("XMLNS")) {
-				String ns = ta.getValue();
-				
-				String prefix = "";
-				int colon = name.indexOf(":");
-				if (colon != -1) {
-					if (colon + 1 <= name.length()) {
-						prefix = name.substring(colon + 1, name.length());
+			boolean nsTag = false;
+			if (!settings.isIgnoreFileNamespace()) {
+				if (name.toUpperCase().contains("XMLNS")) {
+					nsTag = true;
+					String ns = ta.getValue();
+					
+					String prefix = "";
+					int colon = name.indexOf(":");
+					if (colon != -1) {
+						if (colon + 1 <= name.length()) {
+							prefix = name.substring(colon + 1, name.length());
+						}
 					}
+					ctx.addNamespace(prefix, ns);
 				}
-				ctx.addNamespace(prefix, ns);
-			} else {
+			}
+			if (!nsTag) {
 				sb.append(" ");
 				sb.append(name);
 				sb.append("\"");
