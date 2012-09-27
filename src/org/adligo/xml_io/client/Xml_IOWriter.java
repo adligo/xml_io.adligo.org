@@ -6,7 +6,9 @@ public class Xml_IOWriter {
 
 	
 	public String writeXml( Object p) {
-		return writeXml(p, new Xml_IOSettingsMutant());
+		Xml_IOSettingsMutant set = new Xml_IOSettingsMutant();
+		set.setConfig(new NamespacePrefixConfig());
+		return writeXml(p, set);
 	}
 	
 	public String writeXml(Object p, I_Xml_IOSettings settings) {

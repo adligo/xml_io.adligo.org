@@ -9,8 +9,10 @@ import org.adligo.models.params.client.TagInfo;
 public class Xml_IOReader {
 
 
-	public Object readXml(String xml) {
-		return readXml(xml, new Xml_IOSettingsMutant());
+	public Object readXml(String p) {
+		Xml_IOSettingsMutant set = new Xml_IOSettingsMutant();
+		set.setConfig(new NamespacePrefixConfig());
+		return readXml(p, set);
 	}
 	
 	public Object readXml(String xml, Xml_IOSettingsMutant settings) {
