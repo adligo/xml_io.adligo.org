@@ -10,10 +10,10 @@ public class Xml_IOReader {
 
 
 	public Object readXml(String xml) {
-		return readXml(xml, new Xml_IOSettings());
+		return readXml(xml, new Xml_IOSettingsMutant());
 	}
 	
-	public Object readXml(String xml, Xml_IOSettings settings) {
+	public Object readXml(String xml, Xml_IOSettingsMutant settings) {
 		xml = Parser.stripComments(xml);
 		TagInfo info = Parser.getNextTagInfo(xml,0);
 		String tagName = info.getTagName();
@@ -29,9 +29,6 @@ public class Xml_IOReader {
 		info = Parser.getNextTagInfo(xml, 0);
 		tagName = info.getTagName();
 		
-		if (settings.getConfig() == null) {
-			setUpConfig(xml, settings, info);
-		}
 		context.setSettings(settings);
 		
 		Xml_IOTagContext tagCtx = context.getTagContext(tagName);
@@ -91,24 +88,6 @@ public class Xml_IOReader {
 		return sb.toString();
 	}
 
-	private void setUpConfig(String xml, Xml_IOSettings settings, TagInfo info) {
-		I_Iterator tagsIt = Parser.getAttributes(info, xml);
-		while (tagsIt.hasNext()) {
-			TagAttribute attribute = (TagAttribute) tagsIt.next();
-			String name = attribute.getName();
-			int index = name.indexOf(Xml_IOConstants.XMLNS_ATTRIBUTE);
-			if (index != -1) {
-				int start = index + Xml_IOConstants.XMLNS_ATTRIBUTE.length() + 1;
-				if (start < name.length()) {
-					String prefix = name.substring(start, name.length());
-					String namespace = attribute.getValue();
-					settings.addNamespace(namespace, prefix);
-				}
-			}
-			
-		}
-		settings.setUpConfig();
-	}
 
 	
 }

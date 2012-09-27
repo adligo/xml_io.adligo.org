@@ -5,7 +5,7 @@ import java.math.BigInteger;
 import java.util.Collection;
 import java.util.Map;
 
-import org.adligo.xml_io.client.NamespaceConverters;
+import org.adligo.xml_io.client.NamespaceConvertersMutant;
 import org.adligo.xml_io.client.Xml_IOConstants;
 
 public class DefaultNamespaceConverters {
@@ -14,9 +14,10 @@ public class DefaultNamespaceConverters {
 	public static final Class<?> CHAR_ARRAY_CLASS = (new char[] {}).getClass();
 	
 	
-	public static NamespaceConverters getDefaultNamespaceConverters() {
-		NamespaceConverters converters = new NamespaceConverters();
+	public static NamespaceConvertersMutant getDefaultNamespaceConverters() {
+		NamespaceConvertersMutant converters = new NamespaceConvertersMutant();
 		converters.setNamespace(Xml_IOConstants.DEFAULT_NAMESPACE);
+		converters.setPackageName(Xml_IOConstants.DEFAULT_PACKAGE);
 		
 		MapConverter mapConverter = new MapConverter();
 		CollectionConverter collectionConverter = new CollectionConverter();
@@ -54,7 +55,7 @@ public class DefaultNamespaceConverters {
 		return converters;
 	}
 
-	private static void addNodeConverters(NamespaceConverters converters) {
+	private static void addNodeConverters(NamespaceConvertersMutant converters) {
 		MapConverter mapConverter = new MapConverter();
 		converters.addXmlToObjectConverter(
 				Xml_IOConstants.BOOLEAN_TAG_SUFFIX, new BooleanConverter());
@@ -97,7 +98,7 @@ public class DefaultNamespaceConverters {
 				Xml_IOConstants.CHAR_ARRAY_TAG_SUFFIX, new CharArrayConverter());
 	}
 
-	private static void addAttributeConverters(NamespaceConverters converters) {
+	private static void addAttributeConverters(NamespaceConvertersMutant converters) {
 		converters.addXmlAttributeToObjectConverter(
 				Boolean.class, new BooleanConverter());
 		converters.addXmlAttributeToObjectConverter(

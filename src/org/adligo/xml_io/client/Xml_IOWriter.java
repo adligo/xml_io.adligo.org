@@ -6,16 +6,15 @@ public class Xml_IOWriter {
 
 	
 	public String writeXml( Object p) {
-		return writeXml(p, new Xml_IOSettings());
+		return writeXml(p, new Xml_IOSettingsMutant());
 	}
 	
-	public String writeXml(Object p, Xml_IOSettings settings) {
+	public String writeXml(Object p, I_Xml_IOSettings settings) {
 		if (p == null) {
 			return "";
 		}
 
 		Xml_IOWriterContext context = new Xml_IOWriterContext();
-		settings.setUpConfig();
 		context.setSettings(settings);
 		context.setWriter(this);
 		I_XMLBuilder builder = context.getBuilder();

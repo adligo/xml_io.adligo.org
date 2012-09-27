@@ -1,57 +1,47 @@
 package org.adligo.xml_io.client;
 
-import java.util.HashMap;
 import java.util.Map;
-import java.util.Map.Entry;
-import java.util.Set;
 
-public class NamespaceConverters {
-	private String namespace;
-	/**
-	 * the tag with out a namespace prefix ie i in <i> to the converter
-	 */
-	private Map<String, I_Converter<?>> xmlToObjectConverters = 
-		new HashMap<String, I_Converter<?>>();
-	/**
-	 * the attribute class to its converter for reading or writing 
-	 * xml attributes.
-	 */
-	private Map<Class<?>, I_AttributeConverter<?>> attributeConverters = 
-		new HashMap<Class<?>, I_AttributeConverter<?>>();
-	/**
-	 * the class to the converter for writing xml.
-	 */
-	private Map<Class<?>, I_Converter<?>> objectToXmlConverters = 
-		new HashMap<Class<?>, I_Converter<?>>();
+public class NamespaceConverters implements I_NamespaceConverters {
+	private NamespaceConvertersMutant mutant;
+	
+	public NamespaceConverters() {
+		mutant = new NamespaceConvertersMutant();
+	}
+	
+	public NamespaceConverters(I_NamespaceConverters p) {
+		mutant = new NamespaceConvertersMutant(p);
+	}
 
 	public String getNamespace() {
-		return namespace;
+		return mutant.getNamespace();
 	}
-	public void setNamespace(String namespace) {
-		this.namespace = namespace;
+
+	public Map<String, I_Converter<?>> getXmlToObjectConverters() {
+		return mutant.getXmlToObjectConverters();
 	}
-	
-	public Set<Entry<String, I_Converter<?>>> getXmlToObjectConverters() {
-		return xmlToObjectConverters.entrySet();
+
+	public I_Converter<?> getXmlToObjectConverter(String tagName) {
+		return mutant.getXmlToObjectConverter(tagName);
 	}
-	
-	public Set<Entry<Class<?>, I_AttributeConverter<?>>> getAttributeConverters() {
-		return attributeConverters.entrySet();
+
+	public Map<Class<?>, I_AttributeConverter<?>> getAttributeConverters() {
+		return mutant.getAttributeConverters();
 	}
-	
-	public Set<Entry<Class<?>, I_Converter<?>>> getObjectToXmlConverters() {
-		return objectToXmlConverters.entrySet();
+
+	public I_AttributeConverter<?> getAttributeConverter(Class<?> clazz) {
+		return mutant.getAttributeConverter(clazz);
 	}
-	
-	public void addXmlToObjectConverter(String p, I_Converter<?> c) {
-		xmlToObjectConverters.put(p, c);
+
+	public Map<Class<?>, I_Converter<?>> getObjectToXmlConverters() {
+		return mutant.getObjectToXmlConverters();
 	}
-	
-	public void addXmlAttributeToObjectConverter(Class<?> c, I_AttributeConverter<?> ac) {
-		attributeConverters.put(c, ac);
+
+	public I_Converter<?> getObjectToXmlConverter(Class<?> c) {
+		return mutant.getObjectToXmlConverter(c);
 	}
-	
-	public void addObjectToXmlConverter(Class<?> c, I_Converter<?> v) {
-		objectToXmlConverters.put(c, v);
+
+	public String getPackageName() {
+		return mutant.getPackageName();
 	}
 }

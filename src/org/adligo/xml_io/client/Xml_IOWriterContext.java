@@ -19,7 +19,7 @@ public class Xml_IOWriterContext {
 	
 	private Xml_IOWriter writer;
 	private I_XMLBuilder builder = new XMLBuilder();
-	private Xml_IOSettings settings;
+	private I_Xml_IOSettings settings;
 	
 	/**
 	 * this is usually null, but may be set to a value to have the name 
@@ -39,10 +39,10 @@ public class Xml_IOWriterContext {
 	void setWriter(Xml_IOWriter writer) {
 		this.writer = writer;
 	}
-	public Xml_IOSettings getSettings() {
+	public I_Xml_IOSettings getSettings() {
 		return settings;
 	}
-	void setSettings(Xml_IOSettings settings) {
+	void setSettings(I_Xml_IOSettings settings) {
 		this.settings = settings;
 	}
 	

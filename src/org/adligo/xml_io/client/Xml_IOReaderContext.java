@@ -14,7 +14,7 @@ public class Xml_IOReaderContext {
 		"Could not find a attribute converter for class ";
 	
 	private Xml_IOReader reader;
-	private Xml_IOSettings settings;
+	private I_Xml_IOSettings settings;
 	private Map<String,String> nsPrefixToNamespace = new HashMap<String, String>();
 	
 	/**
@@ -30,11 +30,11 @@ public class Xml_IOReaderContext {
 		this.reader = reader;
 	}
 
-	public Xml_IOSettings getSettings() {
+	public I_Xml_IOSettings getSettings() {
 		return settings;
 	}
 
-	void setSettings(Xml_IOSettings settings) {
+	void setSettings(I_Xml_IOSettings settings) {
 		this.settings = settings;
 	}
 	
@@ -60,7 +60,11 @@ public class Xml_IOReaderContext {
 			if (colon + 1 <= tagWithColon.length()) {
 				tagName = tagWithColon.substring(colon + 1, tagWithColon.length());
 				String nsPre = tagWithColon.substring(0, colon);
-				ns = nsPrefixToNamespace.get(nsPre);
+				if (settings.isIgnoreFileNamespace()) {
+					ns = settings.getNamespaceForDefaultPrefix(nsPre);
+				} else {
+					ns = nsPrefixToNamespace.get(nsPre);
+				}
 				if (ns == null) {
 					throw new IllegalArgumentException("Was unable to find a namespace for prefix " + nsPre);
 				}

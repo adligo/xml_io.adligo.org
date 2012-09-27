@@ -69,5 +69,5 @@ public class Xml_IOConstants {
 	public static final String MIN_LENGTH_TAG = "minLength";
 	
 	public static final String DEFAULT_NAMESPACE = "http://www.adligo.org/xml_io";
-	
+	public static final String DEFAULT_PACKAGE = "default";
 }
