@@ -1,5 +1,13 @@
 package org.adligo.xml_io.client;
 
+/**
+ * This class represents a tag which has been parsed 
+ * and had its namespace looked up by the readers context, 
+ * so that the fully bonified ObjectConverter can be correctly looked up.
+ * 
+ * @author scott
+ *
+ */
 public class Xml_IOTagContext {
 	public static final String DEFAULT_NAMESPACE = "org.adligo.xml_io.client.default_namesapce";
 	private String tagSuffix;
