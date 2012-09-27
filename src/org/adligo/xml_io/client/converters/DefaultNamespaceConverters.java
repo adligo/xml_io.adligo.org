@@ -5,6 +5,7 @@ import java.math.BigInteger;
 import java.util.Collection;
 import java.util.Map;
 
+import org.adligo.xml_io.client.NamespaceConverters;
 import org.adligo.xml_io.client.NamespaceConvertersMutant;
 import org.adligo.xml_io.client.Xml_IOConstants;
 
@@ -12,9 +13,9 @@ public class DefaultNamespaceConverters {
 	public static final Class<?> BYTE_ARRAY_CLASS = (new byte[] {}).getClass();
 	public static final Class<?> BOOLEAN_ARRAY_CLASS = (new boolean[] {}).getClass();
 	public static final Class<?> CHAR_ARRAY_CLASS = (new char[] {}).getClass();
+	public static final NamespaceConverters DEFAULT = getDefaultNamespaceConverters();
 	
-	
-	public static NamespaceConvertersMutant getDefaultNamespaceConverters() {
+	private static NamespaceConverters getDefaultNamespaceConverters() {
 		NamespaceConvertersMutant converters = new NamespaceConvertersMutant();
 		converters.setNamespace(Xml_IOConstants.DEFAULT_NAMESPACE);
 		converters.setPackageName(Xml_IOConstants.DEFAULT_PACKAGE);
@@ -23,6 +24,7 @@ public class DefaultNamespaceConverters {
 		CollectionConverter collectionConverter = new CollectionConverter();
 		
 		converters.addObjectToXmlConverter(Boolean.class, new BooleanConverter());
+		converters.addObjectToXmlConverter(boolean.class, new BooleanConverter());
 		converters.addObjectToXmlConverter(Byte.class, new ByteConverter());
 		
 		converters.addObjectToXmlConverter(Character.class, new CharacterConverter());
@@ -52,7 +54,7 @@ public class DefaultNamespaceConverters {
 		
 		addAttributeConverters(converters);
 		
-		return converters;
+		return new NamespaceConverters(converters);
 	}
 
 	private static void addNodeConverters(NamespaceConvertersMutant converters) {
@@ -101,6 +103,8 @@ public class DefaultNamespaceConverters {
 	private static void addAttributeConverters(NamespaceConvertersMutant converters) {
 		converters.addXmlAttributeToObjectConverter(
 				Boolean.class, new BooleanConverter());
+		converters.addXmlAttributeToObjectConverter(
+				boolean.class, new BooleanConverter());
 		converters.addXmlAttributeToObjectConverter(
 				Byte.class, new ByteConverter());
 		

@@ -4,6 +4,6 @@ import java.util.Map;
 
 public interface I_NamespacePrefixConfig {
 
-	public abstract Map<String, I_NamespaceConverters> getPrefixToConverters();
+	public abstract Map<String, NamespaceConverters> getPrefixToConverters();
 
 }

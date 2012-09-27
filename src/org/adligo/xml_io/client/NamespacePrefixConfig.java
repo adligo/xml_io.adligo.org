@@ -13,7 +13,7 @@ public class NamespacePrefixConfig implements I_NamespacePrefixConfig {
 		mutant = new NamespacePrefixConfigMutant(p);
 	}
 
-	public Map<String, I_NamespaceConverters> getPrefixToConverters() {
+	public Map<String, NamespaceConverters> getPrefixToConverters() {
 		return mutant.getPrefixToConverters();
 	}
 }

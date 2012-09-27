@@ -2,6 +2,13 @@ package org.adligo.xml_io.client;
 
 import org.adligo.models.params.client.TagInfo;
 
+/**
+ * A immutable class used for its code (as a plugin) to convert object from java to xml and vice versa.
+ * 
+ * @author scott
+ *
+ * @param <T>
+ */
 public interface I_Converter<T> {
 	/**
 	 * note since null values are omitted on writing to xml

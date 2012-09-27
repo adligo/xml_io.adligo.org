@@ -6,11 +6,6 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
-import org.adligo.i.util.client.ClassUtils;
-import org.adligo.models.params.client.I_XMLBuilder;
-import org.adligo.models.params.client.XMLBuilder;
-import org.adligo.xml_io.client.converters.DefaultNamespaceConverters;
-
 /**
  * although this class is a mutant it is only inteded to be mutated by 
  * code writen by the developers, during reads and writes of xml 
@@ -152,9 +147,9 @@ public class Xml_IOSettingsMutant implements I_Xml_IOSettings {
 	
 	public void setConfig(NamespacePrefixConfig p) {
 		config = p;
-		Map<String, I_NamespaceConverters> configMap = config.getPrefixToConverters();
-		Set<Entry<String, I_NamespaceConverters>> entries = configMap.entrySet();
-		for (Entry<String, I_NamespaceConverters> e: entries) {
+		Map<String, NamespaceConverters> configMap = config.getPrefixToConverters();
+		Set<Entry<String, NamespaceConverters>> entries = configMap.entrySet();
+		for (Entry<String, NamespaceConverters> e: entries) {
 			String prefix = e.getKey();
 			I_NamespaceConverters nc = e.getValue();
 			

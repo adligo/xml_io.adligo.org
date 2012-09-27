@@ -19,11 +19,11 @@ import org.adligo.xml_io.client.converters.DefaultNamespaceConverters;
  *
  */
 public class NamespacePrefixConfigMutant implements I_NamespacePrefixConfig {
-	private Map<String, I_NamespaceConverters> prefixToConverters = new HashMap<String, I_NamespaceConverters>();
+	private Map<String, NamespaceConverters> prefixToConverters = new HashMap<String, NamespaceConverters>();
 	private LetterCounter letterCounter = new LetterCounter();
 	
 	public NamespacePrefixConfigMutant() {
-		prefixToConverters.put("a",DefaultNamespaceConverters.getDefaultNamespaceConverters());
+		prefixToConverters.put("a", DefaultNamespaceConverters.DEFAULT);
 		letterCounter.getNextId();
 	}
 	
@@ -33,18 +33,18 @@ public class NamespacePrefixConfigMutant implements I_NamespacePrefixConfig {
 	
 	public void addNamespace(I_NamespaceConverters nc) {
 		String prefix = letterCounter.getNextId();
-		prefixToConverters.put(prefix, nc);
+		prefixToConverters.put(prefix, new NamespaceConverters(nc));
 	}
 	
 	public void addNamespace(String prefix, I_NamespaceConverters nc) {
-		prefixToConverters.put(prefix, nc);
+		prefixToConverters.put(prefix, new NamespaceConverters(nc));
 	}
 
 	/* (non-Javadoc)
 	 * @see org.adligo.xml_io.client.I_NamespacePrefixConfig#getPrefixToConverters()
 	 */
 	@Override
-	public Map<String, I_NamespaceConverters> getPrefixToConverters() {
+	public Map<String, NamespaceConverters> getPrefixToConverters() {
 		return Collections.unmodifiableMap(prefixToConverters);
 	}
 }
