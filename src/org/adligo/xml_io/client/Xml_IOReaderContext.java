@@ -1,5 +1,8 @@
 package org.adligo.xml_io.client;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.adligo.models.params.client.Parser;
 import org.adligo.models.params.client.TagInfo;
 
@@ -12,6 +15,8 @@ public class Xml_IOReaderContext {
 	
 	private Xml_IOReader reader;
 	private Xml_IOSettings settings;
+	private Map<String,String> nsPrefixToNamespace = new HashMap<String, String>();
+	
 	/**
 	 * if we are in the namespace tag
 	 */
@@ -36,12 +41,32 @@ public class Xml_IOReaderContext {
 	public ObjectFromXml<?> readXml(String xml) {
 		TagInfo info = Parser.getNextTagInfo(xml,0);
 		String tagName = info.getTagName();
-		I_Converter<?> converter = settings.getFromXmlConverter(tagName);
+		
+		Xml_IOTagContext tagCtx = getTagContext(tagName);
+		I_Converter<?> converter = settings.getFromXmlConverter(tagCtx);
 		if (converter == null) {
 			throw new IllegalArgumentException(COULD_NOT_FIND_A_CONVERTER_FOR_TAG 
 					+ tagName);
 		}
 		return converter.fromXml(xml, info, this);
+	}
+	
+	public Xml_IOTagContext getTagContext(String tagWithColon) {
+		String ns = Xml_IOTagContext.DEFAULT_NAMESPACE;
+		String tagName = tagWithColon;
+		
+		int colon = tagWithColon.indexOf(":");
+		if (colon != -1) {
+			if (colon + 1 <= tagWithColon.length()) {
+				tagName = tagWithColon.substring(colon + 1, tagWithColon.length());
+				String nsPre = tagWithColon.substring(0, colon);
+				ns = nsPrefixToNamespace.get(nsPre);
+				if (ns == null) {
+					throw new IllegalArgumentException("Was unable to find a namespace for prefix " + nsPre);
+				}
+			}
+		}
+		return new Xml_IOTagContext(tagName, ns);
 	}
 
 	public Object readAttribute(Class<?> clazz, String unescapedAttributeValue) {
@@ -60,5 +85,13 @@ public class Xml_IOReaderContext {
 	
 	public boolean inNamespaceTag() {
 		return namespaceTag;
+	}
+	
+	void addNamespace(String prefix, String namespace) {
+		nsPrefixToNamespace.put(prefix, namespace);
+	}
+	
+	public String getNamespace(String nsPrefix) {
+		return nsPrefixToNamespace.get(nsPrefix);
 	}
 }

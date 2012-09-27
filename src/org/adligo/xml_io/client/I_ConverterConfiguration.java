@@ -4,7 +4,7 @@ public interface I_ConverterConfiguration {
 
 	public abstract String getPrefix(String namespace);
 
-	public abstract I_Converter<?> getFromXmlConverter(String tag);
+	public abstract I_Converter<?> getFromXmlConverter(Xml_IOTagContext tag);
 
 	public abstract I_Converter<?> getToXmlConverter(Class<?> clazz);
 

@@ -25,7 +25,7 @@ public class Xml_IOReader {
 		
 		
 		Xml_IOReaderContext context = new Xml_IOReaderContext();
-		xml = dealWithNamesapce(xml, info, settings);
+		xml = dealWithNamesapce(xml, info, context);
 		info = Parser.getNextTagInfo(xml, 0);
 		tagName = info.getTagName();
 		
@@ -33,7 +33,9 @@ public class Xml_IOReader {
 			setUpConfig(xml, settings, info);
 		}
 		context.setSettings(settings);
-		I_Converter<?> converter = settings.getFromXmlConverter(tagName);
+		
+		Xml_IOTagContext tagCtx = context.getTagContext(tagName);
+		I_Converter<?> converter = settings.getFromXmlConverter(tagCtx);
 		if (converter == null) {
 			throw new IllegalArgumentException("Could not find a converter for tag '" 
 					+ tagName + "'");
@@ -45,7 +47,7 @@ public class Xml_IOReader {
 		return result.getValue();
 	}
 
-	private String dealWithNamesapce(String xml, TagInfo info, Xml_IOSettings settings) {
+	private String dealWithNamesapce(String xml, TagInfo info, Xml_IOReaderContext ctx) {
 		StringBuilder sb = new StringBuilder();
 		I_Iterator it =  Parser.getAttributes(info, xml);
 		int headerStart = info.getHeaderStart();
@@ -58,7 +60,16 @@ public class Xml_IOReader {
 			TagAttribute ta = (TagAttribute) it.next();
 			String name = ta.getName();
 			if (name.toUpperCase().contains("XMLNS")) {
-				//TODO deal with namespace, in settings by mutating settings?
+				String ns = ta.getValue();
+				
+				String prefix = "";
+				int colon = name.indexOf(":");
+				if (colon != -1) {
+					if (colon + 1 <= name.length()) {
+						prefix = name.substring(colon + 1, name.length());
+					}
+				}
+				ctx.addNamespace(prefix, ns);
 			} else {
 				sb.append(" ");
 				sb.append(name);

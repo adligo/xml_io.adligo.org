@@ -16,11 +16,13 @@ public class ConverterConfigurationMutant implements I_ConverterConfiguration {
 	private LetterCounter lc = new LetterCounter();
 	
 	/**
-	 * the xml tag with the namespace prefix ie a:i
+	 * the xml tag with out the namespace prefix ie http://www.adligo.org/xml_io
+	 * to a map of name to converter 
+	 *     ie Boolean to instance of BooleanConverter
 	 * to the converter for reading in xml.
 	 */
-	private Map<String, I_Converter<?>> xmlToObjectConverters = 
-		new HashMap<String, I_Converter<?>>();
+	private Map<String, Map<String,I_Converter<?>>> xmlToObjectConverters = 
+		new HashMap<String, Map<String,I_Converter<?>>>();
 	/**
 	 * the attribute class to its converter for reading or writing 
 	 * xml attributes.
@@ -57,8 +59,15 @@ public class ConverterConfigurationMutant implements I_ConverterConfiguration {
 	 * @see org.adligo.xml_io.client.I_ConverterConfiguration#getFromXmlConverter(java.lang.String)
 	 */
 	@Override
-	public I_Converter<?> getFromXmlConverter(String tag) {
-		return xmlToObjectConverters.get(tag);
+	public I_Converter<?> getFromXmlConverter(Xml_IOTagContext tag) {
+		String ns = tag.getNamespace();
+		Map<String, I_Converter<?>> nsCons = xmlToObjectConverters.get(ns);
+		if (nsCons != null) {
+			String tagName = tag.getTagSuffix();
+			I_Converter<?> toRet = nsCons.get(tagName);
+			return toRet;
+		}
+		return null;
 	}
 	
 	/* (non-Javadoc)
@@ -89,12 +98,14 @@ public class ConverterConfigurationMutant implements I_ConverterConfiguration {
 			namespaceToPrefix.put(namespace, prefix);
 		}
 		
+		Map<String, I_Converter<?>> nsCons = new HashMap<String, I_Converter<?>>();
 		Set<Entry<String, I_Converter<?>>> converters =  nc.getXmlToObjectConverters();
 		for (Entry<String, I_Converter<?>> e: converters) {
 			String tag = e.getKey();
 			I_Converter<?> con = e.getValue();
-			xmlToObjectConverters.put(prefix + ":" + tag, con);
+			nsCons.put(tag, con);
 		}
+		xmlToObjectConverters.put(namespace, nsCons);
 		
 		Set<Entry<Class<?>, I_AttributeConverter<?>>> attribConvertes =  nc.getAttributeConverters();
 		for (Entry<Class<?>, I_AttributeConverter<?>> e: attribConvertes) {

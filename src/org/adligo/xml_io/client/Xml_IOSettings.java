@@ -114,7 +114,7 @@ public class Xml_IOSettings {
 		return config.getPrefix(namespace);
 	}
 
-	public I_Converter<?> getFromXmlConverter(String tag) {
+	public I_Converter<?> getFromXmlConverter(Xml_IOTagContext tag) {
 		return config.getFromXmlConverter(tag);
 	}
 

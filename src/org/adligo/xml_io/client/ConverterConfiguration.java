@@ -15,7 +15,7 @@ public class ConverterConfiguration implements I_ConverterConfiguration {
 		return mutant.getPrefix(namespace);
 	}
 
-	public I_Converter<?> getFromXmlConverter(String tag) {
+	public I_Converter<?> getFromXmlConverter(Xml_IOTagContext tag) {
 		return mutant.getFromXmlConverter(tag);
 	}
 
