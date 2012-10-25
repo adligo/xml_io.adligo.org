@@ -4,6 +4,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import org.adligo.i.util.client.DateTime;
+import org.adligo.i.util.client.StringUtils;
 import org.adligo.models.params.client.I_XMLBuilder;
 import org.adligo.models.params.client.Parser;
 import org.adligo.models.params.client.TagInfo;
@@ -33,6 +34,9 @@ public class LongConverter implements I_Converter<Long>, I_AttributeConverter<Lo
 		//as a nicety parse dates into longs using the default DateTime format
 		NumberFormatException caught = null;
 		Long toRet = null;
+		if (StringUtils.isEmpty(attributeValue)) {
+			return null;
+		}
 		try {
 			toRet = Long.valueOf(attributeValue);
 		} catch (NumberFormatException nfe) {
