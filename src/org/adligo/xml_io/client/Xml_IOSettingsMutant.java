@@ -6,6 +6,8 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
+import org.adligo.models.params.client.XMLBuilder;
+
 /**
  * although this class is a mutant it is only inteded to be mutated by 
  * code writen by the developers, during reads and writes of xml 
@@ -29,6 +31,16 @@ public class Xml_IOSettingsMutant implements I_Xml_IOSettings {
 	 * @see I_Xml_IOSettings#isIgnoreFileNamespace()
 	 */
 	private boolean ignoreFileNamespace = false;
+
+	/**
+	 * @see I_Xml_IOSettings#isIndent()
+	 */
+	private String indent;
+	
+	/**
+	 * @see I_Xml_IOSettings#isL()
+	 */
+	private String linefeed;
 	
 	private NamespacePrefixConfig config;
 	/**
@@ -190,4 +202,26 @@ public class Xml_IOSettingsMutant implements I_Xml_IOSettings {
 	public String getNamespaceForDefaultPrefix(String prefix) {
 		return prefixToNamespace.get(prefix);
 	}
+
+
+	public String getIndent() {
+		return indent;
+	}
+
+
+	public void setIndent(String indent) {
+		this.indent = indent;
+	}
+
+
+	public String getLinefeed() {
+		return linefeed;
+	}
+
+
+	public void setLinefeed(String linefeed) {
+		this.linefeed = linefeed;
+	}
+
+
 }

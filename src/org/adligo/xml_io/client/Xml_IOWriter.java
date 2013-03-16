@@ -24,6 +24,14 @@ public class Xml_IOWriter {
 			builder.append(Xml_IOConstants.HEADER);
 			builder.lineFeed();
 		}
+		String indent = settings.getIndent();
+		if (indent != null) {
+			builder.setIndent(indent);
+		}
+		String linefeed = settings.getLinefeed();
+		if (linefeed != null) {
+			builder.setLineFeed("");
+		}
 		context.writeXml(p);
 		
 		return builder.toXmlString();

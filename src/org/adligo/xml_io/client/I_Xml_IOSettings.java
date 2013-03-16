@@ -53,4 +53,16 @@ public interface I_Xml_IOSettings {
 	public NamespacePrefixConfig getConfig();
 	
 	public String getNamespaceForDefaultPrefix(String prefix);
+	
+	/**
+	 * if null use defaults otherwise what you set it to  
+	 * @return
+	 */
+	public abstract String getIndent();
+	
+	/**
+	 * if null use defaults otherwise what you set it to
+	 * @return
+	 */
+	public abstract String getLinefeed();
 }
