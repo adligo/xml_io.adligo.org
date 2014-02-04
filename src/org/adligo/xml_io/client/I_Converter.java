@@ -4,6 +4,7 @@ import org.adligo.models.params.client.TagInfo;
 
 /**
  * A immutable class used for its code (as a plugin) to convert object from java to xml and vice versa.
+ * Implementations of this class should be thread safe
  * 
  * @author scott
  *

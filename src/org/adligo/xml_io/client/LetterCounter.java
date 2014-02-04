@@ -1,5 +1,12 @@
 package org.adligo.xml_io.client;
 
+/**
+ * this class should not be considered threadsafe 
+ * one per thread
+ * 
+ * @author scott
+ *
+ */
 public class LetterCounter {
 	public static final String letters = "abcdefghijklmnopqrstuvwxyzABCEDFGHIJKLMNOPQRSTUVWYXZ";
 	

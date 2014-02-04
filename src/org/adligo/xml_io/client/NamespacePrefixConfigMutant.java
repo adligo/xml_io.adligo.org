@@ -23,7 +23,7 @@ public class NamespacePrefixConfigMutant implements I_NamespacePrefixConfig {
 	private LetterCounter letterCounter = new LetterCounter();
 	
 	public NamespacePrefixConfigMutant() {
-		prefixToConverters.put("a", DefaultNamespaceConverters.DEFAULT);
+		prefixToConverters.put("a", DefaultNamespaceConverters.getDefaultNamespaceConverters());
 		letterCounter.getNextId();
 	}
 	

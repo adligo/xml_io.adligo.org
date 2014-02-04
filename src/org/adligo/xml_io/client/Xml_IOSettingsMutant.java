@@ -17,6 +17,9 @@ import org.adligo.models.params.client.XMLBuilder;
  *
  */
 public class Xml_IOSettingsMutant implements I_Xml_IOSettings {
+	
+
+
 	public static final String NO_PREFIX_FOUND_FOR_NAMESPACE = "No prefix found for namespace ";
 
 	/**
@@ -223,5 +226,21 @@ public class Xml_IOSettingsMutant implements I_Xml_IOSettings {
 		this.linefeed = linefeed;
 	}
 
-
+	@Override
+	public String toString() {
+		return toString(Xml_IOSettingsMutant.class);
+	}
+	
+	public String toString(Class<?> c) {
+		return "" + c.getName() +  " [includeXmlHeader=" + includeXmlHeader
+				+ ", includeXmlSchemaInfoInFirstTag="
+				+ includeXmlSchemaInfoInFirstTag + ", ignoreFileNamespace="
+				+ ignoreFileNamespace + ", indent=" + indent + ", linefeed="
+				+ linefeed + ", config=" + config + ", namespaceConverters="
+				+ namespaceConverters + ", namespaceToPrefix="
+				+ namespaceToPrefix + ", prefixToNamespace="
+				+ prefixToNamespace + ", attributeConverters="
+				+ attributeConverters + ", objectConverters="
+				+ objectConverters + "]";
+	}
 }

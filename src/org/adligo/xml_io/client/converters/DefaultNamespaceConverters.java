@@ -13,9 +13,8 @@ public class DefaultNamespaceConverters {
 	public static final Class<?> BYTE_ARRAY_CLASS = (new byte[] {}).getClass();
 	public static final Class<?> BOOLEAN_ARRAY_CLASS = (new boolean[] {}).getClass();
 	public static final Class<?> CHAR_ARRAY_CLASS = (new char[] {}).getClass();
-	public static final NamespaceConverters DEFAULT = getDefaultNamespaceConverters();
 	
-	private static NamespaceConverters getDefaultNamespaceConverters() {
+	public static NamespaceConverters getDefaultNamespaceConverters() {
 		NamespaceConvertersMutant converters = new NamespaceConvertersMutant();
 		converters.setNamespace(Xml_IOConstants.DEFAULT_NAMESPACE);
 		converters.setPackageName(Xml_IOConstants.DEFAULT_PACKAGE);

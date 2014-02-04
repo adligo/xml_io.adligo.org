@@ -2,6 +2,13 @@ package org.adligo.xml_io.client;
 
 import java.util.Map;
 
+/**
+ * this class should not be considered thread safe
+ * use one per thread.
+ * 
+ * @author scott
+ *
+ */
 public class NamespaceConverters implements I_NamespaceConverters {
 	private NamespaceConvertersMutant mutant;
 	

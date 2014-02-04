@@ -1,6 +1,9 @@
 package org.adligo.xml_io.client;
 
+
 /**
+ * this class should not be considered thread safe one per thread
+ * 
  * This class represents a tag which has been parsed 
  * and had its namespace looked up by the readers context, 
  * so that the fully bonified ObjectConverter can be correctly looked up.

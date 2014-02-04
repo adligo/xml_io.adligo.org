@@ -3,9 +3,17 @@ package org.adligo.xml_io.client;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
 import org.adligo.i.util.client.StringUtils;
 
+/**
+ * this class should not be considered threads safe
+ * please use one per thread
+ * 
+ * @author scott
+ *
+ */
 public class NamespaceConvertersMutant implements I_NamespaceConverters {
 	public static final String NAMESPACE_CONVERTERS_MUTANT_REQUIRES_A_PACKAGE_NAME = "NamespaceConvertersMutant requires a packageName!";
 	public static final String NAMESPACE_CONVERTERS_MUTANT_REQUIRES_A_NAMESPACE = "NamespaceConvertersMutant requires a namespace!";
@@ -93,5 +101,9 @@ public class NamespaceConvertersMutant implements I_NamespaceConverters {
 	}
 	public void setPackageName(String packageName) {
 		this.packageName = packageName;
+	}
+	
+	public Set<Class<?>> getSupportedClasses() {
+		return objectToXmlConverters.keySet();
 	}
 }

@@ -11,6 +11,11 @@ import org.adligo.models.params.client.I_XMLBuilder;
 import org.adligo.models.params.client.XMLBuilder;
 import org.adligo.xml_io.client.converters.DefaultNamespaceConverters;
 
+/**
+ * this class should not be considered thread safe one per thread
+ * @author scott
+ *
+ */
 public class Xml_IOWriterContext {
 	public static final String COULD_NOT_FIND_A_CONVERTER_FOR_CLASS = 
 		"Could not find a converter for class ";
