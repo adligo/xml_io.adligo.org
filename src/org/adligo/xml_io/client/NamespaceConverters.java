@@ -1,6 +1,7 @@
 package org.adligo.xml_io.client;
 
 import java.util.Map;
+import java.util.Set;
 
 /**
  * this class should not be considered thread safe
@@ -51,4 +52,10 @@ public class NamespaceConverters implements I_NamespaceConverters {
 	public String getPackageName() {
 		return mutant.getPackageName();
 	}
+	
+	public Set<Class<?>> getSupportedClasses() {
+		return mutant.getSupportedClasses();
+	}
+
+	
 }
