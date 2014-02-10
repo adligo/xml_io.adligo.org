@@ -51,7 +51,7 @@ public class LetterCounter {
 		return lastId;
 	}
 	
-	int findDigitToChange(char [] chars) {
+	protected int findDigitToChange(char [] chars) {
 		int counter = 0;
 		for (int i = chars.length - 1; i >= 0; i--) {
 			char c = chars[i];
