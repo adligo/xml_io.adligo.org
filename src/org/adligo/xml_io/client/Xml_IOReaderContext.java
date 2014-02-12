@@ -3,8 +3,8 @@ package org.adligo.xml_io.client;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.adligo.models.params.client.Parser;
-import org.adligo.models.params.client.TagInfo;
+import org.adligo.models.params.shared.Parser;
+import org.adligo.models.params.shared.TagInfo;
 
 
 public class Xml_IOReaderContext {

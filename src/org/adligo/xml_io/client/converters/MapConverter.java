@@ -5,11 +5,11 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
-import org.adligo.i.util.client.I_Iterator;
-import org.adligo.models.params.client.I_XMLBuilder;
-import org.adligo.models.params.client.Parser;
-import org.adligo.models.params.client.TagAttribute;
-import org.adligo.models.params.client.TagInfo;
+import org.adligo.i.util.shared.I_Iterator;
+import org.adligo.models.params.shared.I_XMLBuilder;
+import org.adligo.models.params.shared.Parser;
+import org.adligo.models.params.shared.TagAttribute;
+import org.adligo.models.params.shared.TagInfo;
 import org.adligo.xml_io.client.I_Converter;
 import org.adligo.xml_io.client.ObjectFromXml;
 import org.adligo.xml_io.client.Xml_IOConstants;

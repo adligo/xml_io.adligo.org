@@ -3,8 +3,8 @@ package org.adligo.xml_io.client.schema;
 import java.util.Collection;
 import java.util.List;
 
-import org.adligo.models.params.client.I_XMLBuilder;
-import org.adligo.models.params.client.XMLBuilder;
+import org.adligo.models.params.shared.I_XMLBuilder;
+import org.adligo.models.params.shared.XMLBuilder;
 import org.adligo.xml_io.client.TargetNamespace;
 import org.adligo.xml_io.client.Xml_IOConstants;
 

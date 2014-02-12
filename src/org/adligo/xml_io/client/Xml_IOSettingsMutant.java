@@ -6,7 +6,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
-import org.adligo.models.params.client.XMLBuilder;
+import org.adligo.models.params.shared.XMLBuilder;
 
 /**
  * although this class is a mutant it is only inteded to be mutated by 

@@ -1,9 +1,9 @@
 package org.adligo.xml_io.client;
 
-import org.adligo.i.util.client.I_Iterator;
-import org.adligo.models.params.client.Parser;
-import org.adligo.models.params.client.TagAttribute;
-import org.adligo.models.params.client.TagInfo;
+import org.adligo.i.util.shared.I_Iterator;
+import org.adligo.models.params.shared.Parser;
+import org.adligo.models.params.shared.TagAttribute;
+import org.adligo.models.params.shared.TagInfo;
 
 
 public class Xml_IOReader {

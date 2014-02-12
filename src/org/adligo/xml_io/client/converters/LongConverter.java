@@ -3,11 +3,11 @@ package org.adligo.xml_io.client.converters;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import org.adligo.i.util.client.DateTime;
-import org.adligo.i.util.client.StringUtils;
-import org.adligo.models.params.client.I_XMLBuilder;
-import org.adligo.models.params.client.Parser;
-import org.adligo.models.params.client.TagInfo;
+import org.adligo.i.util.shared.DateTime;
+import org.adligo.i.util.shared.StringUtils;
+import org.adligo.models.params.shared.I_XMLBuilder;
+import org.adligo.models.params.shared.Parser;
+import org.adligo.models.params.shared.TagInfo;
 import org.adligo.xml_io.client.I_AttributeConverter;
 import org.adligo.xml_io.client.I_Converter;
 import org.adligo.xml_io.client.ObjectFromXml;

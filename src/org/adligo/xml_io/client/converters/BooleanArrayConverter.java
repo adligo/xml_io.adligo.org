@@ -1,10 +1,10 @@
 package org.adligo.xml_io.client.converters;
 
-import org.adligo.i.util.client.AppenderFactory;
-import org.adligo.i.util.client.I_Appender;
-import org.adligo.models.params.client.I_XMLBuilder;
-import org.adligo.models.params.client.Parser;
-import org.adligo.models.params.client.TagInfo;
+import org.adligo.i.util.shared.AppenderFactory;
+import org.adligo.i.util.shared.I_Appender;
+import org.adligo.models.params.shared.I_XMLBuilder;
+import org.adligo.models.params.shared.Parser;
+import org.adligo.models.params.shared.TagInfo;
 import org.adligo.xml_io.client.I_AttributeConverter;
 import org.adligo.xml_io.client.I_Converter;
 import org.adligo.xml_io.client.ObjectFromXml;

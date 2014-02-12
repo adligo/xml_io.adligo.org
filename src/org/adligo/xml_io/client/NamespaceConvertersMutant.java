@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
-import org.adligo.i.util.client.StringUtils;
+import org.adligo.i.util.shared.StringUtils;
 
 /**
  * this class should not be considered threads safe

@@ -7,8 +7,8 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
-import org.adligo.models.params.client.I_XMLBuilder;
-import org.adligo.models.params.client.XMLBuilder;
+import org.adligo.models.params.shared.I_XMLBuilder;
+import org.adligo.models.params.shared.XMLBuilder;
 import org.adligo.xml_io.client.converters.DefaultNamespaceConverters;
 
 /**
