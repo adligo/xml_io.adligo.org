@@ -5,4 +5,5 @@
 	<inherits name="org.adligo.i.log.I_Log"/>
 	<inherits name="org.adligo.i.adi.Adi"/>
 	<inherits name="org.adligo.models.params.Params"/>
+	<source path="shared"/>
 </module>
