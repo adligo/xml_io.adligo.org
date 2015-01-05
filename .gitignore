@@ -1,4 +1,5 @@
-bin/
-classes/
-classes_e/
+/bin/
+/build/
+/classes/
+/classes_e/
 xml_io.jar
